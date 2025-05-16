@@ -6,7 +6,7 @@
 #    By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/05/16 10:27:56 by gapachec         ###   ########.fr        #
+#    Updated: 2025/05/16 12:07:21 by gapachec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC_DIR	= src
 OBJ_DIR	= obj
 INC_DIR	= include
 
-# Lista de arquivos fonte (você vai adicionando os outros aqui)
+# Lista de arquivos fonte (vai adicionando os outros aqui)
 SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/start_minishell.c \
 		  $(SRC_DIR)/signals.c \
