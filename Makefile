@@ -6,7 +6,7 @@
 #    By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/05/16 09:43:09 by gapachec         ###   ########.fr        #
+#    Updated: 2025/05/16 10:27:56 by gapachec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,10 @@ INC_DIR	= include
 SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/start_minishell.c \
 		  $(SRC_DIR)/signals.c \
-		  $(SRC_DIR)/cleanup.c
+		  $(SRC_DIR)/cleanup.c \
+		  $(SRC_DIR)/lexer/lexer.c \
+		  $(SRC_DIR)/lexer/utils.c \
+		  $(SRC_DIR)/parser/parser.c
 
 # Geração automática dos .o a partir dos .c
 OBJ		= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -34,20 +37,29 @@ OBJ		= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 # Instrução para incluir dependências (geradas com -MMD)
 DEP		= $(OBJ:.o=.d)
 
-# Regra padrão
-all: $(NAME)
+all: $(OBJ_DIR) $(OBJ_DIR)/lexer $(OBJ_DIR)/parser $(NAME)
 
-# Como compilar o binário
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -lreadline
 
-# Como compilar os .o
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -I$(INC_DIR) -MMD -c $< -o $@
+	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@
 
-# Cria o diretório obj se não existir
+$(OBJ_DIR)/lexer/%.o: $(SRC_DIR)/lexer/%.c | $(OBJ_DIR)/lexer
+	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@
+
+$(OBJ_DIR)/parser/%.o: $(SRC_DIR)/parser/%.c | $(OBJ_DIR)/parser
+	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@
+
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)/lexer:
+	mkdir -p $(OBJ_DIR)/lexer
+
+$(OBJ_DIR)/parser:
+	mkdir -p $(OBJ_DIR)/parser
+
 
 # Limpa os arquivos objetos
 clean:

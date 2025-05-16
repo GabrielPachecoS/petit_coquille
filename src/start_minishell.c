@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/16 10:09:40 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/16 11:09:55 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	start_minishell(t_shell *shell)
 {
-	char	*input;
-    t_token	*tokens;
+	char	*input;         // Guarda a linha digitada
+	t_token	*tokens;        // Lista de tokens após o lexer
+	t_command *cmds;        // Lista de comandos após o parser
 
-    (void)shell;
+    (void)shell; // Evita warning caso a struct ainda não seja usada
 	while (1)
 	{
 		// readline mostra o prompt e espera o usuário digitar
@@ -35,12 +36,18 @@ void	start_minishell(t_shell *shell)
 		if (*input)
 			add_history(input);
 
-		// Aqui, futuramente, vamos chamar o lexer, parser e executor
-		// Exemplo: tokenize_and_execute(input, shell);
-        
-
+        // Lexer transforma string em tokens
         tokens = lexer(input);
+        // Exibe os tokens para debug
         print_tokens(tokens);
+
+        // Parser transforma tokens em comandos encadeados
+        cmds = parser(tokens);
+        // Exibe comandos para debug
+        print_commands(cmds);
+        
+        // Libera memória das listas temporárias
+        free_commands(cmds);
         free_tokens(tokens);
 
 		// Liberamos a memória da linha que foi lida
