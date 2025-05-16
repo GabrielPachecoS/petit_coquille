@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/16 09:43:49 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/16 10:09:40 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	start_minishell(t_shell *shell)
 {
 	char	*input;
+    t_token	*tokens;
 
     (void)shell;
 	while (1)
@@ -36,6 +37,11 @@ void	start_minishell(t_shell *shell)
 
 		// Aqui, futuramente, vamos chamar o lexer, parser e executor
 		// Exemplo: tokenize_and_execute(input, shell);
+        
+
+        tokens = lexer(input);
+        print_tokens(tokens);
+        free_tokens(tokens);
 
 		// Liberamos a memória da linha que foi lida
 		cleanup(input);
