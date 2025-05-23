@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/16 10:19:54 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/23 17:44:13 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,14 @@ typedef struct s_shell
 {
 	char	**envp;
 	int		last_exit_status;
-}	t_shell;
-
+} t_shell;
 /* Protótipos */
-void	start_minishell(t_shell *shell);
-void	handle_signals(void);
-void	cleanup(char *input);
+int		main(int argc, char **argv, char **envp);
+void	ft_start_minishell(t_shell *shell);
+void	ft_handle_signals(void);
+void	ft_cleanup(char *input);
+void	ft_exec_cmds(t_shell *shell, t_command *cmds);
+int		ft_exec_simplecmd(t_shell *shell, t_command *cmd);
+char	*ft_get_cmdpath(char *cmd, char **envp);
 
 #endif

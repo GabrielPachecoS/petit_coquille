@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:25:12 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/16 10:25:15 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:02:27 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * Imprime a lista de tokens, mostrando o tipo e o valor.
  * Útil para debugar o lexer.
  */
-void	print_tokens(t_token *tokens)
+void	ft_print_tokens(t_token *tokens)
 {
 	while (tokens)
 	{
@@ -32,7 +32,7 @@ void	print_tokens(t_token *tokens)
  * Libera toda a memória ocupada pela lista de tokens e suas strings.
  * Deve ser chamada após o uso da lista para evitar vazamentos.
  */
-void	free_tokens(t_token *tokens)
+void	ft_free_tokens(t_token *tokens)
 {
 	t_token	*tmp;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:25:24 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/16 11:02:57 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:02:37 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ typedef struct s_token
 }	t_token;
 
 // Protótipos das funções do lexer:
-t_token	*lexer(char *input);           // Recebe a linha de input e retorna lista de tokens
-void	print_tokens(t_token *tokens); // Imprime tokens para debug
-void	free_tokens(t_token *tokens);  // Libera a memória dos tokens
+t_token	*ft_lexer(char *input);	// Recebe a linha de input e retorna lista de tokens
+int		ft_handle_token(char *input, int i, t_token **tokens);
+void	ft_print_tokens(t_token *tokens); // Imprime tokens para debug
+void	ft_free_tokens(t_token *tokens);  // Libera a memória dos tokens
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:13:33 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/16 11:01:49 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/23 16:47:36 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ typedef struct s_command
 }	t_command;
 
 // Protótipos das funções do parser
-t_command	*parser(t_token *tokens);   // Transforma tokens em comandos
-void		free_commands(t_command *cmd); // Libera lista de comandos
-void		print_commands(t_command *cmd); // Imprime comandos (debug)
+t_command	*ft_parser(t_token *tokens);   // Transforma tokens em comandos
+void		ft_free_commands(t_command *cmd); // Libera lista de comandos
+void		ft_print_commands(t_command *cmd); // Imprime comandos (debug)
 
 #endif
