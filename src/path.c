@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 17:01:30 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/05/23 17:43:47 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/05/23 17:51:04 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char	*ft_errorpath(char *cmd)
 {
-	ft_printf("%s: command not found\n", cmd);
+	printf("%s: command not found\n", cmd);
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:34:42 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/05/23 17:34:52 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/05/23 17:50:34 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_exec_simplecmd(t_shell *shell, t_command *cmd)
 	int		status;
 	char	*fullpath;
 	
-	fullpath = ft_get_cmdpath(cmd->argv[0], cmd->envp);
+	fullpath = ft_get_cmdpath(cmd->argv[0], shell->envp);
 	if (!fullpath)
 	{
 		perror("command not found");
@@ -42,7 +42,7 @@ int	ft_exec_simplecmd(t_shell *shell, t_command *cmd)
 	}
 	if (pid == 0)
 	{
-		execve(cmd->fullpath, cmd->argv, shell->envp);
+		execve(fullpath, cmd->argv, shell->envp);
 		perror("execve failed");
 		exit(EXIT_FAILURE);
 	}
