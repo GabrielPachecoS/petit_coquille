@@ -1,0 +1,49 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
+/*   Updated: 2025/05/25 19:33:26 by jucoelho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MINISHELL_H
+# define MINISHELL_H
+
+#include "libft.h" 
+/* Includes padrão */
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <string.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <signal.h>
+# include <sys/wait.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+
+/* Includes dos módulos */
+# include "token.h"
+# include "parser.h"
+
+/* Estrutura principal do shell */
+typedef struct s_shell
+{
+	char	**envp;
+	int		last_exit_status;
+} t_shell;
+/* Protótipos */
+int		main(int argc, char **argv, char **envp);
+void	ft_start_minishell(t_shell *shell);
+void	ft_handle_signals(void);
+void	ft_cleanup(char *input);
+void	ft_exec_cmds(t_shell *shell, t_command *cmds);
+int		ft_exec_simplecmd(t_shell *shell, t_command *cmd);
+char	*ft_get_cmdpath(char *cmd, char **envp);
+void	ft_free_split(char **split);
+
+#endif
