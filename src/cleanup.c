@@ -6,11 +6,11 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:37:21 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/23 15:26:51 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:02:47 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 void	ft_cleanup(char *input)
 {

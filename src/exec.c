@@ -6,11 +6,11 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:34:42 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/05/23 17:50:34 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:33:22 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 void	ft_exec_cmds(t_shell *shell, t_command *cmds)
 {	
@@ -49,4 +49,19 @@ int	ft_exec_simplecmd(t_shell *shell, t_command *cmd)
 	waitpid(pid, &status, 0);
 	free(fullpath);
 	return (status >> 8);
+}
+
+void	ft_free_split(char **split)
+{
+	int	i;
+
+	if (!split)
+		return;
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }

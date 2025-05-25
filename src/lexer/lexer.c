@@ -6,12 +6,11 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:24:58 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/23 16:24:50 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:35:07 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
-#include "../../include/token.h"
+#include "minishell.h"
 
 static t_token	*ft_new_token(t_token_type type, char *value)
 {
@@ -63,7 +62,8 @@ int	ft_handle_token(char *input, int i, t_token **tokens)
 		ft_add_token(tokens, ft_new_token(T_REDIR_OUT, ft_substr(input, i, i + 1)));
 		return (i + 1);
 	}
-	if (input[i] == '<')
+	else 
+	//(input[i] == '<')
 	{
 		ft_add_token(tokens, ft_new_token(T_REDIR_IN, ft_substr(input, i, i + 1)));
 		return (i + 1);
@@ -89,7 +89,7 @@ t_token	*ft_lexer(char *input)
 			start = i;
 			while (input[i] && input[i] != ' ' && input[i] != '|' && input[i] != '<' && input[i] != '>')
 				i++;
-			ft_add_token(tokens, ft_new_token(T_WORD, ft_substr(input, start, i)));
+			ft_add_token(&tokens, ft_new_token(T_WORD, ft_substr(input, start, i)));
 		}
 	}
 	return (tokens);

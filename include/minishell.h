@@ -6,13 +6,14 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/23 17:44:13 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:33:26 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#include "libft.h" 
 /* Includes padrão */
 # include <stdlib.h>
 # include <unistd.h>
@@ -43,5 +44,6 @@ void	ft_cleanup(char *input);
 void	ft_exec_cmds(t_shell *shell, t_command *cmds);
 int		ft_exec_simplecmd(t_shell *shell, t_command *cmd);
 char	*ft_get_cmdpath(char *cmd, char **envp);
+void	ft_free_split(char **split);
 
 #endif

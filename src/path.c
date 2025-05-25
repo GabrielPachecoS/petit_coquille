@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 17:01:30 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/05/23 17:51:04 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:32:16 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,18 @@ static char	*ft_try_paths(char **paths, char *cmd)
 		full_path = ft_build_fullpath(paths[i], cmd);
 		if (!full_path)
 		{
-			free_split(paths);
+			ft_free_split(paths);
 			return (NULL);
 		}
 		if (access(full_path, X_OK) == 0)
 		{
-			free_split(paths);
+			ft_free_split(paths);
 			return (full_path);
 		}
 		free(full_path);
 		i++;
 	}
-	free_split(paths);
+	ft_free_split(paths);
 	return (ft_errorpath(cmd));
 }
 

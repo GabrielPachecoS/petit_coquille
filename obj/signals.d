@@ -1,2 +1,2 @@
-obj/signals.o: src/signals.c src/../include/minishell.h include/token.h \
-  include/parser.h include/minishell.h
+obj/signals.o: src/signals.c include/minishell.h libft/libft.h \
+  include/token.h include/parser.h

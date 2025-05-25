@@ -6,12 +6,11 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:25:12 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/23 15:02:27 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:02:30 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
-#include "../../include/token.h"
+#include "minishell.h"
 
 /*
  * print_tokens:

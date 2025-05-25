@@ -1,2 +1,2 @@
-obj/path.o: src/path.c include/minishell.h include/token.h \
+obj/path.o: src/path.c include/minishell.h libft/libft.h include/token.h \
   include/parser.h
