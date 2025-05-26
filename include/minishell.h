@@ -6,15 +6,15 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/25 21:50:30 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/25 22:08:38 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include "../libft/include/libft.h" 
-/* Includes padrão */
+/* Includes padrão e libft*/
+# include "../libft/include/libft.h" 
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -35,7 +35,7 @@ typedef struct s_shell
 {
 	char	**envp;
 	int		last_exit_status;
-} t_shell;
+}	t_shell;
 /* Protótipos */
 int		main(int argc, char **argv, char **envp);
 void	ft_start_minishell(t_shell *shell);

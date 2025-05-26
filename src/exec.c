@@ -6,28 +6,30 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:34:42 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/05/25 21:50:35 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/25 23:08:02 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 void	ft_exec_cmds(t_shell *shell, t_command *cmds)
-{	
-	t_command *current = cmds;
-	
+{
+	t_command	*current;
+
+	current = cmds;
 	while (current)
 	{
 		ft_exec_simplecmd(shell, current);
 		current = current ->next;
 	}
 }
+
 int	ft_exec_simplecmd(t_shell *shell, t_command *cmd)
 {
 	int		pid;
 	int		status;
 	char	*fullpath;
-	
+
 	fullpath = ft_get_cmdpath(cmd->argv[0], shell->envp);
 	if (!fullpath)
 	{
@@ -56,7 +58,7 @@ void	ft_free_split(char **split)
 	int	i;
 
 	if (!split)
-		return;
+		return ;
 	i = 0;
 	while (split[i])
 	{

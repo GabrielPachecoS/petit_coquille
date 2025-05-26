@@ -3,77 +3,78 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
+/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:24:58 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/25 19:35:07 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/05/25 23:54:34 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_token	*ft_new_token(t_token_type type, char *value)
+static int	handle_quoted(char *input, int i, t_token **tokens, char quote)
 {
-	t_token	*token;
+	int	start;
+	int	len;
 
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
-	token->type = type;
-	token->value = value;
-	token->next = NULL;
-	return (token);
-}
-
-static void	ft_add_token(t_token **list, t_token *new)
-{
-	t_token	*cur;
-
-	if (!*list)
+	start = ++i;
+	while (input[i] && input[i] != quote)
 	{
-		*list = new;
-		return ;
+		if ((input[i] == '\\') && (input[i + 1]))
+			i += 2;
+		else
+			i++;
 	}
-	cur = *list;
-	while (cur->next)
-		cur = cur->next;
-	cur->next = new;
+	if (input[i] == quote)
+	{
+		len = i - start;
+		ft_add_token(tokens, ft_new_token(T_WORD,
+				ft_substr(input, start, len)));
+		return (i + 1);
+	}
+	return (start - 1);
 }
 
 int	ft_handle_token(char *input, int i, t_token **tokens)
 {
 	if (input[i] == '|')
-	{
-		ft_add_token(tokens, ft_new_token(T_PIPE, ft_substr(input, i, i + 1)));
-		return (i + 1);
-	}
+		return (ft_add_token(tokens, ft_new_token(T_PIPE,
+					ft_substr(input, i, 1))), i + 1);
 	if (input[i] == '>' && input[i + 1] == '>')
-	{
-		ft_add_token(tokens, ft_new_token(T_REDIR_APPEND, ft_substr(input, i, i + 2)));
-		return (i + 2);
-	}
+		return (ft_add_token(tokens, ft_new_token(T_REDIR_APPEND,
+					ft_substr(input, i, 2))), i + 2);
 	if (input[i] == '<' && input[i + 1] == '<')
-	{
-		ft_add_token(tokens, ft_new_token(T_HEREDOC, ft_substr(input, i, i + 2)));
-		return (i + 2);
-	}
+		return (ft_add_token(tokens, ft_new_token(T_HEREDOC,
+					ft_substr(input, i, 2))), i + 2);
 	if (input[i] == '>')
-	{
-		ft_add_token(tokens, ft_new_token(T_REDIR_OUT, ft_substr(input, i, i + 1)));
-		return (i + 1);
-	}
-	else 
-	//(input[i] == '<')
-	{
-		ft_add_token(tokens, ft_new_token(T_REDIR_IN, ft_substr(input, i, i + 1)));
-		return (i + 1);
-	}
+		return (ft_add_token(tokens, ft_new_token(T_REDIR_OUT,
+					ft_substr(input, i, 1))), i + 1);
+	if (input[i] == '<')
+		return (ft_add_token(tokens, ft_new_token(T_REDIR_IN,
+					ft_substr(input, i, 1))), i + 1);
+	return (i);
+}
+
+static int	handle_word(char *input, int i, t_token **tokens)
+{
+	int	start;
+	int	len;
+
+	start = i;
+	while (input[i] && input[i] != ' ' && input[i] != '\\'
+		&& input[i] != '"' && input[i] != '\''
+		&& input[i] != '|' && input[i] != '<' && input[i] != '>')
+		i++;
+	len = i - start;
+	if (len > 0)
+		ft_add_token(tokens, ft_new_token(T_WORD,
+				ft_substr(input, start, len)));
+	return (i);
 }
 
 t_token	*ft_lexer(char *input)
 {
 	int		i;
-	int		start;
 	t_token	*tokens;
 
 	i = 0;
@@ -82,15 +83,18 @@ t_token	*ft_lexer(char *input)
 	{
 		if (input[i] == ' ')
 			i++;
+		else if (input[i] == '\\' && input[i + 1])
+		{
+			i++;
+			ft_add_token(&tokens, ft_new_token(T_WORD,
+					ft_substr(input, i, i + 1)));
+		}
+		else if (input[i] == '"' || input[i] == '\'')
+			i = handle_quoted(input, i, &tokens, input[i]);
 		else if (input[i] == '<' || input[i] == '>' || input[i] == '|')
 			i = ft_handle_token(input, i, &tokens);
 		else
-		{
-			start = i;
-			while (input[i] && input[i] != ' ' && input[i] != '|' && input[i] != '<' && input[i] != '>')
-				i++;
-			ft_add_token(&tokens, ft_new_token(T_WORD, ft_substr(input, start, i)));
-		}
+			i = handle_word(input, i, &tokens);
 	}
 	return (tokens);
 }

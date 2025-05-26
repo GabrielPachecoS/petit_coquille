@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
+/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:25:12 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/25 19:02:30 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/05/25 23:02:26 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,32 @@ void	ft_free_tokens(t_token *tokens)
 		free(tmp->value);
 		free(tmp);
 	}
+}
+
+t_token	*ft_new_token(t_token_type type, char *value)
+{
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+	token->type = type;
+	token->value = value;
+	token->next = NULL;
+	return (token);
+}
+
+void	ft_add_token(t_token **list, t_token *new)
+{
+	t_token	*cur;
+
+	if (!*list)
+	{
+		*list = new;
+		return ;
+	}
+	cur = *list;
+	while (cur->next)
+		cur = cur->next;
+	cur->next = new;
 }

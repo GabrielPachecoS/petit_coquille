@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
+/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:14:17 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/25 19:02:45 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/05/25 23:28:31 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // Cria novo comando vazio
-static t_command	*ft_new_command(void)
+t_command	*ft_new_command(void)
 {
 	t_command	*cmd;
 
@@ -33,8 +33,11 @@ static t_command	*ft_new_command(void)
 static int	ft_add_argv(t_command *cmd, char *arg)
 {
 	char	**new_argv;
-	int		count = 0;
+	int		count;
+	int		i;
 
+	count = 0;
+	i = 0;
 	if (!cmd)
 		return (0);
 	if (cmd->argv)
@@ -45,8 +48,11 @@ static int	ft_add_argv(t_command *cmd, char *arg)
 	new_argv = malloc(sizeof(char *) * (count + 2));
 	if (!new_argv)
 		return (0);
-	for (int i = 0; i < count; i++)
+	while (i < count)
+	{
 		new_argv[i] = cmd->argv[i];
+		i++;
+	}
 	new_argv[count] = ft_strdup(arg);
 	new_argv[count + 1] = NULL;
 	free(cmd->argv);
@@ -54,52 +60,47 @@ static int	ft_add_argv(t_command *cmd, char *arg)
 	return (1);
 }
 
+static int	ft_parser_start(t_command **curr, t_command **head)
+{
+	*curr = ft_new_command();
+	if (!*curr)
+		return (0);
+	*head = *curr;
+	return (1);
+}
+
+static int	ft_parser_dispatch(t_command **curr, t_token **tok)
+{
+	if ((*tok)->type == T_WORD)
+		return (ft_add_argv(*curr, (*tok)->value));
+	else if ((*tok)->type == T_PIPE)	
+		return (ft_parser_pipe(curr));
+	else if ((*tok)->type == T_REDIR_IN || (*tok)->type == T_HEREDOC)
+		return (ft_parser_redir_in(*curr, tok));
+	else if ((*tok)->type == T_REDIR_OUT || (*tok)->type == T_REDIR_APPEND)
+		return (ft_parser_redir_out(*curr, tok));
+	return (1);
+}
+
 t_command	*ft_parser(t_token *tokens)
 {
-	t_command	*head = NULL;  // Primeiro comando
-	t_command	*curr = NULL;  // Comando atual sendo preenchido
-	t_token		*tok = tokens; // Iterador de tokens
+	t_command	*head;
+	t_command	*curr;
+	t_token		*tok;
 
+	head = NULL;
+	curr = NULL;
+	tok = tokens;
 	while (tok)
 	{
 		if (!curr)
 		{
-			curr = ft_new_command();
-			if (!curr)
-				return (NULL);
-			head = curr;
-		}
-		if (tok->type == T_WORD)
-		{
-			if (!ft_add_argv(curr, tok->value))
+			if (!ft_parser_start(&curr, &head))
 				return (NULL);
 		}
-		else if (tok->type == T_PIPE)
-		{
-			curr->next = ft_new_command();
-			if (!curr->next)
-				return (NULL);
-			curr = curr->next;  // Passa a preencher o próximo
-		}
-		else if (tok->type == T_REDIR_IN || tok->type == T_HEREDOC)
-		{
-			curr->redir_in = tok->type;  // Marca tipo de redirecionamento
-			tok = tok->next;             // Espera próximo token ser o nome do arquivo
-
-			if (!tok || tok->type != T_WORD)
-				return (NULL);           // Erro sintático (arquivo ausente)
-
-			curr->redir_in_file = ft_strdup(tok->value);
-		}
-		else if (tok->type == T_REDIR_OUT || tok->type == T_REDIR_APPEND)
-		{
-			curr->redir_out = tok->type;
-			tok = tok->next;
-			if (!tok || tok->type != T_WORD)
-				return (NULL); // erro sintático simples
-			curr->redir_out_file = ft_strdup(tok->value);
-		}
-		tok = tok->next;  // Avança para o próximo token
+		if (!ft_parser_dispatch(&curr, &tok))
+			return (NULL);
+		tok = tok->next;
 	}
-	return (head);  // Retorna a lista encadeada de comandos
+	return (head);
 }

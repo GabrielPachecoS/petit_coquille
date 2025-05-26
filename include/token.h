@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
+/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:25:24 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/23 15:02:37 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/05/25 23:02:55 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,32 @@
  */
 typedef enum e_token_type
 {
-	T_WORD,			// Palavra comum (comando ou argumento)
-	T_PIPE,			// Pipe '|'
-	T_REDIR_IN,		// Redirecionador de entrada '<'
-	T_REDIR_OUT,	// Redirecionador de saída '>'
-	T_REDIR_APPEND,	// Redirecionador de saída em append '>>'
-	T_HEREDOC		// Heredoc '<<'
+	T_WORD,
+	T_PIPE,
+	T_REDIR_IN,
+	T_REDIR_OUT,
+	T_REDIR_APPEND,
+	T_HEREDOC
 }	t_token_type;
 
 /*
  * Estrutura de um token.
- * Contém o tipo do token, seu valor (string) e ponteiro para o próximo token da lista.
+ * Contém o tipo do token, seu valor (string) e ponteiro para o próximo token 
+ * da lista.
  */
 typedef struct s_token
 {
-	t_token_type	type;		// Tipo do token
-	char			*value;		// Valor associado (string)
-	struct s_token	*next;		// Próximo token na lista encadeada
+	t_token_type	type;
+	char			*value;
+	struct s_token	*next;
 }	t_token;
 
 // Protótipos das funções do lexer:
-t_token	*ft_lexer(char *input);	// Recebe a linha de input e retorna lista de tokens
+t_token	*ft_lexer(char *input);
 int		ft_handle_token(char *input, int i, t_token **tokens);
-void	ft_print_tokens(t_token *tokens); // Imprime tokens para debug
-void	ft_free_tokens(t_token *tokens);  // Libera a memória dos tokens
+t_token	*ft_new_token(t_token_type type, char *value);
+void	ft_add_token(t_token **list, t_token *new);
+void	ft_print_tokens(t_token *tokens);
+void	ft_free_tokens(t_token *tokens);
 
 #endif

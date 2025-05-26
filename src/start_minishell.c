@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
+/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/25 19:02:59 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/05/25 23:06:12 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_start_minishell(t_shell *shell)
 {
-	char	*input;
-	t_token	*tokens;
-	t_command *cmds; 
+	char		*input;
+	t_token		*tokens;
+	t_command	*cmds;
 
 	(void)shell;
 	while (1)
@@ -29,7 +29,6 @@ void	ft_start_minishell(t_shell *shell)
 		}
 		if (*input)
 			add_history(input);
-
 		tokens = ft_lexer(input);
 		ft_print_tokens(tokens);
 		cmds = ft_parser(tokens);
