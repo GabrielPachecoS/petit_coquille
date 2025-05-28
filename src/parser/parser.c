@@ -6,13 +6,19 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:14:17 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/25 23:28:31 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/28 12:45:46 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Cria novo comando vazio
+/**
+ * @brief Creates a new empty command structure.
+ *
+ * Allocates and initializes a new t_command struct with default values.
+ *
+ * @return Pointer to the newly created command, or NULL if allocation fails.
+ */
 t_command	*ft_new_command(void)
 {
 	t_command	*cmd;
@@ -29,7 +35,17 @@ t_command	*ft_new_command(void)
 	return (cmd);
 }
 
-// Adiciona string ao argv (realloc + NULL terminator)
+/**
+ * @brief Adds a string argument to the command's argv array.
+ *
+ * Reallocates the argv array to accommodate the new argument, duplicates
+ * the argument string, and appends it with a NULL terminator.
+ *
+ * @param cmd Pointer to the command structure.
+ * @param arg The argument string to add.
+ *
+ * @return 1 if successful, 0 on failure (e.g., memory allocation error).
+ */
 static int	ft_add_argv(t_command *cmd, char *arg)
 {
 	char	**new_argv;
@@ -60,6 +76,16 @@ static int	ft_add_argv(t_command *cmd, char *arg)
 	return (1);
 }
 
+/**
+ * @brief Initializes the first command in the list.
+ *
+ * Creates a new command and sets it as both the current and head command.
+ *
+ * @param curr Double pointer to the current command (to be initialized).
+ * @param head Double pointer to the head of the command list.
+ *
+ * @return 1 if successful, 0 if memory allocation failed.
+ */
 static int	ft_parser_start(t_command **curr, t_command **head)
 {
 	*curr = ft_new_command();
@@ -69,6 +95,26 @@ static int	ft_parser_start(t_command **curr, t_command **head)
 	return (1);
 }
 
+/**
+ * @brief Dispatches the current token to the appropriate handler,
+ *        updating the current command accordingly.
+ *
+ * - If the token is a word, it adds it to the argv array of the current
+ *   command.
+ * - If the token is a pipe, it creates a new command and switches the
+ *   current pointer to it.
+ * - If the token is an input redirection or heredoc, it calls the input
+ *   redirection handler.
+ * - If the token is an output redirection (either overwrite or append),
+ *   it calls the output redirection handler.
+ *
+ * @param curr Pointer to the current command pointer (which may be updated
+ *             in case of pipe).
+ * @param tok Pointer to the current token pointer (may be advanced by
+ *            redirection handlers).
+ *
+ * @return Returns 1 on success, or 0 on failure.
+ */
 static int	ft_parser_dispatch(t_command **curr, t_token **tok)
 {
 	if ((*tok)->type == T_WORD)
@@ -82,6 +128,17 @@ static int	ft_parser_dispatch(t_command **curr, t_token **tok)
 	return (1);
 }
 
+/**
+ * @brief Parses a linked list of tokens into a linked list of commands.
+ *
+ * Iterates over the tokens list, creating new commands on encountering
+ * pipes, and builds the argv and redirection fields for each command.
+ *
+ * @param tokens Pointer to the first token in the token list.
+ *
+ * @return Pointer to the head of the linked list of commands, or NULL on
+ *         failure.
+ */
 t_command	*ft_parser(t_token *tokens)
 {
 	t_command	*head;

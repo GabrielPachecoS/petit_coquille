@@ -6,12 +6,18 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/05/25 23:30:40 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/28 12:46:41 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Frees all commands in the linked list, including their argv arrays
+ *        and redirection strings.
+ *
+ * @param cmd Pointer to the head of the command list.
+ */
 void	ft_free_commands(t_command *cmd)
 {
 	t_command	*tmp;
@@ -36,6 +42,17 @@ void	ft_free_commands(t_command *cmd)
 	}
 }
 
+/**
+ * @brief Parses input redirection from tokens and stores it in the command.
+ *
+ * Advances the token pointer past the redirection operator and expects
+ * a file name token next.
+ *
+ * @param cmd Pointer to the current command.
+ * @param tok Double pointer to the current token; will be advanced.
+ *
+ * @return 1 if parsing was successful, 0 if syntax error or allocation failed.
+ */
 int	ft_parser_redir_in(t_command *cmd, t_token **tok)
 {
 	cmd->redir_in = (*tok)->type;
@@ -46,6 +63,17 @@ int	ft_parser_redir_in(t_command *cmd, t_token **tok)
 	return (1);
 }
 
+/**
+ * @brief Parses output redirection from tokens and stores it in the command.
+ *
+ * Advances the token pointer past the redirection operator and expects
+ * a file name token next.
+ *
+ * @param cmd Pointer to the current command.
+ * @param tok Double pointer to the current token; will be advanced.
+ *
+ * @return 1 if parsing was successful, 0 if syntax error or allocation failed.
+ */
 int	ft_parser_redir_out(t_command *cmd, t_token **tok)
 {
 	cmd->redir_out = (*tok)->type;
@@ -56,6 +84,16 @@ int	ft_parser_redir_out(t_command *cmd, t_token **tok)
 	return (1);
 }
 
+/**
+ * @brief Handles pipe token by creating a new command linked to the current one.
+ *
+ * Sets the next pointer of the current command to a newly allocated command,
+ * then updates the current pointer to this new command.
+ *
+ * @param cmd Double pointer to the current command; will be updated.
+ *
+ * @return 1 if successful, 0 if memory allocation failed.
+ */
 int	ft_parser_pipe(t_command **cmd)
 {
 	(*cmd)->next = ft_new_command();

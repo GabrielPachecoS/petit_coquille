@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:13:33 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/28 11:36:46 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/28 12:50:30 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@
  * Contains arguments, redirection information, and links to next command 
  * (for pipelines).
  * 
- * char	**argv = Argument list for the command.
+ * char              **argv = Argument list for the command.
  * 
- * int	redir_in = Flag for input redirection.
+ * int               redir_in = Flag for input redirection.
  * 
- * char	*redir_in_file = Input redirection filename.
+ * char              *redir_in_file = Input redirection filename.
  * 
- * int	redir_out = Flag for output redirection.
+ * int               redir_out = Flag for output redirection.
  * 
- * char	*redir_out_file = Output redirection filename.
+ * char              *redir_out_file = Output redirection filename.
  * 
- * struct s_command	*next = Pointer to the next command.
+ * struct s_command  *next = Pointer to the next command.
  */
 typedef struct s_command
 {
@@ -43,7 +43,6 @@ typedef struct s_command
 	struct s_command	*next;
 }	t_command;
 
-// Protótipos das funções do parser
 t_command	*ft_parser(t_token *tokens);
 void		ft_free_commands(t_command *cmd);
 void		ft_print_commands(t_command *cmd);

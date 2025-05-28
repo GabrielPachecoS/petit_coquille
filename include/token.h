@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:25:24 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/28 11:56:03 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/28 12:49:03 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 
 /**
  * @brief Enumeration of possible token types.
- *
+ * 
  * Defines the categories of tokens that the lexer can recognize in shell input.
  * 
- * @T_WORD = A word token (e.g., command or argument).
+ * T_WORD = A word token (e.g., command or argument).
  * 
- * @T_PIPE = A pipe symbol '|', used for piping commands.
+ * T_PIPE = A pipe symbol '|', used for piping commands.
  * 
- * @T_REDIR_IN = Input redirection '<'.
+ * T_REDIR_IN = Input redirection '<'.
  * 
- * @T_REDIR_OUT = Output redirection '>'.
+ * T_REDIR_OUT = Output redirection '>'.
  * 
- * @T_REDIR_APPEND = Output append redirection '>>'.
+ * T_REDIR_APPEND = Output append redirection '>>'.
  * 
- * @T_HEREDOC = Heredoc redirection '<<'.
+ * T_HEREDOC = Heredoc redirection '<<'.
  */
 typedef enum e_token_type
 {
@@ -45,11 +45,11 @@ typedef enum e_token_type
  *
  * Each token contains a type, value, and pointer to the next token in the list.
  * 
- * @type The type of the token.
+ * t_token_type    type = The type of the token.
  * 
- * @value The actual string value of the token.
+ * char            value = The actual string value of the token.
  * 
- * @next Pointer to the next token.
+ * struct s_token  next = Pointer to the next token.
  */
 typedef struct s_token
 {

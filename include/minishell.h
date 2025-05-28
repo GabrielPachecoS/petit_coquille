@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/28 11:36:23 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/28 12:49:39 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@
  *
  * Holds the environment variables and the exit status of the last executed command.
  * 
- * char	**envp = Array of environment variables.
+ * char **envp = Array of environment variables.
  * 
- * int	last_exit_status = Exit status of the last executed command.
+ * int  last_exit_status = Exit status of the last executed command.
  */
 typedef struct s_shell
 {

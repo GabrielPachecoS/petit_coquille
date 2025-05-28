@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:24:58 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/25 23:54:34 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/28 12:16:10 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ t_token	*ft_lexer(char *input)
 		{
 			i++;
 			ft_add_token(&tokens, ft_new_token(T_WORD,
-					ft_substr(input, i, i + 1)));
+					ft_substr(input, i, 1)));
+			i++;
 		}
 		else if (input[i] == '"' || input[i] == '\'')
 			i = handle_quoted(input, i, &tokens, input[i]);
