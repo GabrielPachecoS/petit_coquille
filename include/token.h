@@ -6,16 +6,23 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:25:24 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/25 23:02:55 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/28 11:28:26 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_H
 # define TOKEN_H
 
-/*
- * Enumeração dos tipos de token que o lexer pode identificar.
- * Cada tipo representa uma categoria de símbolo no shell.
+/**
+ * @brief Enumeration of possible token types.
+ *
+ * Defines the categories of tokens that the lexer can recognize in shell input.
+ * @T_WORD = A word token (e.g., command or argument).
+ * @T_PIPE = A pipe symbol '|', used for piping commands.
+ * @T_REDIR_IN = Input redirection '<'.
+ * @T_REDIR_OUT = Output redirection '>'.
+ * @T_REDIR_APPEND = Output append redirection '>>'.
+ * @T_HEREDOC = Heredoc redirection '<<'.
  */
 typedef enum e_token_type
 {
@@ -27,10 +34,14 @@ typedef enum e_token_type
 	T_HEREDOC
 }	t_token_type;
 
-/*
- * Estrutura de um token.
- * Contém o tipo do token, seu valor (string) e ponteiro para o próximo token 
- * da lista.
+/**
+ * @brief Represents a token from the lexer.
+ *
+ * Each token contains a type, value, and pointer to the next token in the list.
+ * 
+ * @type The type of the token.
+ * @value The actual string value of the token.
+ * @next Pointer to the next token.
  */
 typedef struct s_token
 {
@@ -39,7 +50,6 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-// Protótipos das funções do lexer:
 t_token	*ft_lexer(char *input);
 int		ft_handle_token(char *input, int i, t_token **tokens);
 t_token	*ft_new_token(t_token_type type, char *value);

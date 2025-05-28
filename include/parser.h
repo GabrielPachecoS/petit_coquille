@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:13:33 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/25 23:28:40 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/28 11:36:46 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,24 @@
 
 # include "minishell.h"
 
-// Estrutura que representa um comando completo (ex: ls -l > out.txt)
+/**
+ * @brief Represents a single command and its execution context.
+ *
+ * Contains arguments, redirection information, and links to next command 
+ * (for pipelines).
+ * 
+ * char	**argv = Argument list for the command.
+ * 
+ * int	redir_in = Flag for input redirection.
+ * 
+ * char	*redir_in_file = Input redirection filename.
+ * 
+ * int	redir_out = Flag for output redirection.
+ * 
+ * char	*redir_out_file = Output redirection filename.
+ * 
+ * struct s_command	*next = Pointer to the next command.
+ */
 typedef struct s_command
 {
 	char				**argv;

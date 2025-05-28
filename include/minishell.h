@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/25 22:08:38 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/28 11:36:23 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,21 @@
 # include "token.h"
 # include "parser.h"
 
-/* Estrutura principal do shell */
+/**
+ * @brief Represents the state of the shell.
+ *
+ * Holds the environment variables and the exit status of the last executed command.
+ * 
+ * char	**envp = Array of environment variables.
+ * 
+ * int	last_exit_status = Exit status of the last executed command.
+ */
 typedef struct s_shell
 {
 	char	**envp;
 	int		last_exit_status;
 }	t_shell;
-/* Protótipos */
+
 int		main(int argc, char **argv, char **envp);
 void	ft_start_minishell(t_shell *shell);
 void	ft_handle_signals(void);
