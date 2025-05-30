@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+         #
+#    By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/05/25 19:23:09 by jucoelho         ###   ########.fr        #
+#    Updated: 2025/05/30 13:33:59 by gapachec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,12 +21,16 @@ SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/start_minishell.c \
 		  $(SRC_DIR)/signals.c \
 		  $(SRC_DIR)/cleanup.c \
-		  $(SRC_DIR)/exec.c \
-		  $(SRC_DIR)/path.c \
+		  $(SRC_DIR)/debug.c \
+		  $(SRC_DIR)/exec/exec.c \
+		  $(SRC_DIR)/exec/path.c \
 		  $(SRC_DIR)/lexer/lexer.c \
-		  $(SRC_DIR)/lexer/lexer_utils.c \
+		  $(SRC_DIR)/lexer/lexer_1_utils.c \
+		  $(SRC_DIR)/lexer/lexer_2_utils.c \
+		  $(SRC_DIR)/lexer/lexer_handle.c \
 		  $(SRC_DIR)/parser/parser.c \
 		  $(SRC_DIR)/parser/parser_utils.c
+
 
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
@@ -49,6 +53,9 @@ $(NAME): $(OBJ)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@
 
+$(OBJ_DIR)/exec/%.o: $(SRC_DIR)/exec/%.c | $(OBJ_DIR)/exec
+	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@
+
 $(OBJ_DIR)/lexer/%.o: $(SRC_DIR)/lexer/%.c | $(OBJ_DIR)/lexer
 	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@
 
@@ -57,6 +64,9 @@ $(OBJ_DIR)/parser/%.o: $(SRC_DIR)/parser/%.c | $(OBJ_DIR)/parser
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)/exec:
+	mkdir -p $(OBJ_DIR)/exec
 
 $(OBJ_DIR)/lexer:
 	mkdir -p $(OBJ_DIR)/lexer

@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:25:24 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/28 12:49:03 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/30 13:40:50 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,16 @@ typedef struct s_token
 
 t_token	*ft_lexer(char *input);
 int		ft_handle_token(char *input, int i, t_token **tokens);
+char	*ft_handle_escaped_char(const char *input, int *i);
+int		ft_handle_quoted(char *input, int i, t_token **tokens, char quote);
+int		ft_handle_word(char *input, int i, t_token **tokens);
 t_token	*ft_new_token(t_token_type type, char *value);
 void	ft_add_token(t_token **list, t_token *new);
 void	ft_print_tokens(t_token *tokens);
 void	ft_free_tokens(t_token *tokens);
+int		ft_add_simple_token(t_token **tokens, t_token_type type,
+			char *input, int i, int size);
+int		ft_is_operator(char c);
+int		ft_is_special_char(char c);
 
 #endif

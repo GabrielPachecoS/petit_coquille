@@ -6,11 +6,11 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:34:42 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/05/25 23:08:02 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/30 12:55:45 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 void	ft_exec_cmds(t_shell *shell, t_command *cmds)
 {

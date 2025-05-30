@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/05/28 12:46:41 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/30 13:08:15 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,28 +101,4 @@ int	ft_parser_pipe(t_command **cmd)
 		return (0);
 	*cmd = (*cmd)->next;
 	return (1);
-}
-
-void	ft_print_commands(t_command *cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd)
-	{
-		printf("Comando:\n");
-		if (cmd->argv)
-		{
-			while (cmd->argv[i])
-			{
-				printf(" argv[%d]: %s\n", i, cmd->argv[i]);
-				i++;
-			}
-		}
-		if (cmd->redir_in)
-			printf(" Redir entrada: %s\n", cmd->redir_in_file);
-		if (cmd->redir_out)
-			printf(" Redir saída: %s\n", cmd->redir_out_file);
-		cmd = cmd->next;
-	}
 }

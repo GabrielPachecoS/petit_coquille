@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   lexer_2_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/16 09:37:47 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/30 11:53:11 by gapachec         ###   ########.fr       */
+/*   Created: 2025/05/30 13:28:57 by gapachec          #+#    #+#             */
+/*   Updated: 2025/05/30 13:29:29 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-void	handle_sigint(int signo)
+int	ft_add_simple_token(t_token **tokens, t_token_type type,
+			char *input, int i, int size)
 {
-	(void)signo;
-	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+	ft_add_token(tokens, ft_new_token(type, ft_substr(input, i, size)));
+	return (i + size);
 }
 
-void	ft_handle_signals(void)
+int	ft_is_operator(char c)
 {
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, SIG_IGN);
+	return (c == '<' || c == '>' || c == '|');
+}
+
+int	ft_is_special_char(char c)
+{
+	return (c == ' ' || c == '\\' || c == '"' || c == '\''
+		|| c == '|' || c == '<' || c == '>');
 }

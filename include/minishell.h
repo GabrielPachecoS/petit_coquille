@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/28 12:49:39 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/05/30 13:02:34 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,7 @@ void	ft_exec_cmds(t_shell *shell, t_command *cmds);
 int		ft_exec_simplecmd(t_shell *shell, t_command *cmd);
 char	*ft_get_cmdpath(char *cmd, char **envp);
 void	ft_free_split(char **split);
+void	ft_print_commands(t_command *cmd);
+void	ft_print_tokens(t_token *tokens);
 
 #endif
