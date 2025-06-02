@@ -35,7 +35,15 @@ SRC = $(SRC_DIR)ft_isalpha.c \
       $(SRC_DIR)ft_striteri.c \
       $(SRC_DIR)ft_strtrim.c \
       $(SRC_DIR)ft_itoa.c \
-      $(SRC_DIR)ft_split.c
+      $(SRC_DIR)ft_split.c \
+      $(SRC_DIR)ft_lstadd_back.c \
+      $(SRC_DIR)ft_lstadd_front.c \
+      $(SRC_DIR)ft_lstclear.c \
+      $(SRC_DIR)ft_lstdelone.c \
+      $(SRC_DIR)ft_lstiter.c \
+      $(SRC_DIR)ft_lstlast.c \
+      $(SRC_DIR)ft_lstnew.c \
+      $(SRC_DIR)ft_lstsize.c
 
 OBJ = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)/%.o)
 
