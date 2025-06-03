@@ -1,0 +1,31 @@
+==1768251== Memcheck, a memory error detector
+==1768251== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1768251== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1768251== Command: ./minishell
+==1768251== Parent PID: 1767331
+==1768251== 
+==1768251== 
+==1768251== HEAP SUMMARY:
+==1768251==     in use at exit: 209,309 bytes in 268 blocks
+==1768251==   total heap usage: 1,048 allocs, 780 frees, 242,689 bytes allocated
+==1768251== 
+==1768251== 5 bytes in 1 blocks are definitely lost in loss record 1 of 73
+==1768251==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1768251==    by 0x4029CA: ft_strdup (ft_strdup.c:21)
+==1768251==    by 0x402560: ft_add_argv (in /nfs/homes/jucoelho/Juju_Cadete/2_jun/minishell)
+==1768251==    by 0x4023C6: ft_parser_dispatch (in /nfs/homes/jucoelho/Juju_Cadete/2_jun/minishell)
+==1768251==    by 0x4022EE: ft_parser (in /nfs/homes/jucoelho/Juju_Cadete/2_jun/minishell)
+==1768251==    by 0x4012DC: ft_start_minishell (in /nfs/homes/jucoelho/Juju_Cadete/2_jun/minishell)
+==1768251==    by 0x401256: main (in /nfs/homes/jucoelho/Juju_Cadete/2_jun/minishell)
+==1768251== 
+==1768251== LEAK SUMMARY:
+==1768251==    definitely lost: 5 bytes in 1 blocks
+==1768251==    indirectly lost: 0 bytes in 0 blocks
+==1768251==      possibly lost: 0 bytes in 0 blocks
+==1768251==    still reachable: 209,304 bytes in 267 blocks
+==1768251==         suppressed: 0 bytes in 0 blocks
+==1768251== Reachable blocks (those to which a pointer was found) are not shown.
+==1768251== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==1768251== 
+==1768251== For lists of detected and suppressed errors, rerun with: -s
+==1768251== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

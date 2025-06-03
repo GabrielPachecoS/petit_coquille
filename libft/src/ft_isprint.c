@@ -6,9 +6,11 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:43:39 by jucoelho          #+#    #+#             */
-/*   Updated: 2024/10/29 12:33:32 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/06/02 21:02:14 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_isprint(int c)
 {

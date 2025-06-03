@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/05/30 13:33:59 by gapachec         ###   ########.fr        #
+#    Updated: 2025/06/02 21:25:43 by jucoelho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,8 @@ $(LIBFT_DIR)/libft.a:
 	
 $(NAME): $(OBJ) 
 	$(CC) $(CFLAGS) $(OBJ) -L$(LIBFT_DIR) -lft -o $(NAME) -lreadline
+	@echo "\033[1;45m✅ Petit Coquile compiled successfully!!\033[0m"
+
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@

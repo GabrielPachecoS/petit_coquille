@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/24 21:32:18 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/02/24 21:41:20 by jucoelho         ###   ########.fr       */
+/*   Created: 2025/05/28 21:14:35 by jucoelho          #+#    #+#             */
+/*   Updated: 2025/06/02 20:37:52 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstlast(t_list *lst)
+t_list *ft_lstlast(t_list *lst)
 {
-	if (!lst)
+	if (lst == NULL)
 		return (NULL);
-	while (lst->next)
+	while (lst->next != NULL)
 		lst = lst->next;
-	return (lst);
+	return(lst);
 }
+
