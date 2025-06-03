@@ -6,16 +6,16 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 21:19:53 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/06/02 20:37:42 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/06/02 21:32:21 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*last;
-	
+
 	if (*lst == NULL)
 		*lst = new;
 	else
@@ -24,4 +24,3 @@ void ft_lstadd_back(t_list **lst, t_list *new)
 		last->next = new;
 	}
 }
-
