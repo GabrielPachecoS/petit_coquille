@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/30 13:02:34 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/06/07 20:31:25 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,34 @@ typedef struct s_shell
 {
 	char	**envp;
 	int		last_exit_status;
+	int		fd_in;
+	int		fd_out;
+	int		fd[2];
+	char	*infile;
+	char	*outfile;
 }	t_shell;
 
 int		main(int argc, char **argv, char **envp);
 void	ft_start_minishell(t_shell *shell);
 void	ft_handle_signals(void);
 void	ft_cleanup(char *input);
-void	ft_exec_cmds(t_shell *shell, t_command *cmds);
-int		ft_exec_simplecmd(t_shell *shell, t_command *cmd);
-char	*ft_get_cmdpath(char *cmd, char **envp);
+void	ft_init_struct(t_shell *shell, char **envp);
+
+int		ft_error_execve(t_shell *shell);
+int		ft_error(int code, char *str);
 void	ft_free_split(char **split);
-void	ft_print_commands(t_command *cmd);
+int		ft_exec_simplecmd(t_shell *shell, t_command *cmd);
+void	ft_exec_cmds(t_shell *shell, t_command *cmds);
+
+void	ft_closefd(t_shell *shell);
+int		ft_handle_pid(t_shell *shell, t_command *cmd, int curr_cmd, int last_cmd);
+int		ft_handle_middlecmd(t_shell *shell, t_command *cmd);
+int		ft_handle_lastcmd(t_shell *shell, t_command *cmd);
+int		ft_exec_cmdpipe(t_shell *shell, t_command *cmd, int n_cmd);
+
+char	*ft_get_cmdpath(char *cmd, char **envp);
+
+void	ft_print_commands(t_shell *shell, t_command *cmd);
 void	ft_print_tokens(t_token *tokens);
 
 #endif

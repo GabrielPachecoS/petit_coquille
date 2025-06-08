@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:14:17 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/28 12:45:46 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/06/07 19:11:24 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@ t_command	*ft_new_command(void)
 	if (!cmd)
 		return (NULL);
 	cmd->argv = NULL;
-	cmd->redir_in = 0;
-	cmd->redir_in_file = NULL;
-	cmd->redir_out = 0;
-	cmd->redir_out_file = NULL;
 	cmd->next = NULL;
 	return (cmd);
 }
@@ -119,7 +115,7 @@ static int	ft_parser_dispatch(t_command **curr, t_token **tok)
 {
 	if ((*tok)->type == T_WORD)
 		return (ft_add_argv(*curr, (*tok)->value));
-	else if ((*tok)->type == T_PIPE)	
+	else if ((*tok)->type == T_PIPE)
 		return (ft_parser_pipe(curr));
 	else if ((*tok)->type == T_REDIR_IN || (*tok)->type == T_HEREDOC)
 		return (ft_parser_redir_in(*curr, tok));
