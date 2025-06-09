@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:14:17 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/28 12:45:46 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/06/09 17:15:53 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ t_command	*ft_new_command(void)
 	if (!cmd)
 		return (NULL);
 	cmd->argv = NULL;
-	cmd->redir_in = 0;
-	cmd->redir_in_file = NULL;
-	cmd->redir_out = 0;
-	cmd->redir_out_file = NULL;
+	cmd->fd_in = 0;
+	cmd->fd_out = 0;
+	cmd->infile = NULL;
+	cmd->outfile = NULL;
+	cmd->fd[0] = -1;
+	cmd->fd[1] = -1;
 	cmd->next = NULL;
 	return (cmd);
 }

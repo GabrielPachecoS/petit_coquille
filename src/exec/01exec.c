@@ -1,27 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   01exec.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:34:42 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/05/30 12:55:45 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/06/09 18:01:39 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_exec_cmds(t_shell *shell, t_command *cmds)
+static int	ft_listsize(t_command *cmds)
 {
-	t_command	*current;
+	int	nbr_nodes;
 
-	current = cmds;
-	while (current)
+	nbr_nodes = 0;
+	while (cmds)
 	{
-		ft_exec_simplecmd(shell, current);
-		current = current ->next;
+		cmds = cmds->next;
+		nbr_nodes++;
 	}
+	return (nbr_nodes);
+}
+int	ft_error_execve(t_command *cmd)
+{
+	close(cmd->fd[0]);
+	close(cmd->fd[1]);
+	close(cmd->fd_in);
+	close(cmd->fd_out);
+	perror("execve failed");
+	exit(EXIT_FAILURE);
+}
+
+int	ft_error(int code, char *str)
+{
+	perror(str);
+	exit(code);
 }
 
 int	ft_exec_simplecmd(t_shell *shell, t_command *cmd)
@@ -67,3 +83,15 @@ void	ft_free_split(char **split)
 	}
 	free(split);
 }
+
+void	ft_exec_cmds(t_shell *shell, t_command *cmds)
+{
+	int	n_cmds;
+	
+	n_cmds = ft_listsize(cmds);
+	if (cmds->next == NULL)
+		ft_exec_simplecmd(shell, cmds);
+	else
+		ft_exec_cmdpipe(shell, cmds, n_cmds);
+}
+

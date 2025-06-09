@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/05/30 13:08:15 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/06/09 17:16:49 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	ft_free_commands(t_command *cmd)
 				free(cmd->argv[i++]);
 			free(cmd->argv);
 		}
-		if (cmd->redir_in_file)
-			free(cmd->redir_in_file);
-		if (cmd->redir_out_file)
-			free(cmd->redir_out_file);
+		if (cmd->infile)
+			free(cmd->infile);
+		if (cmd->outfile)
+			free(cmd->outfile);
 		free(cmd);
 		cmd = tmp;
 	}
@@ -55,11 +55,11 @@ void	ft_free_commands(t_command *cmd)
  */
 int	ft_parser_redir_in(t_command *cmd, t_token **tok)
 {
-	cmd->redir_in = (*tok)->type;
+	cmd->fd_in = (*tok)->type;
 	*tok = (*tok)->next;
 	if (!*tok || (*tok)->type != T_WORD)
 		return (0);
-	cmd->redir_in_file = ft_strdup((*tok)->value);
+	cmd->infile = ft_strdup((*tok)->value);
 	return (1);
 }
 
@@ -76,11 +76,11 @@ int	ft_parser_redir_in(t_command *cmd, t_token **tok)
  */
 int	ft_parser_redir_out(t_command *cmd, t_token **tok)
 {
-	cmd->redir_out = (*tok)->type;
+	cmd->fd_out = (*tok)->type;
 	*tok = (*tok)->next;
 	if (!*tok || (*tok)->type != T_WORD)
 		return (0);
-	cmd->redir_out_file = ft_strdup((*tok)->value);
+	cmd->outfile = ft_strdup((*tok)->value);
 	return (1);
 }
 

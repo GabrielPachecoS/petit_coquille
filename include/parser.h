@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:13:33 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/28 12:50:30 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/06/09 17:15:26 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@
 typedef struct s_command
 {
 	char				**argv;
-	int					redir_in;
-	char				*redir_in_file;
-	int					redir_out;
-	char				*redir_out_file;
+	int					fd_in;
+	int					fd_out;
+	char				*infile;
+	char				*outfile;
+	int					fd[2];
 	struct s_command	*next;
 }	t_command;
 

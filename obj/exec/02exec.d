@@ -1,0 +1,2 @@
+obj/exec/02exec.o: src/exec/02exec.c include/minishell.h \
+  include/../libft/include/libft.h include/token.h include/parser.h

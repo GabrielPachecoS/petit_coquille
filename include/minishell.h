@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/30 13:02:34 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/06/09 17:12:07 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,22 @@ int		main(int argc, char **argv, char **envp);
 void	ft_start_minishell(t_shell *shell);
 void	ft_handle_signals(void);
 void	ft_cleanup(char *input);
+
 void	ft_exec_cmds(t_shell *shell, t_command *cmds);
 int		ft_exec_simplecmd(t_shell *shell, t_command *cmd);
-char	*ft_get_cmdpath(char *cmd, char **envp);
 void	ft_free_split(char **split);
+int		ft_error(int code, char *str);
+int		ft_error_execve(t_command *cmd);
+
+void	ft_closefd(t_command *cmd);
+int		ft_handle_pid(t_shell *shell, t_command *cmd);
+int		ft_handle_infile(t_shell *shell, t_command *cmd);
+int		ft_handle_outfile(t_shell *shell, t_command *cmd);
+int		ft_handle_cmd(t_shell *shell, t_command *cmd);
+int		ft_exec_cmdpipe(t_shell *shell, t_command *cmd, int n_cmd);
+
+char	*ft_get_cmdpath(char *cmd, char **envp);
+
 void	ft_print_commands(t_command *cmd);
 void	ft_print_tokens(t_token *tokens);
 

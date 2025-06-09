@@ -6,7 +6,7 @@
 #    By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/06/02 21:25:43 by jucoelho         ###   ########.fr        #
+#    Updated: 2025/06/09 17:12:37 by jucoelho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/signals.c \
 		  $(SRC_DIR)/cleanup.c \
 		  $(SRC_DIR)/debug.c \
-		  $(SRC_DIR)/exec/exec.c \
+		  $(SRC_DIR)/exec/01exec.c \
+		  $(SRC_DIR)/exec/02exec.c \
 		  $(SRC_DIR)/exec/path.c \
 		  $(SRC_DIR)/lexer/lexer.c \
 		  $(SRC_DIR)/lexer/lexer_1_utils.c \
