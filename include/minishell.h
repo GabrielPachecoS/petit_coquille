@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/06/09 17:12:07 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/06/11 21:28:15 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_shell
 {
 	char	**envp;
 	int		last_exit_status;
+	int		**fd;
 }	t_shell;
 
 int		main(int argc, char **argv, char **envp);
@@ -56,12 +57,13 @@ void	ft_free_split(char **split);
 int		ft_error(int code, char *str);
 int		ft_error_execve(t_command *cmd);
 
-void	ft_closefd(t_command *cmd);
-int		ft_handle_pid(t_shell *shell, t_command *cmd);
-int		ft_handle_infile(t_shell *shell, t_command *cmd);
-int		ft_handle_outfile(t_shell *shell, t_command *cmd);
-int		ft_handle_cmd(t_shell *shell, t_command *cmd);
+void	ft_close_pipe(int **fd, int i);
+int		ft_handle_pid(t_shell *shell, t_command *cmd, int n_cmd);
+int		ft_handle_infile(t_shell *shell, t_command *cmd, int n_cmd);
+int		ft_handle_outfile(t_shell *shell, t_command *cmd, int n_cmd);
+int		ft_handle_cmd(t_shell *shell, t_command *cmd, int n_cmd);
 int		ft_exec_cmdpipe(t_shell *shell, t_command *cmd, int n_cmd);
+pid_t	ft_fork(t_shell *shell, t_command *cmd, int i);
 
 char	*ft_get_cmdpath(char *cmd, char **envp);
 

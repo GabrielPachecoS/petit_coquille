@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:31:15 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/25 19:02:52 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/06/11 21:30:05 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ int	main(int argc, char **argv, char **envp)
 	shell.last_exit_status = 0;
 	ft_handle_signals();
 	ft_start_minishell(&shell);
+
 	return (0);
 }

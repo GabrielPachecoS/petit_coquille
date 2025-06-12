@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:34:42 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/06/09 18:01:39 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/06/11 21:20:07 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	ft_exec_cmds(t_shell *shell, t_command *cmds)
 	int	n_cmds;
 	
 	n_cmds = ft_listsize(cmds);
+	shell->fd = malloc(sizeof(int *) * (n_cmds));
 	if (cmds->next == NULL)
 		ft_exec_simplecmd(shell, cmds);
 	else
