@@ -1,26 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/16 09:31:15 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/02 21:58:12 by gapachec         ###   ########.fr       */
+/*   Created: 2025/06/30 19:58:17 by gapachec          #+#    #+#             */
+/*   Updated: 2025/07/01 19:01:21 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "env.h"
 
-int	main(int argc, char **argv, char **envp)
+int	builtin_cd(char **args, t_env **env)
 {
-	t_shell	shell;
+	char	*path;
+	char	*oldpwd;
 
-	(void)argc;
-	(void)argv;
-	shell.envp = env_init(envp);
-	shell.last_exit_status = 0;
-	ft_handle_signals();
-	ft_start_minishell(&shell);
+	if (!args[1])
+		return (0);
+	oldpwd = getcwd(NULL, 0);
+	if (chdir(args[1]) != 0)
+	{
+		perror("cd");
+		free(oldpwd);
+		return (1);
+	}
+	set_env_value(env, "OLDPWD", oldpwd);
+	free(oldpwd);
+	path = getcwd(NULL, 0);
+	set_env_value(env, "PWD", path);
+	free(path);
 	return (0);
 }

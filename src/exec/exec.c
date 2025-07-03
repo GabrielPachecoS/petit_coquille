@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:34:42 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/05/30 12:55:45 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/02 22:59:33 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ void	ft_exec_cmds(t_shell *shell, t_command *cmds)
 	t_command	*current;
 
 	current = cmds;
+	if (is_builtin(cmds->argv[0]))
+	{
+		shell->last_exit_status = exec_builtin(cmds->argv, &shell->envp,
+			&shell->last_exit_status);
+		return ;
+	}
 	while (current)
 	{
 		ft_exec_simplecmd(shell, current);

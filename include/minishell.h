@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/30 13:02:34 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/02 22:54:42 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 /* Includes padrão e libft*/
-# include "../libft/include/libft.h" 
+# include "../libft/include/libft.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -29,19 +29,21 @@
 /* Includes dos módulos */
 # include "token.h"
 # include "parser.h"
+# include "env.h"
+# include "builtin.h"
 
 /**
  * @brief Represents the state of the shell.
  *
  * Holds the environment variables and the exit status of the last executed command.
- * 
- * char **envp = Array of environment variables.
- * 
+ *
+ * t_env	envp = Linked list of environment variables.
+ *
  * int  last_exit_status = Exit status of the last executed command.
  */
 typedef struct s_shell
 {
-	char	**envp;
+	t_env	*envp;
 	int		last_exit_status;
 }	t_shell;
 
@@ -51,7 +53,7 @@ void	ft_handle_signals(void);
 void	ft_cleanup(char *input);
 void	ft_exec_cmds(t_shell *shell, t_command *cmds);
 int		ft_exec_simplecmd(t_shell *shell, t_command *cmd);
-char	*ft_get_cmdpath(char *cmd, char **envp);
+char	*ft_get_cmdpath(char *cmd, t_env *env);
 void	ft_free_split(char **split);
 void	ft_print_commands(t_command *cmd);
 void	ft_print_tokens(t_token *tokens);

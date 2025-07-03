@@ -1,26 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/16 09:31:15 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/02 21:58:12 by gapachec         ###   ########.fr       */
+/*   Created: 2025/06/30 15:37:19 by gapachec          #+#    #+#             */
+/*   Updated: 2025/07/01 14:46:27 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef ENV_H
+# define ENV_H
 
-int	main(int argc, char **argv, char **envp)
+# include "minishell.h"
+
+typedef struct s_env
 {
-	t_shell	shell;
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
 
-	(void)argc;
-	(void)argv;
-	shell.envp = env_init(envp);
-	shell.last_exit_status = 0;
-	ft_handle_signals();
-	ft_start_minishell(&shell);
-	return (0);
-}
+t_env	*env_init(char **envp);
+
+void	env_destroy(t_env *env);
+
+char	*env_lookup(t_env *env, const char *key);
+
+char	**env_to_array(t_env *env);
+
+int		set_env_value(t_env **env, const char *key, const char *value);
+int		unset_env_key(t_env **env, const char *key);
+
+#endif

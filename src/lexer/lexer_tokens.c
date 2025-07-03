@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_1_utils.c                                    :+:      :+:    :+:   */
+/*   lexer_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -51,4 +51,11 @@ void	ft_add_token(t_token **list, t_token *new)
 	while (cur->next)
 		cur = cur->next;
 	cur->next = new;
+}
+
+int	ft_add_simple_token(t_token **tokens, t_token_type type,
+			char *input, int i, int size)
+{
+	ft_add_token(tokens, ft_new_token(type, ft_substr(input, i, size)));
+	return (i + size);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
+/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 17:01:30 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/05/25 19:32:16 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/02 22:52:01 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ static char	*ft_build_fullpath(char *path, char *cmd)
 	return (full_path);
 }
 
-static char	*ft_find_cmdpath(char **envp)
+static char	*ft_find_cmdpath(t_env **env)
 {
 	int		i;
 
 	i = 0;
-	while ((envp[i]))
+	while ((env[i]))
 	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 		{
-			return (envp[i] + 5);
+			return (env[i] + 5);
 		}
 		i++;
 	}
@@ -73,7 +73,7 @@ static char	*ft_try_paths(char **paths, char *cmd)
 	return (ft_errorpath(cmd));
 }
 
-char	*ft_get_cmdpath(char *cmd, char **envp)
+char	*ft_get_cmdpath(char *cmd, t_env *env)
 {
 	char	*path_line;
 	char	**paths;
@@ -85,7 +85,7 @@ char	*ft_get_cmdpath(char *cmd, char **envp)
 		else
 			return (ft_errorpath(cmd));
 	}
-	path_line = ft_find_cmdpath(envp);
+	path_line = ft_find_cmdpath(env);
 	if (!path_line)
 		return (ft_errorpath(cmd));
 	paths = ft_split(path_line, ':');

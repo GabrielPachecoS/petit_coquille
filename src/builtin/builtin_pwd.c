@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/16 09:31:15 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/02 21:58:12 by gapachec         ###   ########.fr       */
+/*   Created: 2025/06/30 19:58:25 by gapachec          #+#    #+#             */
+/*   Updated: 2025/07/01 19:02:10 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "env.h"
 
-int	main(int argc, char **argv, char **envp)
+int	builtin_pwd(void)
 {
-	t_shell	shell;
+	char	cwd[1024];
 
-	(void)argc;
-	(void)argv;
-	shell.envp = env_init(envp);
-	shell.last_exit_status = 0;
-	ft_handle_signals();
-	ft_start_minishell(&shell);
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		printf("%s\n", cwd);
+	else
+		perror("pwd");
 	return (0);
 }

@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   lexer_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/16 09:31:15 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/02 21:58:12 by gapachec         ###   ########.fr       */
+/*   Created: 2025/05/30 13:28:57 by gapachec          #+#    #+#             */
+/*   Updated: 2025/05/30 13:29:29 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	ft_is_operator(char c)
 {
-	t_shell	shell;
+	return (c == '<' || c == '>' || c == '|');
+}
 
-	(void)argc;
-	(void)argv;
-	shell.envp = env_init(envp);
-	shell.last_exit_status = 0;
-	ft_handle_signals();
-	ft_start_minishell(&shell);
-	return (0);
+int	ft_is_special_char(char c)
+{
+	return (c == ' ' || c == '\\' || c == '"' || c == '\''
+		|| c == '|' || c == '<' || c == '>');
 }

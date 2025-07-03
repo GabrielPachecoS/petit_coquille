@@ -6,7 +6,7 @@
 #    By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/05/30 13:33:59 by gapachec         ###   ########.fr        #
+#    Updated: 2025/07/02 21:53:45 by gapachec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,11 +25,26 @@ SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/exec/exec.c \
 		  $(SRC_DIR)/exec/path.c \
 		  $(SRC_DIR)/lexer/lexer.c \
-		  $(SRC_DIR)/lexer/lexer_1_utils.c \
-		  $(SRC_DIR)/lexer/lexer_2_utils.c \
+		  $(SRC_DIR)/lexer/lexer_utils.c \
+		  $(SRC_DIR)/lexer/lexer_tokens.c \
 		  $(SRC_DIR)/lexer/lexer_handle.c \
 		  $(SRC_DIR)/parser/parser.c \
-		  $(SRC_DIR)/parser/parser_utils.c
+		  $(SRC_DIR)/parser/parser_utils.c \
+		  $(SRC_DIR)/env/env_free.c \
+		  $(SRC_DIR)/env/env_init.c \
+		  $(SRC_DIR)/env/env_lookup.c \
+		  $(SRC_DIR)/env/env_set_unset.c \
+		  $(SRC_DIR)/env/env_to_array.c \
+		  $(SRC_DIR)/builtin/builtin_cd.c \
+		  $(SRC_DIR)/builtin/builtin_echo.c \
+		  $(SRC_DIR)/builtin/builtin_env.c \
+		  $(SRC_DIR)/builtin/builtin_exit.c \
+		  $(SRC_DIR)/builtin/builtin_export.c \
+		  $(SRC_DIR)/builtin/builtin_pwd.c \
+		  $(SRC_DIR)/builtin/builtin_unset.c \
+		  $(SRC_DIR)/builtin/builtin.c \
+
+
 
 
 CC		= cc
@@ -46,8 +61,8 @@ all: $(LIBFT_DIR)/libft.a $(OBJ_DIR) $(OBJ_DIR)/lexer $(OBJ_DIR)/parser $(NAME)
 
 $(LIBFT_DIR)/libft.a:
 	$(MAKE) -C $(LIBFT_DIR)
-	
-$(NAME): $(OBJ) 
+
+$(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -L$(LIBFT_DIR) -lft -o $(NAME) -lreadline
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
@@ -60,6 +75,12 @@ $(OBJ_DIR)/lexer/%.o: $(SRC_DIR)/lexer/%.c | $(OBJ_DIR)/lexer
 	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@
 
 $(OBJ_DIR)/parser/%.o: $(SRC_DIR)/parser/%.c | $(OBJ_DIR)/parser
+	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@
+
+$(OBJ_DIR)/env/%.o: $(SRC_DIR)/env/%.c | $(OBJ_DIR)/env
+	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@
+
+$(OBJ_DIR)/builtin/%.o: $(SRC_DIR)/builtin/%.c | $(OBJ_DIR)/builtin
 	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@
 
 $(OBJ_DIR):
