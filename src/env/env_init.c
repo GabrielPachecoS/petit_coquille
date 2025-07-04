@@ -6,14 +6,14 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 17:35:31 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/01 20:01:26 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/03 21:36:54 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "env.h"
 
-static int  extract_pair(char *entry, char **out_key, char **out_val)
+static int      extract_pair(char *entry, char **out_key, char **out_val)
 {
 	char	*equal_sign;
 	int		len;

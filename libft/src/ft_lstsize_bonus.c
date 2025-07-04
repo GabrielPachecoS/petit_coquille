@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/24 21:12:22 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/02/24 21:30:26 by jucoelho         ###   ########.fr       */
+/*   Created: 2025/05/28 21:11:46 by jucoelho          #+#    #+#             */
+/*   Updated: 2025/06/02 21:31:48 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+int	ft_lstsize(t_list *lst)
 {
-	t_list	node;
+	int	nbr_nodes;
 
-	node = malloc(sizeof(t_list));
-	if (!node)
+	nbr_nodes = 0;
+	while (lst)
 	{
-		perror("Error alocating memory");
-		exit(EXIX_FAILURE);
+		lst = lst->next;
+		nbr_nodes++;
 	}
-	node->content = content;
-	node->next = NULL;
-	return (node);
+	return (nbr_nodes);
 }

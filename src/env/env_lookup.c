@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 18:31:28 by gapachec          #+#    #+#             */
-/*   Updated: 2025/06/30 19:50:07 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/04 01:15:39 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*env_lookup(t_env *env, const char *key)
 {
 	while (env)
 	{
-		if (ft_strcmp(env->key, key) == 0)
+		if (ft_strncmp(env->key, key, 5) == 0)
 			return (env->value);
 		env = env->next;
 	}

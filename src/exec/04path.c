@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path.c                                             :+:      :+:    :+:   */
+/*   04path.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 17:01:30 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/02 22:52:01 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/03 22:14:50 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*ft_errorpath(char *cmd)
+static char	*report_cmd_not_found(char *cmd)
 {
-	printf("%s: command not found\n", cmd);
+	printf("%s: command not found", cmd);
 	return (NULL);
 }
 
-static char	*ft_build_fullpath(char *path, char *cmd)
+static char	*build_fullpath(char *path, char *cmd)
 {
 	char	*temp;
 	char	*full_path;
@@ -31,36 +31,28 @@ static char	*ft_build_fullpath(char *path, char *cmd)
 	return (full_path);
 }
 
-static char	*ft_find_cmdpath(t_env **env)
+static char	*get_path_variable(t_env *env)
 {
-	int		i;
-
-	i = 0;
-	while ((env[i]))
+	while (env)
 	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-		{
-			return (env[i] + 5);
-		}
-		i++;
+		if (ft_strncmp(env->key, "PATH", 5) == 0)
+			return (env->value);
+		env = env->next;
 	}
 	return (NULL);
 }
 
-static char	*ft_try_paths(char **paths, char *cmd)
+static char	*search_cmd_in_paths(char **paths, char *cmd)
 {
-	char	*full_path;
 	int		i;
+	char	*full_path;
 
 	i = 0;
 	while (paths[i])
 	{
-		full_path = ft_build_fullpath(paths[i], cmd);
+		full_path = build_fullpath(paths[i], cmd);
 		if (!full_path)
-		{
-			ft_free_split(paths);
 			return (NULL);
-		}
 		if (access(full_path, X_OK) == 0)
 		{
 			ft_free_split(paths);
@@ -70,12 +62,12 @@ static char	*ft_try_paths(char **paths, char *cmd)
 		i++;
 	}
 	ft_free_split(paths);
-	return (ft_errorpath(cmd));
+	return (report_cmd_not_found(cmd));
 }
 
 char	*ft_get_cmdpath(char *cmd, t_env *env)
 {
-	char	*path_line;
+	char	*path_value;
 	char	**paths;
 
 	if (ft_strchr(cmd, '/'))
@@ -83,13 +75,13 @@ char	*ft_get_cmdpath(char *cmd, t_env *env)
 		if (access(cmd, X_OK) == 0)
 			return (cmd);
 		else
-			return (ft_errorpath(cmd));
+			return (report_cmd_not_found(cmd));
 	}
-	path_line = ft_find_cmdpath(env);
-	if (!path_line)
-		return (ft_errorpath(cmd));
-	paths = ft_split(path_line, ':');
+	path_value = get_path_variable(env);
+	if (!path_value)
+		return (report_cmd_not_found(cmd));
+	paths = ft_split(path_value, ':');
 	if (!paths)
-		return (ft_errorpath(cmd));
-	return (ft_try_paths(paths, cmd));
+		return (report_cmd_not_found(cmd));
+	return (search_cmd_in_paths(paths, cmd));
 }

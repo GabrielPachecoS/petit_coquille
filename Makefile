@@ -6,12 +6,12 @@
 #    By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/07/02 21:53:45 by gapachec         ###   ########.fr        #
+#    Updated: 2025/07/03 21:45:20 by gapachec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME		= minishell.a
+NAME		= minishell
 SRC_DIR		= src
 OBJ_DIR		= obj
 INC_DIR		= include
@@ -22,8 +22,9 @@ SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/signals.c \
 		  $(SRC_DIR)/cleanup.c \
 		  $(SRC_DIR)/debug.c \
-		  $(SRC_DIR)/exec/exec.c \
-		  $(SRC_DIR)/exec/path.c \
+		  $(SRC_DIR)/exec/00exec.c \
+		  $(SRC_DIR)/exec/02exec.c \
+		  $(SRC_DIR)/exec/04path.c \
 		  $(SRC_DIR)/lexer/lexer.c \
 		  $(SRC_DIR)/lexer/lexer_utils.c \
 		  $(SRC_DIR)/lexer/lexer_tokens.c \
@@ -57,13 +58,17 @@ OBJ		= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 # Instrução para incluir dependências (geradas com -MMD)
 DEP		= $(OBJ:.o=.d)
 
-all: $(LIBFT_DIR)/libft.a $(OBJ_DIR) $(OBJ_DIR)/lexer $(OBJ_DIR)/parser $(NAME)
+all: $(LIBFT_DIR)/libft.a $(OBJ_DIR) $(OBJ_DIR)/lexer \
+	$(OBJ_DIR)/parser $(OBJ_DIR)/env $(OBJ_DIR)/builtin $(NAME)
 
 $(LIBFT_DIR)/libft.a:
 	$(MAKE) -C $(LIBFT_DIR)
 
+# Tirar regra de compilação antes de enviarrrrrrr!!!
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -L$(LIBFT_DIR) -lft -o $(NAME) -lreadline
+	@echo "\033[1;45m✅ Petit Coquile compiled successfully!!\033[0m"
+
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@
@@ -95,10 +100,16 @@ $(OBJ_DIR)/lexer:
 $(OBJ_DIR)/parser:
 	mkdir -p $(OBJ_DIR)/parser
 
+$(OBJ_DIR)/env:
+	mkdir -p $(OBJ_DIR)/env
+
+$(OBJ_DIR)/builtin:
+	mkdir -p $(OBJ_DIR)/builtin
+
 clean:
 	rm -rf $(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean
-# Limpa tudo (inclusive o binário)
+
 fclean: clean
 	rm -f $(NAME)
 	$(MAKE) -C $(LIBFT_DIR) fclean

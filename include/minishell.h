@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/02 22:54:42 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/03 22:11:28 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,22 @@ typedef struct s_shell
 {
 	t_env	*envp;
 	int		last_exit_status;
+	int		fd_in;
+	int		fd_out;
+	int		fd[2];
+	char	*infile;
+	char	*outfile;
 }	t_shell;
+
+# include "exec.h"
 
 int		main(int argc, char **argv, char **envp);
 void	ft_start_minishell(t_shell *shell);
 void	ft_handle_signals(void);
 void	ft_cleanup(char *input);
-void	ft_exec_cmds(t_shell *shell, t_command *cmds);
-int		ft_exec_simplecmd(t_shell *shell, t_command *cmd);
-char	*ft_get_cmdpath(char *cmd, t_env *env);
-void	ft_free_split(char **split);
-void	ft_print_commands(t_command *cmd);
+void	ft_init_struct(t_shell *shell, char **envp);
+
+void	ft_print_commands(t_shell *shell, t_command *cmd);
 void	ft_print_tokens(t_token *tokens);
 
 #endif

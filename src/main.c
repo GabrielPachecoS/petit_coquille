@@ -6,9 +6,10 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:31:15 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/02 21:58:12 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/03 10:46:15 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -18,8 +19,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	shell.envp = env_init(envp);
-	shell.last_exit_status = 0;
+	ft_init_struct(&shell, envp);
 	ft_handle_signals();
 	ft_start_minishell(&shell);
 	return (0);

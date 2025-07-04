@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	ft_print_commands(t_command *cmd)
+void	ft_print_commands(t_shell *shell, t_command *cmd)
 {
 	int	i;
 
@@ -16,10 +16,10 @@ void	ft_print_commands(t_command *cmd)
 				i++;
 			}
 		}
-		if (cmd->redir_in)
-			printf(" Redir entrada: %s\n", cmd->redir_in_file);
-		if (cmd->redir_out)
-			printf(" Redir saída: %s\n", cmd->redir_out_file);
+		if (shell->fd_in)
+			printf(" Redir entrada: %s\n", shell->infile);
+		if (shell->fd_out)
+			printf(" Redir saída: %s\n", shell->outfile);
 		cmd = cmd->next;
 	}
 }

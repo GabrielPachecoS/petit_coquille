@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:14:17 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/28 12:45:46 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/04 01:15:11 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@ t_command	*ft_new_command(void)
 	if (!cmd)
 		return (NULL);
 	cmd->argv = NULL;
-	cmd->redir_in = 0;
-	cmd->redir_in_file = NULL;
-	cmd->redir_out = 0;
-	cmd->redir_out_file = NULL;
 	cmd->next = NULL;
 	return (cmd);
 }
@@ -115,16 +111,16 @@ static int	ft_parser_start(t_command **curr, t_command **head)
  *
  * @return Returns 1 on success, or 0 on failure.
  */
-static int	ft_parser_dispatch(t_command **curr, t_token **tok)
+static int	ft_parser_dispatch(t_command **curr, t_token **tok, t_shell shell)
 {
 	if ((*tok)->type == T_WORD)
 		return (ft_add_argv(*curr, (*tok)->value));
-	else if ((*tok)->type == T_PIPE)	
+	else if ((*tok)->type == T_PIPE)
 		return (ft_parser_pipe(curr));
 	else if ((*tok)->type == T_REDIR_IN || (*tok)->type == T_HEREDOC)
-		return (ft_parser_redir_in(*curr, tok));
+		return (ft_parser_redir_in(&shell, tok));
 	else if ((*tok)->type == T_REDIR_OUT || (*tok)->type == T_REDIR_APPEND)
-		return (ft_parser_redir_out(*curr, tok));
+		return (ft_parser_redir_out(&shell, tok));
 	return (1);
 }
 
@@ -139,7 +135,7 @@ static int	ft_parser_dispatch(t_command **curr, t_token **tok)
  * @return Pointer to the head of the linked list of commands, or NULL on
  *         failure.
  */
-t_command	*ft_parser(t_token *tokens)
+t_command	*ft_parser(t_token *tokens, t_shell shell)
 {
 	t_command	*head;
 	t_command	*curr;
@@ -155,7 +151,7 @@ t_command	*ft_parser(t_token *tokens)
 			if (!ft_parser_start(&curr, &head))
 				return (NULL);
 		}
-		if (!ft_parser_dispatch(&curr, &tok))
+		if (!ft_parser_dispatch(&curr, &tok, shell))
 			return (NULL);
 		tok = tok->next;
 	}
