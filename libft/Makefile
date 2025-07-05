@@ -18,6 +18,7 @@ SRC =	$(SRC_DIR)ft_isalpha.c \
 		$(SRC_DIR)ft_tolower.c \
 		$(SRC_DIR)ft_strchr.c \
 		$(SRC_DIR)ft_strrchr.c \
+		$(SRC_DIR)ft_strcmp.c \
 		$(SRC_DIR)ft_strncmp.c \
 		$(SRC_DIR)ft_memchr.c \
 		$(SRC_DIR)ft_memcmp.c \

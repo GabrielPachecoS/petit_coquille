@@ -6,12 +6,24 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:06:23 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/01 19:59:25 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/04 19:06:50 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "env.h"
+
+int env_size(t_env *env)
+{
+	int count = 0;
+
+	while (env)
+	{
+		count++;
+		env = env->next;
+	}
+	return (count);
+}
 
 static char	*join_env_var(char *key, char *value)
 {
@@ -33,8 +45,8 @@ char	**env_to_array(t_env *env)
 	int		count;
 	int		i;
 
-	count = ft_lstsize(env);
 	tmp = env;
+	count = env_size(env);
 	i = 0;
 	array = malloc(sizeof(char *) * (count + 1));
 	if (!array)

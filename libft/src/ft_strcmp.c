@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/28 21:11:46 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/04 18:53:10 by gapachec         ###   ########.fr       */
+/*   Created: 2025/07/04 18:02:56 by gapachec          #+#    #+#             */
+/*   Updated: 2025/07/04 18:42:39 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	ft_lstsize(t_list *lst)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int	nbr_nodes;
-
-	nbr_nodes = 0;
-	while (lst)
+	while (*s1 && *s1 == *s2)
 	{
-		nbr_nodes++;
-		lst = lst->next;
+		s1++;
+		s2++;
 	}
-	return (nbr_nodes);
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }

@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:34:42 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/03 22:12:26 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/04 20:02:53 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,26 @@ static void	exec_command(t_shell *shell, t_command *cmd)
 
     env_array = env_to_array(shell->envp);
     fullpath = ft_get_cmdpath(cmd->argv[0], shell->envp);
-    if (!fullpath)
+    if (is_builtin(cmd->argv[0]))
     {
-        ft_free_split(env_array);
-        perror("command not found");
-        exit(127);
+        exec_builtin(cmd->argv, &shell->envp, &shell->last_exit_status);
+        exit(shell->last_exit_status);
     }
-    execve(fullpath, cmd->argv, env_array);
-    perror("execve failed");
-    ft_free_split(env_array);
-    free(fullpath);
-    exit(EXIT_FAILURE);
+    else
+    {
+        fullpath = ft_get_cmdpath(cmd->argv[0], shell->envp);
+        if (!fullpath)
+        {
+            ft_free_split(env_array);
+            perror("command not found");
+            exit(127);
+        }
+        execve(fullpath, cmd->argv, env_array);
+        perror("execve failed");
+        ft_free_split(env_array);
+        free(fullpath);
+        exit(EXIT_FAILURE);
+    }
 }
 
 int	ft_exec_simplecmd(t_shell *shell, t_command *cmd)

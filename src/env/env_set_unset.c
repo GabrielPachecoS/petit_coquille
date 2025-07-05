@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 14:45:00 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/01 14:45:34 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/04 18:47:20 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	unset_env_key(t_env **env, const char *key)
 				prev->next = curr->next;
 			else
 				*env = curr->next;
-			env_node_destroy(curr);
+			env_destroy(curr);
 			return (0);
 		}
 		prev = curr;
