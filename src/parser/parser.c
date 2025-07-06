@@ -6,18 +6,19 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:14:17 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/04 01:15:11 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/05 22:39:34 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief Creates a new empty command structure.
+/**
+ * @brief Allocates and initializes a new command structure.
  *
- * Allocates and initializes a new t_command struct with default values.
+ * Creates a new t_command node with argv set to NULL and next set to NULL.
  *
- * @return Pointer to the newly created command, or NULL if allocation fails.
+ * @return Pointer to the newly allocated command structure, or NULL on failure.
  */
 t_command	*ft_new_command(void)
 {
@@ -32,15 +33,16 @@ t_command	*ft_new_command(void)
 }
 
 /**
- * @brief Adds a string argument to the command's argv array.
+ * @brief Adds an argument to the argv list of a command.
  *
- * Reallocates the argv array to accommodate the new argument, duplicates
- * the argument string, and appends it with a NULL terminator.
+ * Expands the current argv array of the command and appends a new string
+ * to it, duplicating the input argument. Handles dynamic allocation and
+ * ensures NULL-termination of the array.
  *
  * @param cmd Pointer to the command structure.
- * @param arg The argument string to add.
+ * @param arg Argument string to be added.
  *
- * @return 1 if successful, 0 on failure (e.g., memory allocation error).
+ * @return 1 on success, 0 on allocation failure or if cmd is NULL.
  */
 static int	ft_add_argv(t_command *cmd, char *arg)
 {
@@ -73,14 +75,15 @@ static int	ft_add_argv(t_command *cmd, char *arg)
 }
 
 /**
- * @brief Initializes the first command in the list.
+ * @brief Initializes the parser by creating the first command node.
  *
- * Creates a new command and sets it as both the current and head command.
+ * Allocates a new command and assigns it to both the current and head
+ * pointers of the command list.
  *
- * @param curr Double pointer to the current command (to be initialized).
- * @param head Double pointer to the head of the command list.
+ * @param curr Pointer to the current command pointer.
+ * @param head Pointer to the head of the command list.
  *
- * @return 1 if successful, 0 if memory allocation failed.
+ * @return 1 on success, 0 on allocation failure.
  */
 static int	ft_parser_start(t_command **curr, t_command **head)
 {
@@ -92,24 +95,16 @@ static int	ft_parser_start(t_command **curr, t_command **head)
 }
 
 /**
- * @brief Dispatches the current token to the appropriate handler,
- *        updating the current command accordingly.
+ * @brief Dispatches token processing to the appropriate parser function.
  *
- * - If the token is a word, it adds it to the argv array of the current
- *   command.
- * - If the token is a pipe, it creates a new command and switches the
- *   current pointer to it.
- * - If the token is an input redirection or heredoc, it calls the input
- *   redirection handler.
- * - If the token is an output redirection (either overwrite or append),
- *   it calls the output redirection handler.
+ * Analyzes the current token type and updates the command structure accordingly,
+ * handling arguments, pipes, and input/output redirections.
  *
- * @param curr Pointer to the current command pointer (which may be updated
- *             in case of pipe).
- * @param tok Pointer to the current token pointer (may be advanced by
- *            redirection handlers).
+ * @param curr Pointer to the current command node.
+ * @param tok Pointer to the current token pointer.
+ * @param shell Shell context used for redirection processing.
  *
- * @return Returns 1 on success, or 0 on failure.
+ * @return 1 on success, 0 on failure.
  */
 static int	ft_parser_dispatch(t_command **curr, t_token **tok, t_shell shell)
 {
@@ -125,15 +120,18 @@ static int	ft_parser_dispatch(t_command **curr, t_token **tok, t_shell shell)
 }
 
 /**
- * @brief Parses a linked list of tokens into a linked list of commands.
+ * @brief Parses a list of tokens into a list of commands.
  *
- * Iterates over the tokens list, creating new commands on encountering
- * pipes, and builds the argv and redirection fields for each command.
+ * This function iterates over the list of tokens and constructs a
+ * linked list of command structures. A new command node is created
+ * whenever a pipe token is encountered. For each command, it builds
+ * the argument vector (argv) and sets up input/output redirections
+ * accordingly.
  *
  * @param tokens Pointer to the first token in the token list.
+ * @param shell  Shell context containing environment and status.
  *
- * @return Pointer to the head of the linked list of commands, or NULL on
- *         failure.
+ * @return Pointer to the head of the command list, or NULL on failure.
  */
 t_command	*ft_parser(t_token *tokens, t_shell shell)
 {

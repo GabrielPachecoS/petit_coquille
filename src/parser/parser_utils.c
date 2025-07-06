@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
+/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/06/07 19:11:02 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/05 22:41:59 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,16 @@ void	ft_free_commands(t_command *cmd)
 }
 
 /**
- * @brief Parses input redirection from tokens and stores it in the command.
+ * @brief Handles input redirection parsing.
  *
- * Advances the token pointer past the redirection operator and expects
- * a file name token next.
+ * Sets the shell's input redirection type and stores the name of the
+ * input file found in the next token. Expects a T_WORD token after
+ * the redirection symbol.
  *
- * @param cmd Pointer to the current command.
- * @param tok Double pointer to the current token; will be advanced.
+ * @param shell Pointer to the shell structure.
+ * @param tok Pointer to the current token pointer.
  *
- * @return 1 if parsing was successful, 0 if syntax error or allocation failed.
+ * @return 1 on success, 0 if the expected filename token is missing.
  */
 int	ft_parser_redir_in(t_shell *shell, t_token **tok)
 {
@@ -60,16 +61,18 @@ int	ft_parser_redir_in(t_shell *shell, t_token **tok)
 }
 
 /**
- * @brief Parses output redirection from tokens and stores it in the command.
+ * @brief Handles output redirection parsing.
  *
- * Advances the token pointer past the redirection operator and expects
- * a file name token next.
+ * Sets the shell's output redirection type and stores the name of the
+ * output file found in the next token. Expects a T_WORD token after
+ * the redirection symbol.
  *
- * @param cmd Pointer to the current command.
- * @param tok Double pointer to the current token; will be advanced.
+ * @param shell Pointer to the shell structure.
+ * @param tok Pointer to the current token pointer.
  *
- * @return 1 if parsing was successful, 0 if syntax error or allocation failed.
+ * @return 1 on success, 0 if the expected filename token is missing.
  */
+
 int	ft_parser_redir_out(t_shell *shell, t_token **tok)
 {
 	shell->fd_out = (*tok)->type;
@@ -81,14 +84,14 @@ int	ft_parser_redir_out(t_shell *shell, t_token **tok)
 }
 
 /**
- * @brief Handles pipe token by creating a new command linked to the current one.
+ * @brief Handles pipe token by creating a new command node.
  *
- * Sets the next pointer of the current command to a newly allocated command,
- * then updates the current pointer to this new command.
+ * Allocates a new command structure and links it to the current command,
+ * updating the command pointer to point to the newly created node.
  *
- * @param cmd Double pointer to the current command; will be updated.
+ * @param cmd Pointer to the current command pointer.
  *
- * @return 1 if successful, 0 if memory allocation failed.
+ * @return 1 on success, 0 on allocation failure.
  */
 int	ft_parser_pipe(t_command **cmd)
 {
