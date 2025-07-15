@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:37:19 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/01 14:46:27 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:40:17 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,9 @@ char	**env_to_array(t_env *env);
 
 int		set_env_value(t_env **env, const char *key, const char *value);
 int		unset_env_key(t_env **env, const char *key);
+t_env	*env_pair_create(char *key, char *value);
+void	env_list_append(t_env **env, t_env *new_node);
+void	env_node_destroy(t_env *env);
+int	ft_lstsize_env(t_env *env);
 
 #endif

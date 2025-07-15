@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 17:35:31 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/03 21:36:54 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:35:25 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int      extract_pair(char *entry, char **out_key, char **out_val)
 	return (1);
 }
 
-static t_env	*env_pair_create(char *key, char *value)
+t_env	*env_pair_create(char *key, char *value)
 {
 	t_env	*env;
 
@@ -51,7 +51,7 @@ static t_env	*env_pair_create(char *key, char *value)
 	return (env);
 }
 
-static void	env_list_append(t_env **env, t_env *new_node)
+void	env_list_append(t_env **env, t_env *new_node)
 {
 	t_env	*tmp;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_to_array.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:06:23 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/01 19:59:25 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:39:49 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	**env_to_array(t_env *env)
 	int		count;
 	int		i;
 
-	count = ft_lstsize(env);
+	count = ft_lstsize_env(env);
 	tmp = env;
 	i = 0;
 	array = malloc(sizeof(char *) * (count + 1));
@@ -47,4 +47,16 @@ char	**env_to_array(t_env *env)
 	}
 	array[i] = NULL;
 	return (array);
+}
+int	ft_lstsize_env(t_env *env)
+{
+	int	nbr_nodes;
+
+	nbr_nodes = 0;
+	while (env)
+	{
+		env = env->next;
+		nbr_nodes++;
+	}
+	return (nbr_nodes);
 }
