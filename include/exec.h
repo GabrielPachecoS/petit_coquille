@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 22:05:35 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/03 22:08:13 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/15 18:09:39 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	ft_error(int code, char *str);
 int	ft_error_execve(t_shell *shell);
 
 void	ft_closefd(t_shell *shell);
-int	ft_handle_pid(t_shell *shell, t_command *cmd, int curr, int last);
 int	ft_exec_cmdpipe(t_shell *shell, t_command *cmd, int n_cmd);
-
+int	ft_loop_cmdpipe(t_shell *shell, t_command *cmd, int *pid, int n_cmd);
+int	ft_handle_pid(t_shell *shell, t_command *cmd, int curr, int last, int prev_fd);
 char	*ft_get_cmdpath(char *cmd, t_env *env);
 
 #endif

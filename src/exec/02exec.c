@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:40 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/15 16:54:38 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/15 18:19:17 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,44 +33,44 @@ static void	handle_exec(t_shell *shell, t_command *cmd)
 
 static void	setup_redirects(int in_fd, int out_fd)
 {
-	dup2(in_fd, STDIN_FILENO);
-	dup2(out_fd, STDOUT_FILENO);
-	close(in_fd);
-	close(out_fd);
+	if (in_fd != STDIN_FILENO)
+	{
+		dup2(in_fd, STDIN_FILENO);
+		close(in_fd);
+	}
+	if (out_fd != STDOUT_FILENO)
+	{
+		dup2(out_fd, STDOUT_FILENO);
+		close(out_fd);
+	}
 }
 
-int	ft_handle_pid(t_shell *shell, t_command *cmd, int curr, int last)
+int	ft_handle_pid(t_shell *shell, t_command *cmd, int curr, int last, int prev_fd)
 {
 	if (curr == 0)
 	{
-		setup_redirects(shell->fd_in, shell->fd[1]);
+		setup_redirects(STDIN_FILENO, shell->fd[1]);
 		close(shell->fd[0]);
-		handle_exec(shell, cmd);
 	}
 	else if (curr < last)
 	{
-		setup_redirects(shell->fd[0], shell->fd[1]);
-		handle_exec(shell, cmd);
+		setup_redirects(prev_fd, shell->fd[1]);
 	}
 	else
 	{
-		setup_redirects(shell->fd[0], shell->fd_out);
-		close(shell->fd[1]);
-		handle_exec(shell, cmd);
+		setup_redirects(prev_fd, STDOUT_FILENO);
 	}
+	handle_exec(shell, cmd);
 	return (1);
 }
 
-int	ft_exec_cmdpipe(t_shell *shell, t_command *cmd, int n_cmd)
+int	ft_loop_cmdpipe(t_shell *shell, t_command *cmd, int *pid, int n_cmd)
 {
-	int	*pid;
 	int	i;
-	int	status;
+	int	prev_fd;
 
-	pid = malloc(sizeof(int) * (n_cmd + 1));
-	if (!pid)
-		return (ft_error(1, "malloc failed"));
 	i = 0;
+	prev_fd = STDIN_FILENO;
 	while (cmd)
 	{
 		if (pipe(shell->fd) < 0)
@@ -79,18 +79,37 @@ int	ft_exec_cmdpipe(t_shell *shell, t_command *cmd, int n_cmd)
 		if (pid[i] < 0)
 			return (ft_error(1, "fork failed"));
 		if (pid[i] == 0)
-			ft_handle_pid(shell, cmd, i, n_cmd - 1);
+			ft_handle_pid(shell, cmd, i, n_cmd - 1, prev_fd);
 		close(shell->fd[1]);
-		if (i > 0)
-			close(shell->fd[0]);
+		if (prev_fd != STDIN_FILENO)
+			close(prev_fd);
+		prev_fd = shell->fd[0];
 		cmd = cmd->next;
 		i++;
 	}
-	ft_closefd(shell);
+	return (0);
+}
+
+int	ft_exec_cmdpipe(t_shell *shell, t_command *cmd, int n_cmd)
+{
+	int	*pid;
+	int	status;
+	int	i;
+
 	i = 0;
+	pid = malloc(sizeof(int) * (n_cmd + 1));
+	if (!pid)
+		return (ft_error(1, "malloc failed"));
+	status = ft_loop_cmdpipe(shell, cmd, pid, n_cmd);
+	ft_closefd(shell);
 	while (i < n_cmd)
-		waitpid(pid[i++], NULL, 0);
-	waitpid(pid[n_cmd], &status, 0);
+	{
+		if (i == n_cmd - 1)
+			waitpid(pid[i], &status, 0);
+		else
+			waitpid(pid[i], NULL, 0);
+		i++;
+	}
 	free(pid);
 	return (status >> 8);
 }
