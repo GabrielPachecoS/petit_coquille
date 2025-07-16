@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/15 16:55:15 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:55:26 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,14 @@ int	ft_exec_simplecmd(t_shell *shell, t_command *cmd)
 	if (pid == 0)
 		exec_command(shell, cmd);
 	waitpid(pid, &status, 0);
+	shell->status = status >> 8;
 	return (status >> 8);
 }
 
 void	ft_exec_cmds(t_shell *shell, t_command *cmds)
 {
 	int	n_cmds = ft_listsize(cmds);
+
 	if (!cmds->next)
 		shell->last_exit_status = ft_exec_simplecmd(shell, cmds);
 	else

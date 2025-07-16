@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 19:04:01 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/01 19:04:41 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:18:15 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int	is_builtin(char *cmd)
 	);
 }
 
-int	exec_builtin(char **args, t_env **env, int *status)
+int	exec_builtin(t_shell *shell, char **args, t_env **env, int *status)
 {
 	if (!args[0])
 		return (0);
 	if (ft_strcmp(args[0], "echo") == 0)
-		return (builtin_echo(args));
+		return (builtin_echo(shell, args));
 	if (ft_strcmp(args[0], "cd") == 0)
 		return (builtin_cd(args, env));
 	if (ft_strcmp(args[0], "pwd") == 0)

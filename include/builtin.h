@@ -15,11 +15,11 @@
 
 # include "minishell.h"
 
-int	exec_builtin(char **args, t_env **env, int *status);
+int	exec_builtin(t_shell *shell, char **args, t_env **env, int *status);
 int	is_builtin(char *cmd);
 
 int	builtin_cd(char **args, t_env **env);
-int	builtin_echo(char **args);
+int	builtin_echo(t_shell *shell, char **args);
 int	builtin_env(t_env *env);
 int	builtin_exit(char **args, int *status);
 int	builtin_export(char **args, t_env **env);

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:23 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/01 19:01:56 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:35:42 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "env.h"
 
-int	builtin_echo(char **args)
+int	builtin_echo(t_shell *shell, char **args)
 {
 	int		n_flag;
 	int		i;
@@ -25,13 +25,19 @@ int	builtin_echo(char **args)
 		n_flag = 1;
 		i++;
 	}
-	while (args[i])
+	//funciona só para echo, é só para testar saída
+	if (ft_strcmp(args[i], "$?") == 0)
 	{
-		printf("%s", args[i]);
-		if (args[i + 1])
-			printf(" ");
-		i++;
+		printf("%d", shell->status);
 	}
+	else
+		while (args[i])
+		{
+			printf("%s", args[i]);
+			if (args[i + 1])
+				printf(" ");
+			i++;
+		}
 	if (!n_flag)
 		printf("\n");
 	return (0);

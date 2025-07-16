@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/15 18:56:09 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:23:44 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_init_struct(t_shell *shell, char **envp)
 	shell->last_exit_status = 0;
 	shell->fd_in = -1;
 	shell->fd_out = -1;
+	shell->status = 1;
 	shell->fd[0] = -1;
 	shell->fd[1] = -1;
 	shell->infile = NULL;
@@ -41,10 +42,11 @@ void	ft_start_minishell(t_shell *shell)
 		if (*input)
 			add_history(input);
 		tokens = ft_lexer(input);
-		ft_print_tokens(tokens);
+		//ft_print_tokens(tokens);
 		cmds = ft_parser(tokens, *shell);
-		ft_print_commands(shell, cmds);
+		//ft_print_commands(shell, cmds);
 		ft_exec_cmds(shell, cmds);
+		printf("\nstatus é %d\n", shell->status);
 		ft_free_commands(cmds);
 		ft_free_tokens(tokens);
 		ft_cleanup(input);
