@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:13:33 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/04 01:14:21 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/19 18:33:20 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_command
 	struct s_command	*next;
 }	t_command;
 
-t_command	*ft_parser(t_token *tokens, t_shell shell);
+t_command	*ft_parser(t_token *tokens, t_shell *shell);
 void		ft_free_commands(t_command *cmd);
 int			ft_parser_pipe(t_command **cmd);
 int			ft_parser_redir_out(t_shell *shell, t_token **tok);

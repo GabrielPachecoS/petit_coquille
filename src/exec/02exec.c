@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:40 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/16 16:40:06 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/19 23:21:39 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	handle_exec(t_shell *shell, t_command *cmd)
 		ft_error_execve(shell);
 }
 
-static void	setup_redirects(int in_fd, int out_fd)
+void	setup_redirects(int in_fd, int out_fd)
 {
 	if (in_fd != STDIN_FILENO)
 	{
@@ -47,18 +47,38 @@ static void	setup_redirects(int in_fd, int out_fd)
 
 int	ft_handle_pid(t_shell *shell, t_command *cmd, int curr, int last, int prev_fd)
 {
-	if (curr == 0)
+	if (curr == 0 && shell->fd_in > 0)
 	{
-		setup_redirects(STDIN_FILENO, shell->fd[1]);
-		close(shell->fd[0]);
+		shell->fd_in = open(shell->infile, O_RDONLY);
+		if (shell->fd_in < 0)
+			perror(shell->infile); 
+		dup2(shell->fd_in, STDIN_FILENO);	
 	}
-	else if (curr < last)
+	if (curr == last && shell->fd_out > 0)
+	{
+		if (shell->append > 0)
+			shell->fd_out = open(shell->outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		else if (shell->fd_out > 0)
+			shell->fd_out = open(shell->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);	
+		if (shell->fd_out < 0)
+			perror(shell->outfile);
+		dup2(shell->fd_out, STDOUT_FILENO);	
+	}
+	if (shell->fd_in <= 0)
+	{
+		if (curr == 0)
+		{
+			setup_redirects(STDIN_FILENO, shell->fd[1]);
+			close(shell->fd[0]);
+		}
+		else if (curr < last)
+			setup_redirects(prev_fd, shell->fd[1]);
+		else
+			setup_redirects(prev_fd, STDOUT_FILENO);
+	}
+	else if (shell->fd_out <= 0 && curr != last)
 	{
 		setup_redirects(prev_fd, shell->fd[1]);
-	}
-	else
-	{
-		setup_redirects(prev_fd, STDOUT_FILENO);
 	}
 	handle_exec(shell, cmd);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/16 16:55:26 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/19 23:16:28 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_listsize(t_command *cmds)
 	int	nbr_nodes = 0;
 	while (cmds)
 	{
-	cmds = cmds->next;
+		cmds = cmds->next;
 		nbr_nodes++;
 	}
 	return (nbr_nodes);
@@ -69,25 +69,50 @@ static void	exec_command(t_shell *shell, t_command *cmd)
 	exit(EXIT_FAILURE);
 }
 
+int	ft_handle_simplecmd(t_shell *shell, t_command *cmd)
+{
+	if (shell->fd_in > 0)
+	{
+		shell->fd_in = open(shell->infile, O_RDONLY);
+		if (shell->fd_in < 0)
+			perror(shell->infile); 
+		dup2(shell->fd_in, STDIN_FILENO);	
+	}
+	if (shell->fd_out > 0)
+	{
+		if (shell->append > 0)
+			shell->fd_out = open(shell->outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		else if (shell->fd_out > 0)
+			shell->fd_out = open(shell->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);	
+		if (shell->fd_out < 0)
+			perror(shell->outfile);
+		dup2(shell->fd_out, STDOUT_FILENO);	
+	}
+	exec_command(shell, cmd);
+	return (1);
+}
 int	ft_exec_simplecmd(t_shell *shell, t_command *cmd)
 {
-	int		pid;
-	int		status;
+	int	pid;
+	int	status;
 
 	pid = fork();
-	if (pid < 0)
-		return (ft_error(1, "fork failed"));
 	if (pid == 0)
-		exec_command(shell, cmd);
-	waitpid(pid, &status, 0);
-	shell->status = status >> 8;
-	return (status >> 8);
+	{
+		ft_handle_simplecmd(shell, cmd);
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+		shell->status = WEXITSTATUS(status);
+	}
+	return (shell->status);
 }
-
 void	ft_exec_cmds(t_shell *shell, t_command *cmds)
 {
 	int	n_cmds = ft_listsize(cmds);
-
+	
+	//if (ft_isbuiltin(shell, cmds)); fazer função para verificar se é builtin
 	if (!cmds->next)
 		shell->last_exit_status = ft_exec_simplecmd(shell, cmds);
 	else

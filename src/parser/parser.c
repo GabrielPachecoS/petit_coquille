@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:14:17 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/04 01:15:11 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/19 22:20:20 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,16 +111,16 @@ static int	ft_parser_start(t_command **curr, t_command **head)
  *
  * @return Returns 1 on success, or 0 on failure.
  */
-static int	ft_parser_dispatch(t_command **curr, t_token **tok, t_shell shell)
+static int	ft_parser_dispatch(t_command **curr, t_token **tok, t_shell *shell)
 {
 	if ((*tok)->type == T_WORD)
 		return (ft_add_argv(*curr, (*tok)->value));
 	else if ((*tok)->type == T_PIPE)
 		return (ft_parser_pipe(curr));
 	else if ((*tok)->type == T_REDIR_IN || (*tok)->type == T_HEREDOC)
-		return (ft_parser_redir_in(&shell, tok));
+		return (ft_parser_redir_in(shell, tok));
 	else if ((*tok)->type == T_REDIR_OUT || (*tok)->type == T_REDIR_APPEND)
-		return (ft_parser_redir_out(&shell, tok));
+		return (ft_parser_redir_out(shell, tok));
 	return (1);
 }
 
@@ -135,7 +135,7 @@ static int	ft_parser_dispatch(t_command **curr, t_token **tok, t_shell shell)
  * @return Pointer to the head of the linked list of commands, or NULL on
  *         failure.
  */
-t_command	*ft_parser(t_token *tokens, t_shell shell)
+t_command	*ft_parser(t_token *tokens, t_shell *shell)
 {
 	t_command	*head;
 	t_command	*curr;

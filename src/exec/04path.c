@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   04path.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 17:01:30 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/03 22:14:50 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/16 18:37:25 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ static char	*search_cmd_in_paths(char **paths, char *cmd)
 	{
 		full_path = build_fullpath(paths[i], cmd);
 		if (!full_path)
+		{
+			ft_free_split(paths);
 			return (NULL);
+		}
 		if (access(full_path, X_OK) == 0)
 		{
 			ft_free_split(paths);
