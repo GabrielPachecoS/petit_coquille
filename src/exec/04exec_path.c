@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   04path.c                                           :+:      :+:    :+:   */
+/*   04exec_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 17:01:30 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/16 18:37:25 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:26:33 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*report_cmd_not_found(char *cmd)
+static char	*ft_report_cmd_not_found(char *cmd)
 {
 	printf("%s: command not found", cmd);
 	return (NULL);
 }
 
-static char	*build_fullpath(char *path, char *cmd)
+static char	*ft_build_fullpath(char *path, char *cmd)
 {
 	char	*temp;
 	char	*full_path;
@@ -31,7 +31,7 @@ static char	*build_fullpath(char *path, char *cmd)
 	return (full_path);
 }
 
-static char	*get_path_variable(t_env *env)
+static char	*ft_get_path_variable(t_env *env)
 {
 	while (env)
 	{
@@ -42,7 +42,7 @@ static char	*get_path_variable(t_env *env)
 	return (NULL);
 }
 
-static char	*search_cmd_in_paths(char **paths, char *cmd)
+static char	*ft_search_cmd_in_paths(char **paths, char *cmd)
 {
 	int		i;
 	char	*full_path;

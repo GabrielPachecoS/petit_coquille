@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00exec.c                                           :+:      :+:    :+:   */
+/*   00exec_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/19 23:16:28 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:43:04 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,6 @@ static int	ft_listsize(t_command *cmds)
 		nbr_nodes++;
 	}
 	return (nbr_nodes);
-}
-
-int	ft_error_execve(t_shell *shell)
-{
-	close(shell->fd[0]);
-	close(shell->fd[1]);
-	close(shell->fd_in);
-	close(shell->fd_out);
-	perror("execve failed");
-	exit(EXIT_FAILURE);
-}
-
-int	ft_error(int code, char *str)
-{
-	perror(str);
-	exit(code);
-}
-
-void	ft_free_split(char **split)
-{
-	int	i = 0;
-	if (!split)
-		return;
-	while (split[i])
-		free(split[i++]);
-	free(split);
 }
 
 static void	exec_command(t_shell *shell, t_command *cmd)
@@ -68,29 +42,31 @@ static void	exec_command(t_shell *shell, t_command *cmd)
 	free(fullpath);
 	exit(EXIT_FAILURE);
 }
-
-int	ft_handle_simplecmd(t_shell *shell, t_command *cmd)
+int	ft_exec_cmdpipe(t_shell *shell, t_command *cmd, int n_cmd)
 {
-	if (shell->fd_in > 0)
+	int	*pid;
+	int	status;
+	int	i;
+
+	i = 0;
+	pid = malloc(sizeof(int) * (n_cmd + 1));
+	if (!pid)
+		return (ft_error(1, "malloc failed"));
+	status = ft_loop_cmdpipe(shell, cmd, pid, n_cmd);
+	ft_closefd(shell);
+	while (i < n_cmd)
 	{
-		shell->fd_in = open(shell->infile, O_RDONLY);
-		if (shell->fd_in < 0)
-			perror(shell->infile); 
-		dup2(shell->fd_in, STDIN_FILENO);	
+		if (i == n_cmd - 1)
+			waitpid(pid[i], &status, 0);
+		else
+			waitpid(pid[i], NULL, 0);
+		i++;
 	}
-	if (shell->fd_out > 0)
-	{
-		if (shell->append > 0)
-			shell->fd_out = open(shell->outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		else if (shell->fd_out > 0)
-			shell->fd_out = open(shell->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);	
-		if (shell->fd_out < 0)
-			perror(shell->outfile);
-		dup2(shell->fd_out, STDOUT_FILENO);	
-	}
-	exec_command(shell, cmd);
-	return (1);
+	free(pid);
+	shell->status = status >> 8;
+	return (status >> 8);
 }
+
 int	ft_exec_simplecmd(t_shell *shell, t_command *cmd)
 {
 	int	pid;
@@ -99,7 +75,8 @@ int	ft_exec_simplecmd(t_shell *shell, t_command *cmd)
 	pid = fork();
 	if (pid == 0)
 	{
-		ft_handle_simplecmd(shell, cmd);
+		ft_setup_redirects(shell);
+		exec_command(shell, cmd);
 	}
 	else
 	{
