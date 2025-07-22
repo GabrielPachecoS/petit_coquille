@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/03 22:11:28 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/16 19:40:52 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct s_shell
 	int		fd[2];
 	char	*infile;
 	char	*outfile;
+	int		should_exit;
+	int		exit_code;
 }	t_shell;
 
 # include "exec.h"

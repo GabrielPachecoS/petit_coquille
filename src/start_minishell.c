@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/04 19:58:50 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/22 17:57:50 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	ft_start_minishell(t_shell *shell)
 		}
 		add_history(input);
 		tokens = ft_lexer(input);
-		//ft_print_tokens(tokens);
+		ft_print_tokens(tokens);
 		cmds = ft_parser(tokens, *shell);
-		//ft_print_commands(shell, cmds);
+		ft_print_commands(shell, cmds);
 		ft_exec_cmds(shell, cmds);
 		ft_free_commands(cmds);
 		ft_free_tokens(tokens);

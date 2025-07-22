@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:34 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/01 19:03:17 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/18 20:12:17 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,28 @@ int	is_numeric(const char *str)
 	return (1);
 }
 
-int	builtin_exit(char **args, int *status)
+int	builtin_exit(char **args, t_shell *shell)
 {
-	printf("exit\n");
-	if (args[1])
+	int	code;
+
+	if (args[1] && args[2])
 	{
-		if (!is_numeric(args[1]))
-		{
-			printf("exit: numeric argument required\n");
-			*status = 255;
-		}
-		else
-			*status = atoi(args[1]) % 256;
+		write(2, " too many arguments\n", 20);
+		shell->last_exit_status = 1;
+		return (0);
 	}
-	exit(*status);
+	if (args[1] && !is_numeric(args[1]))
+	{
+		write(2, " numeric argument required\n", 27);
+		shell->should_exit = 1;
+		shell->exit_code = 2;
+		return (1);
+	}
+	if (args[1])
+		code = ft_atol(args[1]);
+	else
+		code = shell->last_exit_status;
+	shell->should_exit = 1;
+	shell->exit_code = (unsigned char)code;
+	return (1);
 }

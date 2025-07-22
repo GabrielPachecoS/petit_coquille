@@ -6,7 +6,7 @@
 #    By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/07/03 21:45:20 by gapachec         ###   ########.fr        #
+#    Updated: 2025/07/18 20:15:42 by gapachec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/parser/parser_utils.c \
 		  $(SRC_DIR)/env/env_free.c \
 		  $(SRC_DIR)/env/env_init.c \
-		  $(SRC_DIR)/env/env_lookup.c \
+		  $(SRC_DIR)/env/env_utils.c \
+		  $(SRC_DIR)/env/env_print.c \
 		  $(SRC_DIR)/env/env_set_unset.c \
 		  $(SRC_DIR)/env/env_to_array.c \
 		  $(SRC_DIR)/builtin/builtin_cd.c \

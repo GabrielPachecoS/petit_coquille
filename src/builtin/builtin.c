@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 19:04:01 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/01 19:04:41 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/22 17:52:42 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,20 @@ int	is_builtin(char *cmd)
 	);
 }
 
-int	exec_builtin(char **args, t_env **env, int *status)
+void	exec_builtin(char **args, t_shell *shell)
 {
-	if (!args[0])
-		return (0);
-	if (ft_strcmp(args[0], "echo") == 0)
-		return (builtin_echo(args));
-	if (ft_strcmp(args[0], "cd") == 0)
-		return (builtin_cd(args, env));
-	if (ft_strcmp(args[0], "pwd") == 0)
-		return (builtin_pwd());
-	if (ft_strcmp(args[0], "export") == 0)
-		return (builtin_export(args, env));
-	if (ft_strcmp(args[0], "unset") == 0)
-		return (builtin_unset(args, env));
-	if (ft_strcmp(args[0], "env") == 0)
-		return (builtin_env(*env));
-	if (ft_strcmp(args[0], "exit") == 0)
-		builtin_exit(args, status);
-	return (0);
+		if (ft_strcmp(*args, "echo") == 0)
+		shell->last_exit_status = builtin_echo(args);
+	else if (ft_strcmp(*args, "cd") == 0)
+		builtin_cd(args, shell);
+	else if (ft_strcmp(*args, "pwd") == 0)
+		shell->last_exit_status = builtin_pwd();
+	else if (ft_strcmp(*args, "export") == 0)
+		builtin_export(args, &shell->envp, shell);
+	else if (ft_strcmp(*args, "unset") == 0)
+		builtin_unset(args, &shell->envp);
+	else if (ft_strcmp(*args, "env") == 0)
+		shell->last_exit_status = builtin_env(shell->envp);
+	else if (ft_strcmp(*args, "exit") == 0)
+		builtin_exit(args, shell);
 }

@@ -6,13 +6,12 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:14:17 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/05 22:39:34 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/16 18:30:17 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
 /**
  * @brief Allocates and initializes a new command structure.
  *

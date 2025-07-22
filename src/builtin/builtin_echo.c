@@ -6,7 +6,7 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:23 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/01 19:01:56 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/16 18:58:27 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,24 @@
 
 int	builtin_echo(char **args)
 {
-	int		n_flag;
-	int		i;
+	int	i;
+	int	newline;
 
-	n_flag = 0;
 	i = 1;
-	if (args[1] && args[1][0] == '-' && args[1][1] == 'n' && args[1][2] == '\0')
+	newline = 1;
+	if (args[i] && ft_strcmp(args[i], "-n") == 0)
 	{
-		n_flag = 1;
+		newline = 0;
 		i++;
 	}
 	while (args[i])
 	{
-		printf("%s", args[i]);
+		printf("%s", *args);
 		if (args[i + 1])
 			printf(" ");
 		i++;
 	}
-	if (!n_flag)
+	if (newline)
 		printf("\n");
 	return (0);
 }
