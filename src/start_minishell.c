@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/22 20:45:30 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/23 20:03:40 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_free_shell(t_shell *shell)
 	shell->fd[1] = -1;
 	shell->infile = NULL;
 	shell->outfile = NULL;
+	shell->heredoc = NULL;
 }
 void	ft_start_minishell(t_shell *shell)
 {

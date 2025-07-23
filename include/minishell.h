@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/21 23:29:26 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/23 19:37:33 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_shell
 	int		fd[2];
 	int		append;
 	int		status;
+	char	*heredoc;
 	char	*infile;
 	char	*outfile;
 }	t_shell;
@@ -65,4 +66,5 @@ void	ft_init_struct(t_shell *shell, char **envp);
 void	ft_print_commands(t_shell *shell, t_command *cmd);
 void	ft_print_tokens(t_token *tokens);
 void	ft_free_shell(t_shell *shell);
+void	ft_read_heredoc(t_shell *shell, int fd);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:13:33 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/19 18:33:20 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/23 18:40:23 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ int			ft_parser_pipe(t_command **cmd);
 int			ft_parser_redir_out(t_shell *shell, t_token **tok);
 int			ft_parser_redir_in(t_shell *shell, t_token **tok);
 t_command	*ft_new_command(void);
+void	ft_heredoc(t_shell *shell, int fd);
 
 #endif

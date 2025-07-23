@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 17:21:37 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/22 22:07:59 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/23 19:31:13 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_setup_redirects(t_shell *shell)
 	{
 		ft_setup_redir_in(shell);
 	}
-	if (shell->fd_out > 0)
+	if (shell->outfile > 0)
 	{
 		ft_setup_redir_out(shell);
 	}

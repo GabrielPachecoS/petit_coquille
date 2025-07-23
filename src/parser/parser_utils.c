@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/22 21:39:53 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/23 20:04:15 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,30 @@ void	ft_free_commands(t_command *cmd)
 		cmd = tmp;
 	}
 }
+void	ft_read_heredoc(t_shell *shell, int fd)
+{
+	char	*input;
+
+	while (1)
+	{
+		input = readline("heredoc> ");
+		if (!input)
+		{
+			write(1, "exit\n", 5);
+			break ;
+		}
+		if (strcmp(input, shell->heredoc) == 0)
+		{
+			break;
+		}
+		else
+		{
+			ft_putstr_fd(input, fd);
+			write(fd, "\n", 1);
+		}
+	}
+	shell->infile = ft_strdup("heredoc_tmp.txt");
+}
 
 /**
  * @brief Parses input redirection from tokens and stores it in the command.
@@ -51,11 +75,27 @@ void	ft_free_commands(t_command *cmd)
  */
 int	ft_parser_redir_in(t_shell *shell, t_token **tok)
 {
+	char	*temp;
+	int		fd;
+	
 	shell->fd_in = (*tok)->type;
-	*tok = (*tok)->next;
-	if (!*tok || (*tok)->type != T_WORD)
-		return (0);
-	shell->infile = ft_strdup((*tok)->value);
+	if ((*tok)->type == T_REDIR_IN)
+	{
+		*tok = (*tok)->next;
+		if (!*tok || (*tok)->type != T_WORD)
+			return (0);
+		shell->infile = ft_strdup((*tok)->value);
+	}
+	else if ((*tok)->type == T_HEREDOC)
+	{
+		temp = "heredoc_tmp.txt";
+		*tok = (*tok)->next;
+		if (!*tok || (*tok)->type != T_WORD)
+			return (0);
+		shell->heredoc = ft_strdup((*tok)->value);
+		fd = open(temp, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		ft_read_heredoc(shell, fd);
+	}
 	return (1);
 }
 

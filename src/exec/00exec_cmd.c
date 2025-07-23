@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/22 20:45:08 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/23 20:03:33 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,7 @@ void	ft_exec_cmds(t_shell *shell, t_command *cmds)
 	if (!cmds->next)
 		shell->last_exit_status = ft_exec_simplecmd(shell, cmds);
 	else
+	{
 		shell->last_exit_status = ft_exec_cmdpipe(shell, cmds, n_cmds);
+	}
 }
