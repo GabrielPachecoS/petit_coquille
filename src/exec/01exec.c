@@ -5,94 +5,75 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/23 17:34:42 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/06/07 20:36:18 by jucoelho         ###   ########.fr       */
+/*   Created: 2025/07/21 17:21:37 by jucoelho          #+#    #+#             */
+/*   Updated: 2025/07/22 22:07:59 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_listsize(t_command *cmds)
+static int	ft_setup_redir_out(t_shell *shell)
 {
-	int	nbr_nodes;
-
-	nbr_nodes = 0;
-	while (cmds)
+	if (shell->append > 0)
+		shell->fd_out = open(shell->outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else if (shell->fd_out > 0)
+		shell->fd_out = open(shell->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);	
+	if (shell->fd_out < 0)
 	{
-		cmds = cmds->next;
-		nbr_nodes++;
+			close(shell->fd[1]);
+			perror(shell->outfile);
+			exit(EXIT_FAILURE);
 	}
-	return (nbr_nodes);
+	ft_dup_close(shell->fd_out, STDOUT_FILENO);
+	return(1);
 }
 
-int	ft_error_execve(t_shell *shell)
+static int	ft_setup_redir_in(t_shell *shell)
 {
-	close(shell->fd[0]);
-	close(shell->fd[1]);
-	close(shell->fd_in);
-	close(shell->fd_out);
-	perror("execve failed");
-	exit(EXIT_FAILURE);
-}
-
-int	ft_error(int code, char *str)
-{
-	perror(str);
-	exit(code);
-}
-
-void	ft_free_split(char **split)
-{
-	int	i;
-
-	if (!split)
-		return ;
-	i = 0;
-	while (split[i])
+	if (shell->infile)
 	{
-		free(split[i]);
-		i++;
+		shell->fd_in = open(shell->infile, O_RDONLY);
+		if (shell->fd_in < 0)
+		{
+			close(shell->fd[1]);
+			perror(shell->infile);
+			exit(EXIT_FAILURE);
+		}
 	}
-	free(split);
+	ft_dup_close(shell->fd_in, STDIN_FILENO);
+	return(1);
 }
-
-int	ft_exec_simplecmd(t_shell *shell, t_command *cmd)
+int	ft_setup_redirects(t_shell *shell)
 {
-	int		pid;
-	int		status;
-	char	*fullpath;
-
-	fullpath = ft_get_cmdpath(cmd->argv[0], shell->envp);
-	if (!fullpath)
+	if (shell->infile > 0)
 	{
-		perror("command not found");
-		return (127);
+		ft_setup_redir_in(shell);
 	}
-	pid = fork();
-	if (pid < 0)
+	if (shell->fd_out > 0)
 	{
-		perror("fork failed");
-		exit(EXIT_FAILURE);
+		ft_setup_redir_out(shell);
 	}
-	if (pid == 0)
-	{
-		execve(fullpath, cmd->argv, shell->envp);
-		perror("execve failed");
-		exit(EXIT_FAILURE);
-	}
-	waitpid(pid, &status, 0);
-	free(fullpath);
-	return (status >> 8);
+	return (1);
 }
-
-void	ft_exec_cmds(t_shell *shell, t_command *cmds)
+int	ft_setup_redirects_pipe(t_shell *shell, int curr, int last, int prev_fd)
 {
-	int	n_cmds;
-	
-	n_cmds = ft_listsize(cmds);
-	if (cmds->next == NULL)
-		ft_exec_simplecmd(shell, cmds);
-	else
-			ft_exec_cmdpipe(shell, cmds, n_cmds);
+	if (curr == last)
+	{
+		if (shell->outfile)
+			ft_setup_redir_out(shell);
+		else
+			ft_dup_close(prev_fd, STDIN_FILENO);
+	}
+	else if (curr == 0 && shell->infile)
+	{
+		ft_setup_redir_in(shell);
+		ft_dup_close(shell->fd[1], STDOUT_FILENO);
+		shell->fd_in = -1;
+	}
+	else if (shell->fd_in <= 0)
+	{
+		ft_dup_close(prev_fd, STDIN_FILENO);
+		ft_dup_close(shell->fd[1], STDOUT_FILENO);
+	}
+	return (1);
 }
-

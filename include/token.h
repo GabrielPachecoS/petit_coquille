@@ -6,12 +6,14 @@
 /*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:25:24 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/30 13:40:50 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/06/30 15:39:19 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_H
 # define TOKEN_H
+
+# include "minishell.h"
 
 /**
  * @brief Enumeration of possible token types.

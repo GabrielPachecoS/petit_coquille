@@ -16,9 +16,9 @@ void	ft_print_commands(t_shell *shell, t_command *cmd)
 				i++;
 			}
 		}
-		if (shell->fd_in)
+		if (shell->infile)
 			printf(" Redir entrada: %s\n", shell->infile);
-		if (shell->fd_out)
+		if (shell->outfile)
 			printf(" Redir saída: %s\n", shell->outfile);
 		cmd = cmd->next;
 	}

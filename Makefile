@@ -6,7 +6,7 @@
 #    By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/06/07 16:27:48 by jucoelho         ###   ########.fr        #
+#    Updated: 2025/07/21 20:01:34 by jucoelho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,18 +22,37 @@ SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/signals.c \
 		  $(SRC_DIR)/cleanup.c \
 		  $(SRC_DIR)/debug.c \
-		  $(SRC_DIR)/exec/exec.c \
-		  $(SRC_DIR)/exec/path.c \
+		  $(SRC_DIR)/exec/00exec_cmd.c \
+		  $(SRC_DIR)/exec/01exec.c \
+		  $(SRC_DIR)/exec/02exec.c \
+		  $(SRC_DIR)/exec/03exec.c \
+		  $(SRC_DIR)/exec/04exec_path.c \
+		  $(SRC_DIR)/exec/05exec_free_error.c \
 		  $(SRC_DIR)/lexer/lexer.c \
-		  $(SRC_DIR)/lexer/lexer_1_utils.c \
-		  $(SRC_DIR)/lexer/lexer_2_utils.c \
+		  $(SRC_DIR)/lexer/lexer_utils.c \
+		  $(SRC_DIR)/lexer/lexer_tokens.c \
 		  $(SRC_DIR)/lexer/lexer_handle.c \
 		  $(SRC_DIR)/parser/parser.c \
-		  $(SRC_DIR)/parser/parser_utils.c
+		  $(SRC_DIR)/parser/parser_utils.c \
+		  $(SRC_DIR)/env/env_free.c \
+		  $(SRC_DIR)/env/env_init.c \
+		  $(SRC_DIR)/env/env_lookup.c \
+		  $(SRC_DIR)/env/env_set_unset.c \
+		  $(SRC_DIR)/env/env_to_array.c \
+		  $(SRC_DIR)/builtin/builtin_cd.c \
+		  $(SRC_DIR)/builtin/builtin_echo.c \
+		  $(SRC_DIR)/builtin/builtin_env.c \
+		  $(SRC_DIR)/builtin/builtin_exit.c \
+		  $(SRC_DIR)/builtin/builtin_export.c \
+		  $(SRC_DIR)/builtin/builtin_pwd.c \
+		  $(SRC_DIR)/builtin/builtin_unset.c \
+		  $(SRC_DIR)/builtin/builtin.c \
+
+
 
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g
 INC		= -I$(INC_DIR) -I$(LIBFT_DIR)
 
 # Geração automática dos .o a partir dos .c
@@ -42,13 +61,14 @@ OBJ		= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 # Instrução para incluir dependências (geradas com -MMD)
 DEP		= $(OBJ:.o=.d)
 
-all: $(LIBFT_DIR)/libft.a $(OBJ_DIR) $(OBJ_DIR)/lexer $(OBJ_DIR)/parser $(NAME)
+all: $(LIBFT_DIR)/libft.a $(OBJ_DIR) $(OBJ_DIR)/lexer \
+	$(OBJ_DIR)/parser $(OBJ_DIR)/env $(OBJ_DIR)/builtin $(NAME)
 
 $(LIBFT_DIR)/libft.a:
 	$(MAKE) -C $(LIBFT_DIR)
 
 # Tirar regra de compilação antes de enviarrrrrrr!!!
-$(NAME): $(OBJ) 
+$(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -L$(LIBFT_DIR) -lft -o $(NAME) -lreadline
 	@echo "\033[1;45m✅ Petit Coquile compiled successfully!!\033[0m"
 
@@ -65,6 +85,12 @@ $(OBJ_DIR)/lexer/%.o: $(SRC_DIR)/lexer/%.c | $(OBJ_DIR)/lexer
 $(OBJ_DIR)/parser/%.o: $(SRC_DIR)/parser/%.c | $(OBJ_DIR)/parser
 	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@
 
+$(OBJ_DIR)/env/%.o: $(SRC_DIR)/env/%.c | $(OBJ_DIR)/env
+	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@
+
+$(OBJ_DIR)/builtin/%.o: $(SRC_DIR)/builtin/%.c | $(OBJ_DIR)/builtin
+	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@
+
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
@@ -76,6 +102,12 @@ $(OBJ_DIR)/lexer:
 
 $(OBJ_DIR)/parser:
 	mkdir -p $(OBJ_DIR)/parser
+
+$(OBJ_DIR)/env:
+	mkdir -p $(OBJ_DIR)/env
+
+$(OBJ_DIR)/builtin:
+	mkdir -p $(OBJ_DIR)/builtin
 
 clean:
 	rm -rf $(OBJ_DIR)

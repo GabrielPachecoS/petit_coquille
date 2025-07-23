@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   02exec_cmd.c                                      :+:      :+:    :+:   */
+/*   02exec.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 20:57:17 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/06/07 20:09:02 by jucoelho         ###   ########.fr       */
+/*   Created: 2025/07/04 13:35:40 by jucoelho          #+#    #+#             */
+/*   Updated: 2025/07/22 22:04:07 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_closefd(t_shell *shell)
+void	ft_close_fd(t_shell *shell)
 {
 	close(shell->fd[0]);
 	close(shell->fd[1]);
@@ -20,83 +20,36 @@ void	ft_closefd(t_shell *shell)
 	close(shell->fd_out);
 }
 
-int	ft_handle_pid(t_shell *shell, t_command *cmd, int curr_cmd, int last_cmd)
+void	ft_dup_close(int close_fd, int dup_fd)
 {
-	char	*fullpath;
-	
-	if (curr_cmd == 0)
-	{
-		dup2(shell->fd_in, STDIN_FILENO);
-		dup2(shell->fd[1], STDOUT_FILENO);
-		close(shell->fd[0]);
-		close(shell->fd[1]);
-		fullpath = ft_get_cmdpath(cmd->argv, shell->envp);
-		if (execve(fullpath, cmd, shell->envp) == -1)
-			ft_error_execve(shell);
-	}
-	else if (curr_cmd < last_cmd)
-	{
-		ft_handle_middlecmd(shell, cmd);
-	}
-	else if (curr_cmd == last_cmd)
-	{
-		ft_handle_lastcmd(shell, cmd);
-	}
-	return (1);
+	dup2(close_fd, dup_fd);
+	close(close_fd);
 }
 
-int	ft_handle_middlecmd(t_shell *shell, t_command *cmd)
-{
-	char	*fullpath;
-	
-	dup2(shell->fd[0], STDIN_FILENO);
-	dup2(shell->fd[1], STDOUT_FILENO);
-	close(shell->fd[0]);
-	close(shell->fd[1]);
-	fullpath = ft_get_cmdpath(cmd->argv, shell->envp);
-	if (execve(fullpath, cmd, shell->envp) == -1)
-		ft_error_execve(shell);
-	return (1);
-}
-int	ft_handle_lastcmd(t_shell *shell, t_command *cmd)
-{
-	char	*fullpath;
-	
-	dup2(shell->fd[0], STDIN_FILENO);
-	dup2(shell->fd_out, STDOUT_FILENO);
-	close(shell->fd[0]);
-	close(shell->fd[1]);
-	fullpath = ft_get_cmdpath(cmd->argv, shell->envp);
-	if (execve(fullpath, cmd, shell->envp) == -1)
-		ft_error_execve(shell);
-	return (1);
-}
 
-int	ft_exec_cmdpipe(t_shell *shell, t_command *cmd, int n_cmd)
+int	ft_loop_cmdpipe(t_shell *shell, t_command *cmd, int *pid, int n_cmd)
 {
-	int		*pid;
-	int		i;
-	int		status;
+	int	i;
+	int	prev_fd;
 
 	i = 0;
+	prev_fd = STDIN_FILENO;
 	while (cmd)
 	{
-		if (pipe(shell->fd) < 0)
-			return (ft_error(1, "pipe failed"));
-		pid[i] = fork();
-		if (pid[i] < 0)
-			return (ft_error(1, "fork failed"));
+		ft_setup_fork(shell, pid, i);
 		if (pid[i] == 0)
-			ft_handle_pid(shell, cmd, i++, n_cmd);
+		{
+			ft_setup_redirects_pipe(shell, i, n_cmd - 1, prev_fd);
+			ft_exec_command(shell, cmd);
+		}
+		close(shell->fd[1]);
+		if (prev_fd != STDIN_FILENO)
+			close(prev_fd);
+		prev_fd = shell->fd[0];
 		cmd = cmd->next;
+		i++;
 	}
-	ft_closefd(shell);
-	while (i > 0)
-	{
-		waitpid(pid[i], NULL, 0);
-		i--;
-	}
-	waitpid(pid[n_cmd], &status, 0);
-	status = status >> 8;
-	return (status);
+	close(prev_fd);
+	return (1);
 }
+

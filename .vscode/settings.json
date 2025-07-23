@@ -1,6 +1,10 @@
 {
     "files.associations": {
-        "minishell.h": "c",
-        "stdlib.h": "c"
-    }
+		"minishell.h": "c",
+		"stdlib.h": "c",
+		"token.h": "c",
+		"history.h": "c",
+		"env.h": "c",
+		"span": "c"
+	}
 }
