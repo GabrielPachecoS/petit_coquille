@@ -6,11 +6,13 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 19:04:01 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/16 16:18:15 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/24 20:32:02 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+//nas builtins não precisa mexer no shell level
+	//não precisa implementar o export completo. só para variavel de ambiente, não precisa para mostrar as variaveis. pq verifica com env o que foi salvo não com export
 
 int	is_builtin(char *cmd)
 {

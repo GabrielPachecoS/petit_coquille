@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 17:22:46 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/21 19:50:13 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/24 17:04:19 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	ft_error_execve(t_shell *shell)
 
 int	ft_error(int code, char *str)
 {
+	//printf("entrou ft_error\n");
 	perror(str);
 	exit(code);
 }

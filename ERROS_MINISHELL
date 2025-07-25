@@ -1,0 +1,80 @@
+ERROS
+
+COMPARE PARSING
+65:	STD_OUT: ❌  STD_ERR: ❌  EXIT_CODE: ✅  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/0_compare_parsing.sh:134  
+
+/bin/echo test1		test2
+
+ 72:	STD_OUT: ❌  STD_ERR: ❌  EXIT_CODE: ✅  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/0_compare_parsing.sh:148  
+
+/bin/echo -n test1		test2
+
+PIPELINES
+4:
+4:	STD_OUT: ❌  STD_ERR: ✅  EXIT_CODE: ❌ [ minishell(0)  bash(1) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:10  
+
+cat ./test_files/infile_big | grep oi
+
+5:	STD_OUT: ❌  STD_ERR: ✅  EXIT_CODE: ❌ [ minishell(0)  bash(1) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:12
+5:
+export GHOST=123 | env | grep GHOST
+
+7:	STD_OUT: ❌  STD_ERR: ✅  EXIT_CODE: ❌ [ minishell(0)  bash(1) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:16
+7:
+/bin/echo 1 | grep 2
+
+9:	STD_OUT: ❌  STD_ERR: ✅  EXIT_CODE: ❌ [ minishell(0)  bash(1) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:20
+9:
+ifconfig | grep nothing
+
+12:	STD_OUT: ❌  STD_ERR: ✅  EXIT_CODE: ❌ [ minishell(0)  bash(1) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:26
+12:
+echo 42 | echo no | echo smth | grep 42
+
+13:	STD_OUT: ❌  STD_ERR: ✅  EXIT_CODE: ❌ [ minishell(0)  bash(1) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:28
+13:
+echo 42 | echo no | echo smth | grep no
+
+17:	STD_OUT: ❌  STD_ERR: ❌  EXIT_CODE: ❌ [ minishell(0)  bash(127) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:36 
+17:
+/bin/echo 1 | kaka
+
+24:	STD_OUT: ❌  STD_ERR: ✅  EXIT_CODE: ❌ [ minishell(0)  bash(1) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:53
+24:
+ls | cat asd
+
+
+25:	STD_OUT: ❌  STD_ERR: ✅  EXIT_CODE: ❌ [ minishell(0)  bash(1) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:55
+25:
+ls | cat << stop | grep "asd"
+is this good
+stop
+
+ 29:	/nfs/homes/jucoelho/42_minishell_tester/tester.sh: line 217: 410952 Done                    echo -n "$INPUT"
+     410953 Segmentation fault      (core dumped) | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+STD_OUT: ❌  STD_ERR: ❌  EXIT_CODE: ❌ [ minishell(139)  bash(2) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:96  
+29:
+ls | cat << stop | ls -la | cat << stop1 | ls | cat << stop2 | ls -la > > out | cat << stop3
+fe
+wf
+fwe
+f
+stop
+dw
+stop1
+dwasd
+stop2
+cat Makefile | ls > out
+cat out
+/bin/rm -f out
+(zsh: segmentation fault (core dumped)  ./minishell)
+
+33:	STD_OUT: ❌  STD_ERR: ❌  EXIT_CODE: ❌ [ minishell(0)  bash(2) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:138  
+33:
+|ls | ls
+
+35:	STD_OUT: ❌  STD_ERR: ✅  EXIT_CODE: ❌ [ minishell(0)  bash(1) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:142 
+35:
+ls|cat Makefile|<wc -l
+
+

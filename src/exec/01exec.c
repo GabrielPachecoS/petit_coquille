@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 17:21:37 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/23 19:31:13 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/24 17:38:04 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	ft_setup_redir_out(t_shell *shell)
 	if (shell->fd_out < 0)
 	{
 			close(shell->fd[1]);
+			//printf("entrou ft_setup redir_out\n");
 			perror(shell->outfile);
 			exit(EXIT_FAILURE);
 	}
@@ -31,11 +32,11 @@ static int	ft_setup_redir_out(t_shell *shell)
 static int	ft_setup_redir_in(t_shell *shell)
 {
 	if (shell->infile)
-	{
+	{	
 		shell->fd_in = open(shell->infile, O_RDONLY);
 		if (shell->fd_in < 0)
 		{
-			close(shell->fd[1]);
+			//close (shell->fd[0]);
 			perror(shell->infile);
 			exit(EXIT_FAILURE);
 		}
