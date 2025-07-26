@@ -6,7 +6,7 @@
 #    By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/07/21 20:01:34 by jucoelho         ###   ########.fr        #
+#    Updated: 2025/07/25 18:28:41 by jucoelho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/exec/00exec_cmd.c \
 		  $(SRC_DIR)/exec/01exec.c \
 		  $(SRC_DIR)/exec/02exec.c \
-		  $(SRC_DIR)/exec/03exec.c \
+		  $(SRC_DIR)/exec/03exec_builtin.c \
 		  $(SRC_DIR)/exec/04exec_path.c \
 		  $(SRC_DIR)/exec/05exec_free_error.c \
 		  $(SRC_DIR)/lexer/lexer.c \

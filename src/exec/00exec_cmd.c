@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/24 20:31:53 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/25 18:29:12 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ void	ft_exec_cmds(t_shell *shell, t_command *cmds)
 {
 	int	n_cmds = ft_listsize(cmds);
 	
-	//if (ft_isbuiltin(shell, cmds)); fazer função para verificar se é builtin
-	//lembrar: se for simple command não pode fazer fork
+	if (ft_is_builtin(shell, cmds)); fazer função para verificar se é builtin
+	lembrar: se for simple command não pode fazer fork
 	
 	
 	if (!cmds->next)
