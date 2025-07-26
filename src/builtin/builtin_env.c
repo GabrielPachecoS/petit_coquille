@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:35 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/01 19:02:26 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/25 23:23:48 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

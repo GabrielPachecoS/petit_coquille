@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/24 21:20:15 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/25 23:01:24 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ typedef struct s_shell
 # include "exec.h"
 
 int		main(int argc, char **argv, char **envp);
-void	ft_start_minishell(t_shell *shell,t_env *env);
+void	ft_start_minishell(t_shell *shell);
 void	ft_handle_signals(void);
-void	ft_cleanup(char *input);
+void	ft_cleanup(t_shell *shell, char *input);
 void	ft_init_struct(t_shell *shell, char **envp);
 void	ft_print_commands(t_shell *shell, t_command *cmd);
 void	ft_print_tokens(t_token *tokens);

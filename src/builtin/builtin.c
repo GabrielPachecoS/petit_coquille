@@ -6,46 +6,41 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 19:04:01 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/24 20:32:02 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/25 23:29:17 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-//nas builtins não precisa mexer no shell level
-	//não precisa implementar o export completo. só para variavel de ambiente, não precisa para mostrar as variaveis. pq verifica com env o que foi salvo não com export
 
-int	is_builtin(char *cmd)
+int	is_builtin(t_command *cmds)
 {
-	if (!cmd)
+	if (!cmds->argv[0])
 		return (0);
 	return (
-		ft_strcmp(cmd, "echo") == 0
-		|| ft_strcmp(cmd, "cd") == 0
-		|| ft_strcmp(cmd, "pwd") == 0
-		|| ft_strcmp(cmd, "export") == 0
-		|| ft_strcmp(cmd, "unset") == 0
-		|| ft_strcmp(cmd, "env") == 0
-		|| ft_strcmp(cmd, "exit") == 0
+		ft_strcmp(cmds->argv[0], "echo") == 0
+		|| ft_strcmp(cmds->argv[0], "cd") == 0
+		|| ft_strcmp(cmds->argv[0], "pwd") == 0
+		|| ft_strcmp(cmds->argv[0], "export") == 0
+		|| ft_strcmp(cmds->argv[0], "unset") == 0
+		|| ft_strcmp(cmds->argv[0], "env") == 0
+		|| ft_strcmp(cmds->argv[0], "exit") == 0
 	);
 }
 
-int	exec_builtin(t_shell *shell, char **args, t_env **env, int *status)
+void	ft_exec_simplebuiltin(t_shell *shell, char **args)
 {
-	if (!args[0])
-		return (0);
-	if (ft_strcmp(args[0], "echo") == 0)
-		return (builtin_echo(shell, args));
-	if (ft_strcmp(args[0], "cd") == 0)
-		return (builtin_cd(args, env));
-	if (ft_strcmp(args[0], "pwd") == 0)
-		return (builtin_pwd());
-	if (ft_strcmp(args[0], "export") == 0)
-		return (builtin_export(args, env));
-	if (ft_strcmp(args[0], "unset") == 0)
-		return (builtin_unset(args, env));
-	if (ft_strcmp(args[0], "env") == 0)
-		return (builtin_env(*env));
-	if (ft_strcmp(args[0], "exit") == 0)
-		builtin_exit(args, status);
-	return (0);
+		if (ft_strcmp(*args, "echo") == 0)
+		shell->last_exit_status = builtin_echo(args);
+	else if (ft_strcmp(*args, "cd") == 0)
+		builtin_cd(args, shell);
+	else if (ft_strcmp(*args, "pwd") == 0)
+		shell->last_exit_status = builtin_pwd();
+	else if (ft_strcmp(*args, "export") == 0)
+		builtin_export(args, &shell->envp, shell);
+	else if (ft_strcmp(*args, "unset") == 0)
+		builtin_unset(args, &shell->envp);
+	else if (ft_strcmp(*args, "env") == 0)
+		shell->last_exit_status = builtin_env(shell->envp);
+	else if (ft_strcmp(*args, "exit") == 0)
+		builtin_exit(args, shell);
 }

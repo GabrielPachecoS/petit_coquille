@@ -15,16 +15,16 @@
 
 # include "minishell.h"
 
-int	exec_builtin(t_shell *shell, char **args, t_env **env, int *status);
-int	is_builtin(char *cmd);
+int	ft_is_builtin(t_command *cmds);
+void	ft_exec_simplebuiltin(t_shell *shell, char **args);
 
-int	builtin_cd(char **args, t_env **env);
-int	builtin_echo(t_shell *shell, char **args);
-int	builtin_env(t_env *env);
-int	builtin_exit(char **args, int *status);
-int	builtin_export(char **args, t_env **env);
-int	builtin_pwd(void);
-int	builtin_unset(char **args, t_env **env);
+int	ft_builtin_cd(char **args, t_env **env);
+int	ft_builtin_echo(t_shell *shell, char **args);
+int	ft_builtin_env(t_env *env);
+int	ft_builtin_exit(char **args, int *status);
+int	ft_builtin_export(char **args, t_env **env);
+int	ft_builtin_pwd(void);
+int	ft_builtin_unset(char **args, t_env **env);
 
 
 
