@@ -6,12 +6,13 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:34 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/25 23:23:59 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:02:39 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "env.h"
+#include "builtin.h"
 
 int	is_numeric(const char *str)
 {
@@ -29,7 +30,7 @@ int	is_numeric(const char *str)
 	return (1);
 }
 
-int	builtin_exit(char **args, t_shell *shell)
+int	ft_builtin_exit(char **args, t_shell *shell)
 {
 	int	code;
 

@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_lookup.c                                       :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/30 18:31:28 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/30 17:30:01 by jucoelho         ###   ########.fr       */
+/*   Created: 2025/07/30 15:46:12 by jucoelho          #+#    #+#             */
+/*   Updated: 2025/07/30 15:46:26 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "env.h"
+#include "libft.h"
 
-// char	*env_lookup(t_env *env, const char *key)
-// {
-// 	while (env)
-// 	{
-// 		if (ft_strncmp(env->key, key, 5) == 0)
-// 			return (env->value);
-// 		env = env->next;
-// 	}
-// 	return (NULL);
-// }
+char	*ft_strcpy(char *dst, const char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}

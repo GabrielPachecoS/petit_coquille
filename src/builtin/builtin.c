@@ -6,13 +6,14 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 19:04:01 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/25 23:29:17 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:01:24 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtin.h"
 
-int	is_builtin(t_command *cmds)
+int	ft_is_builtin(t_command *cmds)
 {
 	if (!cmds->argv[0])
 		return (0);
@@ -29,18 +30,18 @@ int	is_builtin(t_command *cmds)
 
 void	ft_exec_simplebuiltin(t_shell *shell, char **args)
 {
-		if (ft_strcmp(*args, "echo") == 0)
-		shell->last_exit_status = builtin_echo(args);
+	if (ft_strcmp(*args, "echo") == 0)
+		shell->last_exit_status = ft_builtin_echo(args);
 	else if (ft_strcmp(*args, "cd") == 0)
-		builtin_cd(args, shell);
+		ft_builtin_cd(args, shell);
 	else if (ft_strcmp(*args, "pwd") == 0)
-		shell->last_exit_status = builtin_pwd();
+		shell->last_exit_status = ft_builtin_pwd();
 	else if (ft_strcmp(*args, "export") == 0)
-		builtin_export(args, &shell->envp, shell);
+		ft_builtin_export(args, &shell->envp, shell);
 	else if (ft_strcmp(*args, "unset") == 0)
-		builtin_unset(args, &shell->envp);
+		ft_builtin_unset(args, &shell->envp);
 	else if (ft_strcmp(*args, "env") == 0)
-		shell->last_exit_status = builtin_env(shell->envp);
+		shell->last_exit_status = ft_builtin_env(shell->envp);
 	else if (ft_strcmp(*args, "exit") == 0)
-		builtin_exit(args, shell);
+		ft_builtin_exit(args, shell);
 }

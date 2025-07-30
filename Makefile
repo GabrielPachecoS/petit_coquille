@@ -6,7 +6,7 @@
 #    By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/07/25 18:28:41 by jucoelho         ###   ########.fr        #
+#    Updated: 2025/07/30 17:26:45 by jucoelho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,10 @@ SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/env/env_free.c \
 		  $(SRC_DIR)/env/env_init.c \
 		  $(SRC_DIR)/env/env_lookup.c \
+		  $(SRC_DIR)/env/env_print.c \
 		  $(SRC_DIR)/env/env_set_unset.c \
 		  $(SRC_DIR)/env/env_to_array.c \
+		  $(SRC_DIR)/env/env_utils.c \
 		  $(SRC_DIR)/builtin/builtin_cd.c \
 		  $(SRC_DIR)/builtin/builtin_echo.c \
 		  $(SRC_DIR)/builtin/builtin_env.c \

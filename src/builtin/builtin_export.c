@@ -6,12 +6,13 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:27 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/25 23:24:08 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:02:34 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "env.h"
+#include "builtin.h"
 
 /*
  * Checks if a string is a valid environment variable identifier.
@@ -93,7 +94,7 @@ static int	handle_export_argument(char *arg, t_env **env, t_shell *shell)
  *   - Otherwise, processes each argument as a key or key=value pair
  *   - Returns 1 if any invalid identifiers were found
  */
-int	builtin_export(char **argv, t_env **env, t_shell *shell)
+int	ft_builtin_export(char **argv, t_env **env, t_shell *shell)
 {
 	int	i;
 	int	any_errors;

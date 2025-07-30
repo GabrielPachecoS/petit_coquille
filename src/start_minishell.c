@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/25 23:01:41 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/30 15:50:54 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	ft_init_struct(t_shell *shell, char **envp)
 	shell->fd_out = -1;
 	shell->append = -1;
 	shell->status = 1;
+	shell->should_exit = -1;
+	shell->exit_code = -1;
 	shell->fd[0] = -1;
 	shell->fd[1] = -1;
 	shell->infile = NULL;

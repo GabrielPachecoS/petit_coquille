@@ -13,6 +13,7 @@
 
 #include "minishell.h"
 #include "env.h"
+#include "builtin.h"
 
 /*
  * Expands the '~' character or handles a missing argument by retrieving $HOME.
@@ -87,7 +88,7 @@ static void	cd_update_pwd(t_env **env, char *oldpwd, char *newpwd)
  *   - Frees dynamically allocated path.
  *   - Sets shell->last_exit_status to 0 on success or 1 on failure.
  */
-int	builtin_cd(char **args, t_shell *shell)
+int	ft_builtin_cd(char **args, t_shell *shell)
 {
 	char	*path;
 	char	*oldpwd;

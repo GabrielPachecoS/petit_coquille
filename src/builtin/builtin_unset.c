@@ -6,12 +6,13 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:28 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/25 23:24:31 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:02:18 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "env.h"
+#include "builtin.h"
 
 /*
  * Removes an environment variable from the list.
@@ -48,7 +49,7 @@ static int	unset_one(char *arg, t_env **env)
  *   - Iterates over all arguments and removes each variable
  *   - Does not fail on invalid keys (silent by design)
  */
-int	builtin_unset(char **argv, t_env **env)
+int	ft_builtin_unset(char **argv, t_env **env)
 {
 	int	i;
 

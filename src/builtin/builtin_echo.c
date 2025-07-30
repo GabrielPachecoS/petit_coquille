@@ -6,14 +6,15 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:23 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/25 23:23:34 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:02:54 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "env.h"
+#include "builtin.h"
 
-int	builtin_echo(char **args)
+int	ft_builtin_echo(char **args)
 {
 	int	i;
 	int	newline;

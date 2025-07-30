@@ -6,14 +6,15 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:25 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/25 23:24:19 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:02:24 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "env.h"
+#include "builtin.h"
 
-int	builtin_pwd(void)
+int	ft_builtin_pwd(void)
 {
 	char	cwd[4096];
 	printf("TA NO BUILTIN");

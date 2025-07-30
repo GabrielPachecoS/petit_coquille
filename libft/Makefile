@@ -13,7 +13,9 @@ SRC =	$(SRC_DIR)ft_isalpha.c \
 		$(SRC_DIR)ft_memcpy.c \
 		$(SRC_DIR)ft_memmove.c \
 		$(SRC_DIR)ft_strlcpy.c \
+		$(SRC_DIR)ft_strcpy.c \
 		$(SRC_DIR)ft_strlcat.c \
+		$(SRC_DIR)ft_strcat.c \
 		$(SRC_DIR)ft_toupper.c \
 		$(SRC_DIR)ft_tolower.c \
 		$(SRC_DIR)ft_strchr.c \
@@ -24,6 +26,7 @@ SRC =	$(SRC_DIR)ft_isalpha.c \
 		$(SRC_DIR)ft_memcmp.c \
 		$(SRC_DIR)ft_strnstr.c \
 		$(SRC_DIR)ft_atoi.c \
+		$(SRC_DIR)ft_atol.c \
 		$(SRC_DIR)ft_calloc.c \
 		$(SRC_DIR)ft_strdup.c \
 		$(SRC_DIR)ft_substr.c \

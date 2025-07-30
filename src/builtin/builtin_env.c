@@ -6,14 +6,15 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:35 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/25 23:23:48 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:02:51 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "env.h"
+#include "builtin.h"
 
-int	builtin_env(t_env *env)
+int	ft_builtin_env(t_env *env)
 {
 	while (env)
 	{
