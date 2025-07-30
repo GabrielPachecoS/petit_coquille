@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:10:45 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/06/02 21:30:47 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/30 19:12:46 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	if (nmemb > SIZE_MAX / size)
 		return (NULL);
 	nmemb_size = nmemb * size;
-	array = (char *)malloc ((sizeof(char)) * nmemb_size);
+	array = (char *) ((sizeof(char)) * nmemb_size);
 	if (!array)
 		return (NULL);
 	ft_bzero(array, nmemb_size);

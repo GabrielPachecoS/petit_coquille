@@ -12,6 +12,11 @@
 
 #include "minishell.h"
 
+int	ft_is_expander(char c)
+{
+	return (c == '?');
+}
+
 /**
  * @brief Checks if a character is a shell operator.
  *

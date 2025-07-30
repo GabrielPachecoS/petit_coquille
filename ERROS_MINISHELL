@@ -10,10 +10,6 @@ COMPARE PARSING
 /bin/echo -n test1		test2
 
 PIPELINES
-4:
-4:	STD_OUT: ❌  STD_ERR: ✅  EXIT_CODE: ❌ [ minishell(0)  bash(1) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:10  
-
-cat ./test_files/infile_big | grep oi
 
 5:	STD_OUT: ❌  STD_ERR: ✅  EXIT_CODE: ❌ [ minishell(0)  bash(1) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:12
 5:
@@ -38,6 +34,12 @@ echo 42 | echo no | echo smth | grep no
 17:	STD_OUT: ❌  STD_ERR: ❌  EXIT_CODE: ❌ [ minishell(0)  bash(127) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:36 
 17:
 /bin/echo 1 | kaka
+
+23:
+ 23:	/nfs/homes/jucoelho/42_minishell_tester/tester.sh: line 217: 373193 Done                    echo -n "$INPUT"
+     373194 Segmentation fault      (core dumped) | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+STD_OUT: ❌  STD_ERR: ✅  EXIT_CODE: ❌ [ minishell(139)  bash(0) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:49  
+
 
 24:	STD_OUT: ❌  STD_ERR: ✅  EXIT_CODE: ❌ [ minishell(0)  bash(1) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:53
 24:
@@ -77,4 +79,18 @@ cat out
 35:
 ls|cat Makefile|<wc -l
 
+37:
+  37:	/nfs/homes/jucoelho/42_minishell_tester/tester.sh: line 217: 373466 Done                    echo -n "$INPUT"
+     373467 Segmentation fault      (core dumped) | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+STD_OUT: ❌  STD_ERR: ✅  EXIT_CODE: ❌ [ minishell(139)  bash(0) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:147
 
+
+41:
+41:	/nfs/homes/jucoelho/42_minishell_tester/tester.sh: line 217: 373528 Done                    echo -n "$INPUT"
+     373529 Segmentation fault      (core dumped) | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+STD_OUT: ❌  STD_ERR: ✅  EXIT_CODE: ❌ [ minishell(139)  bash(0) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:166  
+
+42:
+42:	/nfs/homes/jucoelho/42_minishell_tester/tester.sh: line 217: 373552 Done                    echo -n "$INPUT"
+     373553 Segmentation fault      (core dumped) | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+STD_OUT: ❌  STD_ERR: ✅  EXIT_CODE: ❌ [ minishell(139)  bash(0) ]  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/1_pipelines.sh:171  
