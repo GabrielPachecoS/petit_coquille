@@ -3,15 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:24:58 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/30 13:40:10 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/07/30 15:29:26 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Lexical analyzer that converts an input string into a list of tokens.
+ *
+ * Iterates over the input string and splits it into meaningful tokens,
+ * handling escaped characters, quoted strings, operators (e.g., pipes and
+ * redirections), and words. Each identified token is added to a linked list.
+ *
+ * @param input The raw command line input string.
+ *
+ * @return Pointer to the head of the token list, or NULL if no tokens were found.
+ */
 t_token	*ft_lexer(char *input)
 {
 	int		i;

@@ -6,12 +6,25 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:06:23 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/15 15:39:49 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/30 15:28:07 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "env.h"
+
+int	env_size(t_env *env)
+{
+	int	count;
+
+	count = 0;
+	while (env)
+	{
+		count++;
+		env = env->next;
+	}
+	return (count);
+}
 
 static char	*join_env_var(char *key, char *value)
 {
@@ -26,37 +39,53 @@ static char	*join_env_var(char *key, char *value)
 	return (result);
 }
 
+void	free_env_array(char **array, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
+
+static int	fill_env_array(t_env *env, char **array)
+{
+	int		i;
+	char	*joined;
+
+	i = 0;
+	while (env)
+	{
+		if (env->value)
+		{
+			joined = join_env_var(env->key, env->value);
+			if (!joined)
+			{
+				free_env_array(array, i);
+				return (0);
+			}
+			array[i++] = joined;
+		}
+		env = env->next;
+	}
+	array[i] = NULL;
+	return (1);
+}
+
 char	**env_to_array(t_env *env)
 {
 	char	**array;
-	t_env	*tmp;
 	int		count;
-	int		i;
 
-	count = ft_lstsize_env(env);
-	tmp = env;
-	i = 0;
+	count = env_size(env);
 	array = malloc(sizeof(char *) * (count + 1));
 	if (!array)
 		return (NULL);
-	while (tmp)
-	{
-		if (tmp->value)
-			array[i++] = join_env_var(tmp->key, tmp->value);
-		tmp = tmp->next;
-	}
-	array[i] = NULL;
+	if (!fill_env_array(env, array))
+		return (NULL);
 	return (array);
-}
-int	ft_lstsize_env(t_env *env)
-{
-	int	nbr_nodes;
-
-	nbr_nodes = 0;
-	while (env)
-	{
-		env = env->next;
-		nbr_nodes++;
-	}
-	return (nbr_nodes);
 }
