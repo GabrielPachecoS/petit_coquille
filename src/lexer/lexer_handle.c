@@ -6,11 +6,12 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:22:56 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/30 15:30:05 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/30 21:24:30 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "token.h"
 
 /**
  * @brief Parses and adds operator tokens (pipes and redirections).

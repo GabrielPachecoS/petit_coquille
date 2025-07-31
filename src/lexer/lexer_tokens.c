@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "token.h"
 
 /**
  * @brief Frees a linked list of tokens.

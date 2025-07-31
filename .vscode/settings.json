@@ -16,6 +16,7 @@
 		"utility": "c",
 		"compare": "c",
 		"istream": "c",
-		"ranges": "c"
+		"ranges": "c",
+		"builtin.h": "c"
 	}
 }

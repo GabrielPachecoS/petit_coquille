@@ -6,11 +6,12 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:24:58 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/30 19:08:18 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/30 21:24:23 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "token.h"
 
 /**
  * @brief Lexical analyzer that converts an input string into a list of tokens.
@@ -44,7 +45,7 @@ t_token	*ft_lexer(char *input, t_shell *shell)
 			i = ft_handle_quoted(input, i, &tokens, input[i]);
 		else if (ft_is_operator(input[i]))
 			i = ft_handle_token(input, i, &tokens);
-		else if (ft_is_expander(input[i]))
+		else if (input[i] == '$')
 			i = ft_handle_expander(input, i, shell, &tokens);
 		else
 			i = ft_handle_word(input, i, &tokens);

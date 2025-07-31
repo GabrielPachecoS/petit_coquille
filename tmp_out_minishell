@@ -1,2 +1,4 @@
-cat <"./test_files/infile_big" | echo hi
-hi
+PetitCoquille$ /bin/echo ""$?""
+
+PetitCoquille$ 
+PetitCoquille$ 

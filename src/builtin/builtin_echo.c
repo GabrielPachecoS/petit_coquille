@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:23 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/30 16:02:54 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/30 21:23:22 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_builtin_echo(char **args)
 	}
 	while (args[i])
 	{
-		printf("%s", *args);
+		printf("%s", args[i]);
 		if (args[i + 1])
 			printf(" ");
 		i++;
