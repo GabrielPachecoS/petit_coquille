@@ -1,0 +1,40 @@
+echo $USER → jucoelho
+
+echo "$USER" → jucoelho
+
+echo '$USER' → $USER
+
+echo ${USER} → jucoelho
+
+echo ${USER → ${USER (não expande, sem erro)
+
+echo ${} → erro: bad substitution
+
+echo $ → bash: $: bad substitution (erro se não seguido de nada útil)
+
+echo $"USER" → USER (é para tradução/localização, não expansão)
+
+
+
+AJUSTAR
+echo "${USER" → ${USER (literal, não expande)
+
+echo "$USER" → jucoelho
+
+echo "$USER → jucoelho (ainda expande mesmo com aspas abertas)
+
+echo '$USER → $USER (literal, aspas não fechadas, mas sem erro)
+
+echo ${USER!} → erro: bad substitution (caractere inválido)
+
+echo $USER_NAME123 → valor da var USER_NAME123 (não encontra? imprime vazio)
+
+echo $USER-NAME → jucoelho-NAME (expande só $USER)
+
+echo "$?" → 0
+
+echo '$?' → $?
+
+echo $? → 0
+
+echo "${?}" → 0

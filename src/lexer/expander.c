@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:49:27 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/01 18:18:59 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/01 19:15:24 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static int	ft_expquoted(char *input, int i, int j, t_shell *shell, t_token **tok
 	int	z;
 
 	z = i;
+	if (input[i] == '{')
+		ft_handle_braces(input, i,  j, shell, tokens);
 	if (input[i] == '?')
 	{
 		if (input[i + 1] == '"')
@@ -31,7 +33,7 @@ static int	ft_expquoted(char *input, int i, int j, t_shell *shell, t_token **tok
 				return(0);
 			j = ft_handle_word(var, 0, tokens);
 			free(var);
-			return (i + j);
+			return (i + 2);
 		}
 		else
 			return(++i);
@@ -83,12 +85,29 @@ int	ft_handle_expalnum(char *input, int i, int j, t_shell *shell, t_token **toke
 
 int	ft_handle_braces(char *input, int i, int j, t_shell *shell, t_token **tokens)
 {
+	char	*var;
+	
 	printf(">> handle_braces: input[i] = '%c' (i = %d)\n", input[i], i);
 	if (input[i] == '}')
 	{
 		write(2, "minishell: ${}: bad substitution", 33);
 		shell->status = 1;
 		return (i + 1);
+	}
+	if (input[i] == '?')
+	{
+		if (input[i + 1] == '}' && input [i = 2] == '"')
+		{
+			printf(">> expanding $? com status = %d\n", shell->status);
+			var = ft_itoa(shell->status);
+			if (!var)
+				return(0);
+			j = ft_handle_word(var, 0, tokens);
+			free(var);
+			return (i + 2);
+		}
+		else
+			return(++i);
 	}
 	if ((ft_isalpha(input[i])) || input[i] == '_')
 	{
@@ -116,6 +135,7 @@ int	ft_expandvar(char *input, int len, int start, t_shell *shell, t_token **toke
 	if (!var)
 		return(start + 1);
 	var = env_var(shell->envp, var);
+	printf("var após env var = %s\n", var);
 	ft_handle_word(var, 0, tokens);
 	printf("saiu handle word\n");
 	free(var);
@@ -144,7 +164,7 @@ int ft_handle_expander(char *input, int i, t_shell *shell, t_token **tokens)
 	}
 	if (input[i] == '?')
 	{
-		printf(">> expanding $? com status = %d\n", shell->status);
+		printf(">> expanding $? com status: [0]  = %d\n", shell->status);
 		var = ft_itoa(shell->status);
 		if (!var)
 			return(0);
