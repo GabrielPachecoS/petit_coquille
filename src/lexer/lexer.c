@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:24:58 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/01 17:31:31 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/01 19:19:02 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ t_token	*ft_lexer(char *input, t_shell *shell)
 		else if (input[i] == '"' || input[i] == '\'')
 		{
 			i = ft_handle_quoted(input, i, &tokens, input[i]);
-			printf("voltou para lexer input[%d] = %c\n", i, input[i]);
 		}
 		else if (ft_is_operator(input[i]))
 			i = ft_handle_token(input, i, &tokens);

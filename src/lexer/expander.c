@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:49:27 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/01 19:15:24 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/01 19:27:10 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 static int	ft_expquoted(char *input, int i, int j, t_shell *shell, t_token **tokens)
 {
-	printf(">> expquoted: input[%d] = '%c'\n", i, input[i]);
 	char	*var;
 	int	z;
 
@@ -27,7 +26,6 @@ static int	ft_expquoted(char *input, int i, int j, t_shell *shell, t_token **tok
 	{
 		if (input[i + 1] == '"')
 		{
-			printf(">> expanding $? com status = %d\n", shell->status);
 			var = ft_itoa(shell->status);
 			if (!var)
 				return(0);
@@ -43,7 +41,6 @@ static int	ft_expquoted(char *input, int i, int j, t_shell *shell, t_token **tok
 		z++;
 		while (ft_isalnum(input[z]))
 		{
-			printf(">> expquoted: input[%d] = '%c'\n", z, input[z]);
 			z++;
 		}
 	}
@@ -53,7 +50,6 @@ static int	ft_expquoted(char *input, int i, int j, t_shell *shell, t_token **tok
 		return (ft_handle_braces(input, ++i, j, shell, tokens));
 	else
 	{
-		printf(">> expquoted enterind handle: input[%d] = '%c'\n", i, input[i]);
 		i = (ft_handle_expalnum(input, i, j, shell, tokens));
 		return (i + 1);
 	}
@@ -61,16 +57,12 @@ static int	ft_expquoted(char *input, int i, int j, t_shell *shell, t_token **tok
 
 int	ft_handle_expalnum(char *input, int i, int j, t_shell *shell, t_token **tokens)
 {
-	printf(">> expalnum: input[%d] = '%c'\n", i, input[i]);
 	if ((ft_isalpha(input[i])) || input[i] == '_')
 	{
-		printf("entrou no if expalnum\n\n\n");
 		j++;
 		i++;
-		printf(">> expalnum: input[%d] = '%c'\n", i, input[i]);
 		while (ft_isalnum(input[i]))
 		{
-			printf(">> expalnum: input[%d] = '%c'\n", i, input[i]);
 			j++;
 			i++;
 		}
@@ -79,7 +71,6 @@ int	ft_handle_expalnum(char *input, int i, int j, t_shell *shell, t_token **toke
 	{
 		return(i);
 	}
-	printf(">> expalnum: i = %d, j = %d\n", i, j);
 	return (ft_expandvar(input, j, i - j, shell, tokens));
 }
 
@@ -87,7 +78,6 @@ int	ft_handle_braces(char *input, int i, int j, t_shell *shell, t_token **tokens
 {
 	char	*var;
 	
-	printf(">> handle_braces: input[i] = '%c' (i = %d)\n", input[i], i);
 	if (input[i] == '}')
 	{
 		write(2, "minishell: ${}: bad substitution", 33);
@@ -98,7 +88,6 @@ int	ft_handle_braces(char *input, int i, int j, t_shell *shell, t_token **tokens
 	{
 		if (input[i + 1] == '}' && input [i = 2] == '"')
 		{
-			printf(">> expanding $? com status = %d\n", shell->status);
 			var = ft_itoa(shell->status);
 			if (!var)
 				return(0);
@@ -119,7 +108,6 @@ int	ft_handle_braces(char *input, int i, int j, t_shell *shell, t_token **tokens
 			i++;
 		}
 	}
-	printf(">> handle_braces: input[i] = '%c' (i = %d)\n", input[i], i);
 	if (input[i] == '}')
 		return (ft_expandvar(input, j, i - j, shell, tokens) + 1);
 	else
@@ -129,17 +117,12 @@ int	ft_expandvar(char *input, int len, int start, t_shell *shell, t_token **toke
 {
 	char	*var;
 
-	printf(">> expandvar: input = %s len =%d, star = %d\n", input, len, start);
 	var = ft_substr(input, start, len);
-	printf("var = %s\n", var);
 	if (!var)
 		return(start + 1);
 	var = env_var(shell->envp, var);
-	printf("var após env var = %s\n", var);
 	ft_handle_word(var, 0, tokens);
-	printf("saiu handle word\n");
 	free(var);
-	printf("len =%d, star = %d\n", len, start);
 	return (len + start);
 }
 
@@ -149,7 +132,6 @@ int ft_handle_expander(char *input, int i, t_shell *shell, t_token **tokens)
 	int		j;
 
 	j = 0;
-	printf(">> handle_expander: input[i] = '%c' (i = %d)\n", input[i], i);
 	if (input[i] == '"')
 		return (ft_expquoted(input, i + 2, j, shell, tokens));
 	if (input[i] == '$')
@@ -164,7 +146,6 @@ int ft_handle_expander(char *input, int i, t_shell *shell, t_token **tokens)
 	}
 	if (input[i] == '?')
 	{
-		printf(">> expanding $? com status: [0]  = %d\n", shell->status);
 		var = ft_itoa(shell->status);
 		if (!var)
 			return(0);

@@ -1,3 +1,5 @@
+OK
+
 echo $USER → jucoelho
 
 echo "$USER" → jucoelho
@@ -14,12 +16,15 @@ echo $ → bash: $: bad substitution (erro se não seguido de nada útil)
 
 echo $"USER" → USER (é para tradução/localização, não expansão)
 
+echo $? → 0
 
+echo '$?' → $?
+
+echo "$?" → 0
 
 AJUSTAR
 echo "${USER" → ${USER (literal, não expande)
 
-echo "$USER" → jucoelho
 
 echo "$USER → jucoelho (ainda expande mesmo com aspas abertas)
 
@@ -31,10 +36,73 @@ echo $USER_NAME123 → valor da var USER_NAME123 (não encontra? imprime vazio)
 
 echo $USER-NAME → jucoelho-NAME (expande só $USER)
 
-echo "$?" → 0
 
-echo '$?' → $?
-
-echo $? → 0
 
 echo "${?}" → 0
+
+———————————— redirects
+Test   1: ❌ grep hi <./test_files/infile 
+mini exit code = 1
+bash exit code = 0
+Test   2: ❌ grep hi "<infile" <         ./test_files/infile 
+mini exit code = 1
+bash exit code = 2
+Test   3: ❌ echo hi < ./test_files/infile bye bye 
+mini exit code = 1
+bash exit code = 0
+Test   4: ❌ grep hi <./test_files/infile_big <./test_files/infile 
+mini exit code = 1
+bash exit code = 0
+Test   5: ❌ echo <"./test_files/infile" "bonjour       42" 
+mini exit code = 1
+bash exit code = 0
+Test   6: ❌ cat <"./test_files/file name with spaces" 
+mini exit code = 1
+bash exit code = 0
+Test   7: ❌ cat <./test_files/infile_big ./test_files/infile 
+mini exit code = 1
+bash exit code = 0
+Test   8: ✅ cat <"1""2""3""4""5" 
+Test   9: ✅⚠️  echo <"./test_files/infile" <missing <"./test_files/infile" 
+mini error = ()
+bash error = ( No such file or directory)
+Test  10: ✅⚠️  echo <missing <"./test_files/infile" <missing 
+mini error = ()
+bash error = ( No such file or directory)
+Test  11: ❌ cat <"./test_files/infile" 
+mini exit code = 1
+bash exit code = 0
+Test  12: ❌ echo <"./test_files/infile_big" | cat <"./test_files/infile" 
+mini output = ()
+bash output = (hi hello world 42)
+mini exit code = 1
+bash exit code = 0
+mini error = ()
+bash error = ( Broken pipe)
+Test  13: ❌ echo <"./test_files/infile_big" | cat "./test_files/infile" 
+mini output = ()
+bash output = (hi hello world 42)
+mini exit code = 1
+bash exit code = 0
+Test  14: ❌ echo <"./test_files/infile_big" | echo <"./test_files/infile" 
+mini exit code = 1
+bash exit code = 0
+Test  15: ❌ echo hi | cat <"./test_files/infile" 
+mini output = ()
+bash output = (hi hello world 42)
+mini exit code = 1
+bash exit code = 0
+Test  16: ❌ echo hi | cat "./test_files/infile" 
+mini output = ()
+bash output = (hi hello world 42)
+mini exit code = 1
+bash exit code = 0
+Test  17: ❌ cat <"./test_files/infile" | echo hi 
+mini exit code = 1
+bash exit code = 0
+mini error = ()
+bash error = ( Broken pipe)
+Test  18: ❌ cat <"./test_files/infile" | grep hello 
+mini exit code = 1
+bash exit code = 0
+
