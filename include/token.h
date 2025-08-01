@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:25:24 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/30 20:54:46 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/01 17:28:48 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,10 @@ int		ft_is_operator(char c);
 int		ft_is_special_char(char c);
 t_token	*ft_lexer(char *input, t_shell *shell);
 t_token	*ft_new_token(t_token_type type, char *value);
+int		ft_handle_expander(char *input, int i, t_shell *shell, t_token **tokens);
+int		ft_expandvar(char *input, int start, int len, t_shell *shell, t_token **tokens);
+int		ft_handle_braces(char *input, int i, int j, t_shell *shell, t_token **tokens);
+int		ft_handle_expalnum(char *input, int i, int j, t_shell *shell, t_token **tokens);
 int		ft_handle_expander(char *input, int i, t_shell *shell, t_token **tokens);
 
 #endif

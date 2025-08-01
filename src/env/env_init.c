@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 17:35:31 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/30 15:26:43 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/31 17:38:55 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ t_env	*env_init(char **envp)
 		if (extract_pair(*envp, &key, &value))
 		{
 			node = env_pair_create(key, value);
-			free(key);
 			free(value);
-			env_list_append(&env, node);
+			if (node)
+				env_list_append(&env, node);
 		}
 		envp++;
 	}

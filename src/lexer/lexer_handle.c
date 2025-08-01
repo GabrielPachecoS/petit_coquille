@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:22:56 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/30 21:24:30 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/31 22:55:19 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,16 @@ int	ft_handle_word(char *input, int i, t_token **tokens)
 	int	start;
 
 	start = i;
+	printf(">> handle_word: i nº %d = %c\n", i, input[i]);
 	while (input[i] && !ft_is_special_char(input[i]))
 		i++;
 	if (i > start)
 	{
 		ft_add_token(tokens,
 			ft_new_token(T_WORD, ft_substr(input, start, i - start)));
+		printf("token = %s\n",ft_substr(input, start, i - start));
 	}
+	printf(">> handle_word: i =nº%d %c\n", i, input[i]);
 	return (i);
 }
 

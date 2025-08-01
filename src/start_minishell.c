@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/30 21:23:53 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/07/31 17:39:18 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_start_minishell(t_shell *shell)
 		ft_free_commands(cmds);
 		ft_free_tokens(tokens);
 		ft_free_shell(shell);
-		ft_cleanup(shell, input);
+		//ft_cleanup(shell, input);
 
 	}
 }
