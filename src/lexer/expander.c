@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:49:27 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/01 19:27:10 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:04:06 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,10 @@ int	ft_handle_expalnum(char *input, int i, int j, t_shell *shell, t_token **toke
 	}
 	return (ft_expandvar(input, j, i - j, shell, tokens));
 }
-
-int	ft_handle_braces(char *input, int i, int j, t_shell *shell, t_token **tokens)
+static int	ft_expand_brace_status(char *input, int i, t_shell *shell, t_token **tokens)
 {
 	char	*var;
-	
+
 	if (input[i] == '}')
 	{
 		write(2, "minishell: ${}: bad substitution", 33);
@@ -86,18 +85,29 @@ int	ft_handle_braces(char *input, int i, int j, t_shell *shell, t_token **tokens
 	}
 	if (input[i] == '?')
 	{
-		if (input[i + 1] == '}' && input [i = 2] == '"')
+		if (input[i + 1] == '}' && input[i + 2] == '"')
 		{
 			var = ft_itoa(shell->status);
 			if (!var)
-				return(0);
-			j = ft_handle_word(var, 0, tokens);
+				return (0);
+			ft_handle_word(var, 0, tokens);
 			free(var);
 			return (i + 2);
 		}
 		else
-			return(++i);
+			return (++i);
 	}
+	return (-1);
+}
+
+int	ft_handle_braces(char *input, int i, int j, t_shell *shell, t_token **tokens)
+{
+	int	status_return;
+
+	status_return = ft_expand_brace_status(input, i, shell, tokens);
+	if (status_return != -1)
+		return (status_return);
+
 	if ((ft_isalpha(input[i])) || input[i] == '_')
 	{
 		j++;
@@ -113,16 +123,18 @@ int	ft_handle_braces(char *input, int i, int j, t_shell *shell, t_token **tokens
 	else
 		return (ft_handle_word(input, i - j - 2, tokens));
 }
+
 int	ft_expandvar(char *input, int len, int start, t_shell *shell, t_token **tokens)
 {
 	char	*var;
+	char	*aux;
 
 	var = ft_substr(input, start, len);
 	if (!var)
 		return(start + 1);
-	var = env_var(shell->envp, var);
-	ft_handle_word(var, 0, tokens);
+	aux = env_var(shell->envp, var);
 	free(var);
+	ft_handle_word(aux, 0, tokens);
 	return (len + start);
 }
 

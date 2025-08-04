@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/23 20:04:15 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:52:59 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	ft_parser_redir_in(t_shell *shell, t_token **tok)
 		shell->heredoc = ft_strdup((*tok)->value);
 		fd = open(temp, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		ft_read_heredoc(shell, fd);
+		close(fd);
 	}
 	return (1);
 }

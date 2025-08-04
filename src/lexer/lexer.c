@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:24:58 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/01 19:19:02 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:41:28 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ t_token	*ft_lexer(char *input, t_shell *shell)
 		else if ((input[i] == '"' && input[i + 1] == '$') || input[i] == '$')
 			i = ft_handle_expander(input, i, shell, &tokens);
 		else if (input[i] == '"' || input[i] == '\'')
-		{
 			i = ft_handle_quoted(input, i, &tokens, input[i]);
-		}
 		else if (ft_is_operator(input[i]))
 			i = ft_handle_token(input, i, &tokens);
 		else

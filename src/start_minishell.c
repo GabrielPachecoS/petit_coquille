@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/01 19:18:01 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:19:10 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,39 @@ void	ft_init_struct(t_shell *shell, char **envp)
 	shell->last_exit_status = 0;
 	shell->fd_in = -1;
 	shell->fd_out = -1;
+	shell->fd[0] = -1;
+	shell->fd[1] = -1;
 	shell->append = -1;
 	shell->status = 1;
 	shell->should_exit = -1;
 	shell->exit_code = -1;
-	shell->fd[0] = -1;
-	shell->fd[1] = -1;
+	shell->heredoc = NULL;
 	shell->infile = NULL;
 	shell->outfile = NULL;
 }
+
 void	ft_free_shell(t_shell *shell)
 {
 	shell->last_exit_status = 0;
 	shell->fd_in = -1;
 	shell->fd_out = -1;
-	shell->append = -1;
-	shell->status = 1;
 	shell->fd[0] = -1;
 	shell->fd[1] = -1;
+	shell->append = -1;
+	shell->status = 1;
+	shell->should_exit = -1;
+	shell->exit_code = -1;
+	if (shell->heredoc)
+		free(shell->heredoc);
+	if (shell->infile)
+		free(shell->infile);
+	if (shell->outfile)
+		free(shell->outfile);
+	shell->heredoc = NULL;
 	shell->infile = NULL;
 	shell->outfile = NULL;
-	shell->heredoc = NULL;
 }
+
 void	ft_start_minishell(t_shell *shell)
 {
 	char		*input;
@@ -65,7 +76,6 @@ void	ft_start_minishell(t_shell *shell)
 		ft_free_commands(cmds);
 		ft_free_tokens(tokens);
 		ft_free_shell(shell);
-		//ft_cleanup(shell, input);
-
 	}
+	ft_cleanup(shell, input);
 }
