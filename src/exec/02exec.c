@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:40 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/05 17:18:05 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/05 19:07:00 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_setup_fork(t_shell *shell, int *pid, int i)
 	pid[i] = fork();
 	if (pid[i] < 0)
 		return (ft_error(1, "fork failed"));
-	return (1);
+	return (shell->status);
 }
 
 void	ft_close_fd(t_shell *shell)
@@ -61,5 +61,5 @@ int	ft_loop_cmdpipe(t_shell *shell, t_command *cmd, int *pid, int n_cmd)
 		i++;
 	}
 	close(prev_fd);
-	return (1);
+	return (shell->status);
 }
