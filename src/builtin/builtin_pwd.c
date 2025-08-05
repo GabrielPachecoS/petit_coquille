@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:25 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/30 21:45:37 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:20:11 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 int	ft_builtin_pwd(void)
 {
 	char	cwd[4096];
+
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 		printf("%s\n", cwd);
 	else

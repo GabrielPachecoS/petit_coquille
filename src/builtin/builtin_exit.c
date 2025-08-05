@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:34 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/30 16:02:39 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:17:09 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ int	ft_builtin_exit(char **args, t_shell *shell)
 		return (1);
 	}
 	if (args[1])
+	{
 		code = ft_atol(args[1]);
+	}
 	else
 		code = shell->last_exit_status;
 	shell->should_exit = 1;

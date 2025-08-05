@@ -13,7 +13,6 @@
 #include "minishell.h"
 #include "token.h"
 
-
 /**
  * @brief Checks if a character is a shell operator.
  *
@@ -27,6 +26,7 @@ int	ft_is_operator(char c)
 {
 	return (c == '<' || c == '>' || c == '|');
 }
+
 /**
  * @brief Checks if a character is a special shell character.
  *

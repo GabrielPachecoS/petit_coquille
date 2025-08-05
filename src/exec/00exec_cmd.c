@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/25 23:32:45 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:21:06 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static int	ft_listsize(t_command *cmds)
 {
-	int	nbr_nodes = 0;
+	int	nbr_nodes;
+
+	nbr_nodes = 0;
 	while (cmds)
 	{
 		cmds = cmds->next;
@@ -27,7 +29,9 @@ void	ft_exec_command(t_shell *shell, t_command *cmd)
 {
 	char	**env_array;
 	char	*fullpath;
+	int		i;
 
+	i = 0;
 	env_array = env_to_array(shell->envp);
 	fullpath = ft_get_cmdpath(cmd->argv[0], shell->envp);
 	if (!fullpath)
@@ -36,7 +40,6 @@ void	ft_exec_command(t_shell *shell, t_command *cmd)
 		printf("exec cmd command not found");
 		exit(1);
 	}
-	int i = 0;
 	while (cmd->argv[i])
 	{
 		i++;
@@ -47,6 +50,7 @@ void	ft_exec_command(t_shell *shell, t_command *cmd)
 	free(fullpath);
 	exit(EXIT_FAILURE);
 }
+
 int	ft_exec_cmdpipe(t_shell *shell, t_command *cmd, int n_cmd)
 {
 	int	*pid;
@@ -77,8 +81,12 @@ int	ft_exec_simplecmd(t_shell *shell, t_command *cmd)
 	int	status;
 
 	pid = fork();
+	if (pid < 0)
+		return (ft_error(1, "fork failed"));
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		ft_setup_redirects(shell);
 		ft_exec_command(shell, cmd);
 	}
@@ -89,16 +97,16 @@ int	ft_exec_simplecmd(t_shell *shell, t_command *cmd)
 	}
 	return (shell->status);
 }
+
 void	ft_exec_cmds(t_shell *shell, t_command *cmds)
 {
-	int	n_cmds = ft_listsize(cmds);
-	
+	int	n_cmds;
+
+	n_cmds = ft_listsize(cmds);
 	if (ft_is_builtin(cmds))
 	{
 		if (!cmds->next)
 			ft_exec_simplebuiltin(shell, cmds->argv);
-		// else
-		// 	shell->last_exit_status = ft_exec_builtinpipe(shell, cmds, n_cmds);
 	}
 	else if (!cmds->next)
 		shell->last_exit_status = ft_exec_simplecmd(shell, cmds);

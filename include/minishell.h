@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/04 18:19:23 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:29:52 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct s_shell
 	int		append;
 	int		status;
 	int		should_exit;
+	int		len;
+	int		start;
 	int		exit_code;
 	char	*heredoc;
 	char	*infile;

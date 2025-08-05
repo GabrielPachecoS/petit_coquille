@@ -6,21 +6,11 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 17:01:30 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/25 18:28:07 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:15:13 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_setup_fork(t_shell *shell, int *pid, int i)
-{
-	if (pipe(shell->fd) < 0)
-			return (ft_error(1, "pipe failed"));
-	pid[i] = fork();
-	if (pid[i] < 0)
-		return (ft_error(1, "fork failed"));
-	return(1);
-}
 
 static char	*ft_report_cmd_not_found(char *cmd)
 {
