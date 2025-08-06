@@ -6,7 +6,7 @@
 #    By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/08/05 17:43:36 by jucoelho         ###   ########.fr        #
+#    Updated: 2025/08/06 15:47:00 by jucoelho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,7 @@ $(LIBFT_DIR)/libft.a:
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -L$(LIBFT_DIR) -lft -o $(NAME) -lreadline
 	@echo "\033[1;45m✅ Petit Coquile compiled successfully!!\033[0m"
-
+	@echo "\033[1;45m✅ TIRAR -G COMPILADOR ANTES DE ENVIAR!!\033[0m"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@

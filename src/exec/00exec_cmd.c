@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/05 19:09:36 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/05 20:34:19 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_exec_command(t_shell *shell, t_command *cmd)
 	exit(EXIT_FAILURE);
 }
 
-int	ft_exec_cmdpipe(t_shell *shell, t_command *cmd, int n_cmd)
+int	ft_exec_cmdpipe(t_shell *shell, t_command *cmds, int n_cmd)
 {
 	int	*pid;
 	int	status;
@@ -61,7 +61,7 @@ int	ft_exec_cmdpipe(t_shell *shell, t_command *cmd, int n_cmd)
 	pid = malloc(sizeof(int) * (n_cmd + 1));
 	if (!pid)
 		return (ft_error(1, "malloc failed"));
-	status = ft_loop_cmdpipe(shell, cmd, pid, n_cmd);
+	status = ft_loop_cmdpipe(shell, cmds, pid, n_cmd);
 	while (i < n_cmd)
 	{
 		if (i == n_cmd - 1)
@@ -75,7 +75,7 @@ int	ft_exec_cmdpipe(t_shell *shell, t_command *cmd, int n_cmd)
 	return (status >> 8);
 }
 
-int	ft_exec_simplecmd(t_shell *shell, t_command *cmd)
+int	ft_exec_simplecmd(t_shell *shell, t_command *cmds)
 {
 	int	pid;
 	int	status;
@@ -88,7 +88,7 @@ int	ft_exec_simplecmd(t_shell *shell, t_command *cmd)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		ft_setup_redirects(shell);
-		ft_exec_command(shell, cmd);
+		ft_exec_command(shell, cmds);
 	}
 	else
 	{
