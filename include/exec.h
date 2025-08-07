@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 22:05:35 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/25 23:31:08 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:51:01 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 # include "minishell.h"
 //00exec_cmd
-void	ft_exec_cmds(t_shell *shell, t_command *cmds);
+void	ft_exec(t_shell *shell, t_command *cmds);
 int		ft_exec_simplecmd(t_shell *shell, t_command *cmd);
 int		ft_exec_cmdpipe(t_shell *shell, t_command *cmd, int n_cmd);
 //static int list size

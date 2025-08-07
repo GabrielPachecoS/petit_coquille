@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/06 17:05:48 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:50:46 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_start_minishell(t_shell *shell)
 		tokens = ft_lexer(input, shell);
 		ft_print_tokens(tokens);
 		cmds = ft_parser(tokens, shell);
-		ft_exec_cmds(shell, cmds);
+		ft_exec(shell, cmds);
 		if (shell->should_exit == 1)
 			exit(EXIT_SUCCESS);
 		//printf("Status: %d\n\n", shell->status);
