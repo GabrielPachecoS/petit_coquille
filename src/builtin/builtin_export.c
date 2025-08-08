@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:27 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/05 17:17:14 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/05 19:09:36 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	handle_export_argument(char *arg, t_env **env, t_shell *shell)
 	if (!is_valid_identifier(arg))
 	{
 		write(2, " not a valid identifier\n", 24);
-		shell->last_exit_status = 1;
+		shell->status = 1;
 		return (1);
 	}
 	extract_key_value(arg, &key, &value, &has_value);

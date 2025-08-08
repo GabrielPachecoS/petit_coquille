@@ -30,7 +30,7 @@ static int	cd_expand_path(char *arg, t_shell *shell, char **path)
 	if (!home)
 	{
 		write(2, "cd: HOME not set\n", 18);
-		shell->last_exit_status = 1;
+		shell->status = 1;
 		return (1);
 	}
 	if (arg == NULL)
@@ -53,7 +53,7 @@ static int	cd_handle_args(char **argv, t_shell *shell, char **path)
 	if (argv[2] != NULL)
 	{
 		write(2, "cd: too many arguments\n", 23);
-		shell->last_exit_status = 1;
+		shell->status = 1;
 		return (1);
 	}
 	if (argv[1] == NULL)
@@ -86,7 +86,7 @@ static void	cd_update_pwd(t_env **env, char *oldpwd, char *newpwd)
  *   - Calls chdir() to change the current directory.
  *   - Updates PWD and OLDPWD environment variables.
  *   - Frees dynamically allocated path.
- *   - Sets shell->last_exit_status to 0 on success or 1 on failure.
+ *   - Sets shell->status to 0 on success or 1 on failure.
  */
 int	ft_builtin_cd(char **args, t_shell *shell)
 {
@@ -101,12 +101,12 @@ int	ft_builtin_cd(char **args, t_shell *shell)
 	{
 		perror("cd");
 		free(path);
-		shell->last_exit_status = 1;
+		shell->status = 1;
 		return (1);
 	}
 	newpwd = getcwd(NULL, 0);
 	cd_update_pwd(&shell->envp, oldpwd, newpwd);
 	free(path);
-	shell->last_exit_status = 0;
+	shell->status = 0;
 	return (0);
 }

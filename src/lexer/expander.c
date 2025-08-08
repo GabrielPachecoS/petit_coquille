@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:49:27 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/05 18:58:38 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/05 20:10:35 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,17 @@ int	ft_handle_expander(char *input, int i, t_shell *shell, t_token **tokens)
 	shell->len = i;
 	if (input[shell->len] == '"')
 	{
-		shell->len += 2;
-		return (ft_expquoted(input, shell, tokens));
+		if (input[shell->len + 2] == '"')
+		{
+			shell->status = 0;
+			write(2, "$", 1);
+			return (shell->len + 3);
+		}
+		else
+		{
+			shell->len += 2;
+			return (ft_expquoted(input, shell, tokens));
+		}
 	}
 	if (input[shell->len] == '$')
 	{

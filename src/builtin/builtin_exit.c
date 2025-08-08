@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:34 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/05 17:17:09 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/05 19:10:11 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_builtin_exit(char **args, t_shell *shell)
 	if (args[1] && args[2])
 	{
 		write(2, " too many arguments\n", 20);
-		shell->last_exit_status = 1;
+		shell->status = 1;
 		return (0);
 	}
 	if (args[1] && !is_numeric(args[1]))
@@ -52,7 +52,7 @@ int	ft_builtin_exit(char **args, t_shell *shell)
 		code = ft_atol(args[1]);
 	}
 	else
-		code = shell->last_exit_status;
+		code = shell->status;
 	shell->should_exit = 1;
 	shell->exit_code = (unsigned char)code;
 	return (1);

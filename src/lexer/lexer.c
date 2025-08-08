@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:24:58 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/05 18:59:11 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/08 11:44:33 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_token	*ft_lexer(char *input, t_shell *shell)
 	tokens = NULL;
 	while (input[i])
 	{
-		if (input[i] == ' ')
+		if (ft_isspace(input[i]))
 		{
 			i++;
 		}
@@ -58,6 +58,5 @@ t_token	*ft_lexer(char *input, t_shell *shell)
 			i = ft_handle_word(input, i, &tokens);
 		}	
 	}
-	//printf("ft_lexer\n\n");
 	return (tokens);
 }

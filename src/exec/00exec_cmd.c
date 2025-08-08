@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/05 17:21:06 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/06 18:51:23 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_exec_command(t_shell *shell, t_command *cmd)
 	exit(EXIT_FAILURE);
 }
 
-int	ft_exec_cmdpipe(t_shell *shell, t_command *cmd, int n_cmd)
+int	ft_exec_cmdpipe(t_shell *shell, t_command *cmds, int n_cmd)
 {
 	int	*pid;
 	int	status;
@@ -61,7 +61,7 @@ int	ft_exec_cmdpipe(t_shell *shell, t_command *cmd, int n_cmd)
 	pid = malloc(sizeof(int) * (n_cmd + 1));
 	if (!pid)
 		return (ft_error(1, "malloc failed"));
-	status = ft_loop_cmdpipe(shell, cmd, pid, n_cmd);
+	status = ft_loop_cmdpipe(shell, cmds, pid, n_cmd);
 	while (i < n_cmd)
 	{
 		if (i == n_cmd - 1)
@@ -72,10 +72,10 @@ int	ft_exec_cmdpipe(t_shell *shell, t_command *cmd, int n_cmd)
 	}
 	free(pid);
 	shell->status = status >> 8;
-	return (status >> 8);
+	return (status);
 }
 
-int	ft_exec_simplecmd(t_shell *shell, t_command *cmd)
+int	ft_exec_simplecmd(t_shell *shell, t_command *cmds)
 {
 	int	pid;
 	int	status;
@@ -87,31 +87,31 @@ int	ft_exec_simplecmd(t_shell *shell, t_command *cmd)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
+		printf("\nGabs, coloquei isso aqui, mas não tenho certeza se precisa\n");
 		ft_setup_redirects(shell);
-		ft_exec_command(shell, cmd);
+		ft_exec_command(shell, cmds);
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
-		shell->status = WEXITSTATUS(status);
+		shell->status = status >> 8;
 	}
 	return (shell->status);
 }
 
-void	ft_exec_cmds(t_shell *shell, t_command *cmds)
+void	ft_exec(t_shell *shell, t_command *cmds)
 {
 	int	n_cmds;
 
 	n_cmds = ft_listsize(cmds);
-	if (ft_is_builtin(cmds))
+	if (!cmds->next)
 	{
-		if (!cmds->next)
+		if (ft_is_builtin(cmds))
 			ft_exec_simplebuiltin(shell, cmds->argv);
+		else
+			shell->status = ft_exec_simplecmd(shell, cmds);
 	}
-	else if (!cmds->next)
-		shell->last_exit_status = ft_exec_simplecmd(shell, cmds);
 	else
-	{
-		shell->last_exit_status = ft_exec_cmdpipe(shell, cmds, n_cmds);
-	}
+		shell->status = ft_exec_cmdpipe(shell, cmds, n_cmds);
 }
+

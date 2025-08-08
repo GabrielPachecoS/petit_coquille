@@ -1,0 +1,8 @@
+Test   4: ❌ echo hello'world' 
+mini output = (hello world)
+bash output = (helloworld)
+
+Test   5: ❌ echo hello""world 
+mini output = (hello world)
+bash output = (helloworld)
+
