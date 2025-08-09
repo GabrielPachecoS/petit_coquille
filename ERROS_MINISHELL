@@ -1,4 +1,11 @@
 ERROS
+Test  56: ❌ export GHOST=123 | env | grep GHOST 
+mini exit code = 0
+bash exit code = 1
+
+
+
+
 
 COMPARE PARSING
 65:	STD_OUT: ❌  STD_ERR: ❌  EXIT_CODE: ✅  /nfs/homes/jucoelho/42_minishell_tester/cmds/mand/0_compare_parsing.sh:134  

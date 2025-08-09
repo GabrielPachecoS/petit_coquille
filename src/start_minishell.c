@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/08 11:45:43 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:57:18 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	ft_init_struct(t_shell *shell, char **envp)
 	shell->fd[0] = -1;
 	shell->fd[1] = -1;
 	shell->append = -1;
-	shell->status = -1;
 	shell->should_exit = -1;
 	shell->exit_code = -1;
 	shell->heredoc = NULL;
@@ -31,7 +30,6 @@ void	ft_init_struct(t_shell *shell, char **envp)
 
 void	ft_free_shell(t_shell *shell)
 {
-	shell->status = 0;
 	shell->fd_in = -1;
 	shell->fd_out = -1;
 	shell->fd[0] = -1;
@@ -67,17 +65,19 @@ void	ft_start_minishell(t_shell *shell)
 		if (*input)
 			add_history(input);
 		tokens = ft_lexer(input, shell);
-		//ft_print_tokens(tokens);
+		ft_print_tokens(tokens);
 		if(tokens)
 			cmds = ft_parser(tokens, shell);
-		//ft_print_commands(shell, cmds);
+		ft_print_commands(shell, cmds);
 		if(cmds)
 			ft_exec(shell, cmds);
-		if (shell->should_exit == 1)
-			exit(EXIT_SUCCESS);
+		//printf("start minishell status %d\n", shell->status);
+		// if (shell->should_exit == 1)
+		// 	exit(EXIT_SUCCESS);
 		ft_free_commands(cmds);
 		ft_free_tokens(tokens);
 		ft_free_shell(shell);
 	}
 	ft_cleanup(shell, input);
+	//printf("\n\n\n\nfora do loop start status %d\n", shell->status);
 }

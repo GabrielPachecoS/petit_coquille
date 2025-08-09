@@ -1,3 +1,4 @@
+tratamento de aspas
 Test   4: ❌ echo hello'world' 
 mini output = (hello world)
 bash output = (helloworld)
@@ -5,4 +6,47 @@ bash output = (helloworld)
 Test   5: ❌ echo hello""world 
 mini output = (hello world)
 bash output = (helloworld)
+
+Test  21: ❌ echo $?HELLO 
+mini output = (-1 ELLO)
+bash output = (0HELLO)
+
+expansão dentro das aspas
+Test  15: ❌ echo "exit_code ->$? user ->$USER home -> $HOME" 
+mini output = (exit_code ->$? user ->$USER home -> $HOME)
+bash output = (exit_code ->0 user ->jucoelho home -> /nfs/homes/jucoelho)
+RESULTADO
+PetitCoquille$ echo "exit_code ->$? user ->$USER home -> $HOME"
+Token: [0] "echo"
+Token: [0] "exit_code ->$? user ->$USER home -> $HOME"
+Comando:
+ argv[0]: echo
+ argv[1]: exit_code ->$? user ->$USER home -> $HOME
+exit_code ->$? user ->$USER home -> $HOME
+O erro está na falta de expansão dentro das aspas duplas
+int	ft_handle_quoted: linha 122
+talvez um if input[i] == $
+
+Validar apenas o nome da variável (o identificador), que é o que vem antes do =
+Test  28: ❌ export HELLO="123 A-" 
+mini exit code = 1
+bash exit code = 0
+mini error = ( `123 A-' not a valid identifier)
+bash error = ()
+
+Test  46: ❌ exit +"100" 
+mini exit code = 1
+bash exit code = 100
+mini error = ( too many arguments)
+bash error = ()
+
+Test  49: ❌ exit -"100" 
+mini exit code = 1
+bash exit code = 156
+mini error = ( too many arguments)
+bash error = ()
+
+Test  50: ❌ exit hello 
+mini exit code = 0
+bash exit code = 2
 

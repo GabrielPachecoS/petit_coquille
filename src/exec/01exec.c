@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 17:21:37 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/06 20:11:34 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/08 18:14:27 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,16 @@ static void	ft_setup_redir_in(t_shell *shell)
 
 int	ft_setup_redirects_pipe(t_shell *shell, int curr, int last, int prev_fd)
 {
+	//printf("redirects: curr %d\n", curr);
 	if (curr == last)
 	{
+		//printf("redirects curr=last: curr %d\n", curr);
 		if (shell->outfile)
 			ft_setup_redir_out(shell);
 		else	
 			ft_dup_close(prev_fd, STDIN_FILENO);
+		if (prev_fd != STDIN_FILENO)
+			close(prev_fd);
 	}
 	else if (curr == 0)
 	{
@@ -65,6 +69,7 @@ int	ft_setup_redirects_pipe(t_shell *shell, int curr, int last, int prev_fd)
 		ft_dup_close(prev_fd, STDIN_FILENO);
 		ft_dup_close(shell->fd[1], STDOUT_FILENO);
 	}
+	//printf("redirects return: curr %d\n", curr);
 	return (shell->status);
 }
 

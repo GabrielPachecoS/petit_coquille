@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:27 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/05 19:09:36 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/08 15:18:41 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,9 @@ static int	handle_export_argument(char *arg, t_env **env, t_shell *shell)
 
 	if (!is_valid_identifier(arg))
 	{
-		write(2, " not a valid identifier\n", 24);
+		write(2, "PetitCoquille: export: `", 24);
+		write(2, arg, ft_strlen(arg));
+		write(2, "' not a valid identifier\n", 25);
 		shell->status = 1;
 		return (1);
 	}
