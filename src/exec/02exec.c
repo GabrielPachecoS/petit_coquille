@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:40 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/09 13:33:10 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/09 15:52:42 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ int	ft_loop_cmdpipe(t_shell *shell, t_command *cmds, int *pid, int n_cmd)
 		cmds = cmds->next;
 		i++;
 	}
-	close(prev_fd);
+	//close(prev_fd);
 	return (shell->status);
 }

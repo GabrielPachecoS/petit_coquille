@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/09 13:31:39 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/09 18:11:07 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int	ft_exec_simplecmd(t_shell *shell, t_command *cmds)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		printf("\nGabs, coloquei isso aqui, mas não tenho certeza se precisa\n");
 		ft_setup_redirects(shell);
 		ft_exec_command(shell, cmds);
 	}
@@ -107,7 +106,13 @@ void	ft_exec(t_shell *shell, t_command *cmds)
 	if (!cmds->next)
 	{
 		if (ft_is_builtin(cmds))
+		{
+			printf("is builtin\n\n");
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
+			ft_setup_redirects(shell);
 			ft_exec_simplebuiltin(shell, cmds->argv);
+		}
 		else
 			shell->status = ft_exec_simplecmd(shell, cmds);
 	}
