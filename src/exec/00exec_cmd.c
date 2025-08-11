@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/09 18:11:07 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/10 19:06:55 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,24 @@ void	ft_exec_command(t_shell *shell, t_command *cmd)
 
 	i = 0;
 	env_array = env_to_array(shell->envp);
+	//printf("ft_exec cmd shell-status = %d, \n\n\n", shell->status);
 	fullpath = ft_get_cmdpath(cmd->argv[0], shell->envp);
 	if (!fullpath)
 	{
 		ft_free_split(env_array);
-		printf("exec cmd command not found");
+		//printf("ft_exec cmd !fullpath shell-status = %d, \n\n\n", shell->status);
+		//printf("exec cmd command not found");
 		exit(1);
 	}
 	while (cmd->argv[i])
 	{
 		i++;
 	}
-	execve(fullpath, cmd->argv, env_array);
+	shell->status = execve(fullpath, cmd->argv, env_array);
 	perror("execve failed");
 	ft_free_split(env_array);
 	free(fullpath);
+	//printf("ft_exec cmd shell-status = %d, \n\n\n", shell->status);
 	exit(EXIT_FAILURE);
 }
 
@@ -62,6 +65,7 @@ int	ft_exec_cmdpipe(t_shell *shell, t_command *cmds, int n_cmd)
 	if (!pid)
 		return (ft_error(1, "malloc failed"));
 	status = ft_loop_cmdpipe(shell, cmds, pid, n_cmd);
+	//printf("cmd pipe status %d \n\n", shell->status);
 	while (i < n_cmd)
 	{
 		if (i == n_cmd - 1)
@@ -71,8 +75,13 @@ int	ft_exec_cmdpipe(t_shell *shell, t_command *cmds, int n_cmd)
 		i++;
 	}
 	free(pid);
-	shell->status = status >> 8;
-	return (status);
+	if (WIFEXITED(status))
+		shell->status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		shell->status = 128 + WTERMSIG(status);
+	else
+		shell->status = 1;
+	return (shell->status);
 }
 
 int	ft_exec_simplecmd(t_shell *shell, t_command *cmds)
@@ -93,7 +102,8 @@ int	ft_exec_simplecmd(t_shell *shell, t_command *cmds)
 	else
 	{
 		waitpid(pid, &status, 0);
-		shell->status = status >> 8;
+		if (WIFEXITED(status))
+		shell->status = WEXITSTATUS(status);
 	}
 	return (shell->status);
 }
@@ -107,7 +117,6 @@ void	ft_exec(t_shell *shell, t_command *cmds)
 	{
 		if (ft_is_builtin(cmds))
 		{
-			printf("is builtin\n\n");
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
 			ft_setup_redirects(shell);

@@ -6,21 +6,23 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/09 18:19:41 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/10 20:27:34 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "frescurinha.h"
 
 void	ft_init_struct(t_shell *shell, char **envp)
 {
 	shell->envp = env_init(envp);
-	shell->status = 0;
+	shell->last_exit_status = 0;
 	shell->fd_in = -1;
 	shell->fd_out = -1;
 	shell->fd[0] = -1;
 	shell->fd[1] = -1;
 	shell->append = -1;
+	shell->status = 0;
 	shell->should_exit = -1;
 	shell->exit_code = -1;
 	shell->heredoc = NULL;
@@ -30,12 +32,12 @@ void	ft_init_struct(t_shell *shell, char **envp)
 
 void	ft_free_shell(t_shell *shell)
 {
+	shell->last_exit_status = 0;
 	shell->fd_in = -1;
 	shell->fd_out = -1;
 	shell->fd[0] = -1;
 	shell->fd[1] = -1;
 	shell->append = -1;
-	shell->should_exit = -1;
 	shell->exit_code = -1;
 	if (shell->heredoc)
 		free(shell->heredoc);
@@ -56,7 +58,9 @@ void	ft_start_minishell(t_shell *shell)
 
 	while (1)
 	{
-		input = readline("PetitCoquille$ ");
+		tokens = NULL;
+		cmds = NULL;
+		input = readline(FRESCURINHA);
 		if (!input)
 		{
 			write(1, "exit\n", 5);
@@ -71,13 +75,13 @@ void	ft_start_minishell(t_shell *shell)
 		//ft_print_commands(shell, cmds);
 		if(cmds)
 			ft_exec(shell, cmds);
-		//printf("start minishell status %d\n", shell->status);
-		// if (shell->should_exit == 1)
-		// 	exit(EXIT_SUCCESS);
-		ft_free_commands(cmds);
-		ft_free_tokens(tokens);
+		if (cmds)
+			ft_free_commands(cmds);
+		if (tokens)
+			ft_free_tokens(tokens);
 		ft_free_shell(shell);
+		if (shell->should_exit == 1)
+		 	exit(shell->status);
 	}
 	ft_cleanup(shell, input);
-	//printf("\n\n\n\nfora do loop start status %d\n", shell->status);
 }

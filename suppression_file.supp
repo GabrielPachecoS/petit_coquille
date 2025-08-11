@@ -1,0 +1,74 @@
+# ---- Minishell / GNU Readline & friends ----
+# Cada bloco tem Memcheck:Leak + match-leak-kinds específico e um obj:* amplo.
+# Mantém vazamentos do teu código visíveis e ignora os da readline/ncurses.
+
+{
+  readline_reachable
+  Memcheck:Leak
+  match-leak-kinds: reachable
+  obj:*/libreadline.so.*
+}
+
+{
+  readline_definite
+  Memcheck:Leak
+  match-leak-kinds: definite
+  obj:*/libreadline.so.*
+}
+
+{
+  readline_possible
+  Memcheck:Leak
+  match-leak-kinds: possible
+  obj:*/libreadline.so.*
+}
+
+{
+  history_reachable
+  Memcheck:Leak
+  match-leak-kinds: reachable
+  obj:*/libhistory.so.*
+}
+
+{
+  tinfo_reachable
+  Memcheck:Leak
+  match-leak-kinds: reachable
+  obj:*/libtinfo.so.*
+}
+
+{
+  ncurses_reachable
+  Memcheck:Leak
+  match-leak-kinds: reachable
+  obj:*/libncurses.so.*
+}
+
+{
+  ncursesw_reachable
+  Memcheck:Leak
+  match-leak-kinds: reachable
+  obj:*/libncursesw.so.*
+}
+
+# ---- macOS / Homebrew (se usar Valgrind no macOS Intel) ----
+# Descomente se precisar:
+# {
+#   readline_macos_reachable
+#   Memcheck:Leak
+#   match-leak-kinds: reachable
+#   obj:*/libreadline*.dylib
+# }
+# {
+#   history_macos_reachable
+#   Memcheck:Leak
+#   match-leak-kinds: reachable
+#   obj:*/libhistory*.dylib
+# }
+# {
+#   ncurses_macos_reachable
+#   Memcheck:Leak
+#   match-leak-kinds: reachable
+#   obj:*/libncurses*.dylib
+# }
+

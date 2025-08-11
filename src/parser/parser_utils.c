@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/04 17:52:59 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/10 20:12:38 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_read_heredoc(t_shell *shell, int fd)
 			write(1, "exit\n", 5);
 			break ;
 		}
-		if (strcmp(input, shell->heredoc) == 0)
+		if (ft_strcmp(input, shell->heredoc) == 0)
 		{
 			break;
 		}
@@ -65,7 +65,7 @@ void	ft_read_heredoc(t_shell *shell, int fd)
 /**
  * @brief Parses input redirection from tokens and stores it in the command.
  *
- * Advances the token pointer past the redirection operator and expects
+ * Advances the token pointer past*tok = (*tok)->next; the redirection operator and expects
  * a file name token next.
  *
  * @param cmd Pointer to the current command.
@@ -84,7 +84,9 @@ int	ft_parser_redir_in(t_shell *shell, t_token **tok)
 		*tok = (*tok)->next;
 		if (!*tok || (*tok)->type != T_WORD)
 			return (0);
+		//printf("\n\n\n tá no parser redir in shell->infile = %s\n\n", shell->infile);
 		shell->infile = ft_strdup((*tok)->value);
+		//printf("\n\n\n tá no parser redir in shell->infile = %s\n\n", shell->infile);
 	}
 	else if ((*tok)->type == T_HEREDOC)
 	{

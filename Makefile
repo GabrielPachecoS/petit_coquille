@@ -6,7 +6,7 @@
 #    By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/08/06 15:47:00 by jucoelho         ###   ########.fr        #
+#    Updated: 2025/08/09 20:05:24 by jucoelho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,8 +51,6 @@ SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/builtin/builtin_pwd.c \
 		  $(SRC_DIR)/builtin/builtin_unset.c \
 		  $(SRC_DIR)/builtin/builtin.c \
-
-
 
 
 CC		= cc
