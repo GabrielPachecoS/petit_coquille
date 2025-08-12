@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/10 20:27:34 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/11 21:02:36 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,13 @@ void	ft_init_struct(t_shell *shell, char **envp)
 {
 	shell->envp = env_init(envp);
 	shell->last_exit_status = 0;
-	shell->fd_in = -1;
-	shell->fd_out = -1;
-	shell->fd[0] = -1;
-	shell->fd[1] = -1;
-	shell->append = -1;
 	shell->status = 0;
 	shell->should_exit = -1;
 	shell->exit_code = -1;
+	shell->fd[0] = -1;
+	shell->fd[1] = -1;
+	shell->prev_fd = -1;
+	shell->append = -1;
 	shell->heredoc = NULL;
 	shell->infile = NULL;
 	shell->outfile = NULL;
@@ -33,12 +32,11 @@ void	ft_init_struct(t_shell *shell, char **envp)
 void	ft_free_shell(t_shell *shell)
 {
 	shell->last_exit_status = 0;
-	shell->fd_in = -1;
-	shell->fd_out = -1;
+	shell->exit_code = -1;
 	shell->fd[0] = -1;
 	shell->fd[1] = -1;
+	shell->prev_fd = -1;
 	shell->append = -1;
-	shell->exit_code = -1;
 	if (shell->heredoc)
 		free(shell->heredoc);
 	if (shell->infile)
@@ -55,7 +53,6 @@ void	ft_start_minishell(t_shell *shell)
 	char		*input;
 	t_token		*tokens;
 	t_command	*cmds;
-
 	while (1)
 	{
 		tokens = NULL;

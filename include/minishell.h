@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/09 19:07:52 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/11 19:02:12 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,14 @@ typedef struct s_shell
 {
 	t_env	*envp;
 	int		last_exit_status;
-	int		fd_in;
-	int		fd_out;
-	int		fd[2];
-	int		append;
 	int		status;
 	int		should_exit;
+	int		exit_code;
+	int		fd[2];
+	int		prev_fd;
+	int		append;
 	int		len;
 	int		start;
-	int		exit_code;
 	char	*heredoc;
 	char	*infile;
 	char	*outfile;

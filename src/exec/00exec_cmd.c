@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/10 19:06:55 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/11 19:59:41 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,10 @@ void	ft_exec_command(t_shell *shell, t_command *cmd)
 
 	i = 0;
 	env_array = env_to_array(shell->envp);
-	//printf("ft_exec cmd shell-status = %d, \n\n\n", shell->status);
 	fullpath = ft_get_cmdpath(cmd->argv[0], shell->envp);
 	if (!fullpath)
 	{
 		ft_free_split(env_array);
-		//printf("ft_exec cmd !fullpath shell-status = %d, \n\n\n", shell->status);
-		//printf("exec cmd command not found");
 		exit(1);
 	}
 	while (cmd->argv[i])
@@ -50,7 +47,6 @@ void	ft_exec_command(t_shell *shell, t_command *cmd)
 	perror("execve failed");
 	ft_free_split(env_array);
 	free(fullpath);
-	//printf("ft_exec cmd shell-status = %d, \n\n\n", shell->status);
 	exit(EXIT_FAILURE);
 }
 
@@ -65,7 +61,6 @@ int	ft_exec_cmdpipe(t_shell *shell, t_command *cmds, int n_cmd)
 	if (!pid)
 		return (ft_error(1, "malloc failed"));
 	status = ft_loop_cmdpipe(shell, cmds, pid, n_cmd);
-	//printf("cmd pipe status %d \n\n", shell->status);
 	while (i < n_cmd)
 	{
 		if (i == n_cmd - 1)

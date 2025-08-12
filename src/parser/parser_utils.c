@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/10 20:12:38 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:33:50 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	ft_parser_redir_in(t_shell *shell, t_token **tok)
 	char	*temp;
 	int		fd;
 	
-	shell->fd_in = (*tok)->type;
 	if ((*tok)->type == T_REDIR_IN)
 	{
 		*tok = (*tok)->next;
@@ -117,7 +116,6 @@ int	ft_parser_redir_out(t_shell *shell, t_token **tok)
 {
 	if ((*tok)->type == T_REDIR_APPEND)
 		shell->append = 1;
-	shell->fd_out = (*tok)->type;
 	*tok = (*tok)->next;
 	if (!*tok || (*tok)->type != T_WORD)
 		return (0);

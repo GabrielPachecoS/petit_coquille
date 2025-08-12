@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 17:22:46 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/07/24 17:04:19 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/11 20:03:46 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 int	ft_error_execve(t_shell *shell)
 {
-	close(shell->fd[0]);
-	close(shell->fd[1]);
-	close(shell->fd_in);
-	close(shell->fd_out);
+	if (shell->fd[0] > 0)
+		ft_close_reset(shell->fd[0]);
+	if (shell->fd[0] > 0)
+		ft_close_reset(shell->fd[1]);
+	if (shell->fd[0] > 0)
+		ft_close_reset(shell->prev_fd);
 	perror("execve failed");
 	exit(EXIT_FAILURE);
 }
 
 int	ft_error(int code, char *str)
 {
-	//printf("entrou ft_error\n");
 	perror(str);
 	exit(code);
 }
