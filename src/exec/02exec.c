@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:40 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/11 20:02:55 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/12 14:44:04 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_loop_cmdpipe(t_shell *shell, t_command *cmds, int *pid, int n_cmd)
 			signal(SIGQUIT, SIG_DFL);
 			ft_setup_redirects_pipe(shell, i, n_cmd - 1);
 			ft_verifybuiltin(shell, cmds);
-		};
+		}
 		ft_close_reset(shell->fd[1]);
 		if (shell->prev_fd > 0)
 			ft_close_reset(shell->prev_fd);

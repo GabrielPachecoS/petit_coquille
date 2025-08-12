@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/11 17:33:50 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/12 18:27:05 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,15 @@ int	ft_parser_redir_in(t_shell *shell, t_token **tok)
 		*tok = (*tok)->next;
 		if (!*tok || (*tok)->type != T_WORD)
 			return (0);
-		//printf("\n\n\n tá no parser redir in shell->infile = %s\n\n", shell->infile);
 		shell->infile = ft_strdup((*tok)->value);
-		//printf("\n\n\n tá no parser redir in shell->infile = %s\n\n", shell->infile);
+		fd = open(shell->infile, O_RDONLY);
+		if (fd < 0)
+		{
+			perror(shell->infile);
+			shell->status = 1;
+			return (0);
+		}
+		close(fd);
 	}
 	else if ((*tok)->type == T_HEREDOC)
 	{
@@ -95,6 +101,12 @@ int	ft_parser_redir_in(t_shell *shell, t_token **tok)
 			return (0);
 		shell->heredoc = ft_strdup((*tok)->value);
 		fd = open(temp, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (fd < 0)
+		{
+			perror(temp);
+			shell->status = 1;
+			return (0);
+		}
 		ft_read_heredoc(shell, fd);
 		close(fd);
 	}
@@ -114,12 +126,23 @@ int	ft_parser_redir_in(t_shell *shell, t_token **tok)
  */
 int	ft_parser_redir_out(t_shell *shell, t_token **tok)
 {
+	int	fd;
+
 	if ((*tok)->type == T_REDIR_APPEND)
 		shell->append = 1;
 	*tok = (*tok)->next;
 	if (!*tok || (*tok)->type != T_WORD)
 		return (0);
 	shell->outfile = ft_strdup((*tok)->value);
+	*tok = (*tok)->next;
+	fd = open(shell->outfile, O_RDONLY);
+	if (fd < 0)
+	{
+		perror(shell->outfile);
+		shell->status = 1;
+		return (0);
+	}
+	close(fd);
 	return (1);
 }
 

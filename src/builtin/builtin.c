@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 19:04:01 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/08 15:16:46 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/12 13:11:29 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ int	ft_is_builtin(t_command *cmds)
 void	ft_exec_simplebuiltin(t_shell *shell, char **args)
 {
 	if (ft_strcmp(*args, "echo") == 0)
+	{
 		shell->status = ft_builtin_echo(args);
+		//shell->should_exit = 1;
+	}
 	else if (ft_strcmp(*args, "cd") == 0)
 		ft_builtin_cd(args, shell);
 	else if (ft_strcmp(*args, "pwd") == 0)

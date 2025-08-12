@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:13:33 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/05 17:39:44 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/12 18:08:16 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ typedef struct s_shell t_shell;
  *
  * int               redir_in = Flag for input redirection.
  *
- * char              *redir_in_file = Input redirection filename.
+ * char              *redir_infile = Input redirection filename.
  *
  * int               redir_out = Flag for output redirection.
  *
- * char              *redir_out_file = Output redirection filename.
+ * char              *redir_outfile = Output redirection filename.
  *
  * struct s_command  *next = Pointer to the next command.
  */

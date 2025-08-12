@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:24:58 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/11 22:29:38 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/12 13:29:58 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_token	*ft_lexer(char *input, t_shell *shell)
 
 	i = 0;
 	tokens = NULL;
-	printf("\n\n\ninput[%d] = %c", i, input[i]);
 	while (input[i])
 	{
 		if (ft_isspace(input[i]))

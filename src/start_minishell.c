@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/11 23:00:58 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/12 18:45:52 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_init_struct(t_shell *shell, char **envp)
 	shell->exit_code = -1;
 	shell->fd[0] = -1;
 	shell->fd[1] = -1;
+	shell->fd_in = -1;
+	shell->fd_out = -1;
 	shell->prev_fd = -1;
 	shell->append = -1;
 	shell->heredoc = NULL;
@@ -36,6 +38,8 @@ void	ft_free_shell(t_shell *shell)
 	shell->fd[0] = -1;
 	shell->fd[1] = -1;
 	shell->prev_fd = -1;
+	shell->fd_in = -1;
+	shell->fd_out = -1;
 	shell->append = -1;
 	if (shell->heredoc)
 		free(shell->heredoc);
@@ -49,7 +53,7 @@ void	ft_free_shell(t_shell *shell)
 }
 
 void	ft_start_minishell(t_shell *shell)
-{debug 
+{
 	char		*input;
 	t_token		*tokens;
 	t_command	*cmds;
@@ -61,7 +65,7 @@ void	ft_start_minishell(t_shell *shell)
 		if (!input)
 		{
 			write(1, "exit\n", 5);
-			break ;
+			break ; 
 		}
 		if (*input)
 			add_history(input);

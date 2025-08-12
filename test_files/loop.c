@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/30 19:58:23 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/12 13:03:18 by jucoelho         ###   ########.fr       */
+/*   Created: 2022/06/22 17:32:45 by lalex-ku          #+#    #+#             */
+/*   Updated: 2025/08/04 19:36:52 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "env.h"
-#include "builtin.h"
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
 
-int	ft_builtin_echo(char **args)
+int	main(int argc, char const *argv[])
 {
-	int	i;
-	int	newline;
+	int	pid;
 
-	i = 1;
-	newline = 1;
-	if (args[i] && ft_strcmp(args[i], "-n") == 0)
+	pid = fork();
+	if (pid < 0)
+		return (ft_error(1, "fork failed"));
+	open("infile", O_RDONLY);
+	while (1)
 	{
-		newline = 0;
-		i++;
+		printf("Helloo miniHELL %i\n", pid);
+		sleep(1);
 	}
-	while (args[i])
-	{
-		printf("%s", args[i]);
-		if (args[i + 1])
-			printf(" ");
-		i++;
-	}
-	if (newline)
-		printf("\n");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 20:24:34 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/10 20:35:27 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/12 13:16:07 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 #define GREEN "\001\033[1;32m\002"
 #define RESET_COLOR "\001\033[0m\002"
 #define GREEN_BG     "\001\033[42m\002"
-#define ROSA "\001\033[48;5;206m\002"
 #define BOLD "\001\033[1m\002"
-#define BLUE "\001\033[34m\002"        // azul normal
-#define BLUE_BOLD "\001\033[1;34m\002" // azul claro/brilhante
 #define LIGHT_BLUE "\001\033[38;5;81m\002"
 
 

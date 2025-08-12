@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/11 19:02:12 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/12 18:07:04 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_shell
 	int		should_exit;
 	int		exit_code;
 	int		fd[2];
+	int		fd_in;
+	int		fd_out;
 	int		prev_fd;
 	int		append;
 	int		len;
