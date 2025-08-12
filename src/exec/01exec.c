@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 17:21:37 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/11 20:02:07 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/11 21:21:59 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static void	ft_setup_redir_out(t_shell *shell)
 		shell->prev_fd = open(shell->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (shell->prev_fd < 0)
 	{
-			perror(shell->outfile);
-			exit(EXIT_FAILURE);
+		perror(shell->outfile);
+		exit(EXIT_FAILURE);
 	}
 	ft_dup_close(shell->prev_fd, STDOUT_FILENO);
 }
