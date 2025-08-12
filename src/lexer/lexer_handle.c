@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:22:56 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/11 22:11:06 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/12 20:05:25 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,36 @@ int	ft_handle_token(char *input, int i, t_token **tokens)
 int	ft_handle_word(char *input, int i, t_token **tokens)
 {
 	int	start;
-
+	int	start_quoted;
+	int	len_quoted;
+	char	*word_squoted1;
+	char	*word_squoted2;
+	
+	
 	start = i;
 	while (input[i] && !ft_is_special_char(input[i]))
+	{
+		//printf("%c", input[i]);
 		i++;
+	}
+	if (input[i] == '\'')
+	{
+		word_squoted1 = ft_substr(input, start, i - start);
+		start_quoted = ++i;
+		while (input[i] && input[i] != '\'')
+		{
+			i++;
+			if (input[i] && input[i] == '\'')
+			{
+				word_squoted2 = ft_substr(input, start_quoted, i - start_quoted);
+				len_quoted = ft_strlen(word_squoted1) + ft_strlen(word_squoted1);
+				len_quoted = ft_strlcat(word_squoted1, word_squoted2, len_quoted + 5);
+				//printf("\n\n\n squoted1: %s, i %d", word_squoted1, i);
+				ft_new_token(T_WORD, word_squoted1);
+				return (i);
+			}
+		}
+	}
 	if (i > start)
 	{
 		ft_add_token(tokens,

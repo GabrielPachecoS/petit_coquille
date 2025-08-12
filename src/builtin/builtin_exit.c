@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:34 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/09 20:13:38 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/12 19:17:36 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_builtin_exit(char **args, t_shell *shell)
 	{
 		write(2, " numeric argument required\n", 27);
 		shell->should_exit = 1;
-		shell->exit_code = 2;
+		shell->status = 2;
 		return (1);
 	}
 	else if (args[1])
