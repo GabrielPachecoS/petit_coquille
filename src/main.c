@@ -6,11 +6,13 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:31:15 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/09 19:02:22 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/14 18:59:59 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	var_global = 0;
 
 int	main(int argc, char **argv, char **envp)
 {

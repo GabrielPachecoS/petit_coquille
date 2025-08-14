@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/12 14:15:36 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/14 17:59:01 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	ft_exec_simplecmd(t_shell *shell, t_command *cmds)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		ft_setup_redirects(shell);
+		ft_setup_redirects(shell, cmds);
 		ft_exec_command(shell, cmds);
 	}
 	else

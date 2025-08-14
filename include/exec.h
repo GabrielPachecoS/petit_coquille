@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 22:05:35 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/11 19:59:16 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/14 17:06:25 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	ft_exec_command(t_shell *shell, t_command *cmd);
 //no futuro exec builtin
 
 //01exec
-int	ft_setup_redirects(t_shell *shell);
-int	ft_setup_redirects_pipe(t_shell *shell, int curr, int last);
+int	ft_setup_redirects(t_shell *shell, t_command *cmd);
+int	ft_setup_redirects_pipe(t_shell *shell, t_command *cmd, int curr, int last);
 //02exec
 
-void	ft_dup_close(int close_fd, int dup_fd);
-void	ft_close_reset(int close_fd);
+int	ft_dup_close(int close_fd, int dup_fd);
+int	ft_close_reset(int close_fd);
 //03exec
 int	ft_setup_fork(t_shell *shell,  t_command *cmds, int *pid, int i);
 int		ft_loop_cmdpipe(t_shell *shell, t_command *cmd, int *pid, int n_cmd);

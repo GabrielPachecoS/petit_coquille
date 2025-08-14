@@ -3,23 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:37:47 by gapachec          #+#    #+#             */
-/*   Updated: 2025/05/30 11:53:11 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:09:31 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+#include <unistd.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <signal.h>
+#include "frescurinha.h"
 
 void	handle_sigint(int signo)
 {
 	(void)signo;
-	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+	if (var_global != 0)
+	{
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else
+		write(1, "\n", 1);
 }
 
 void	ft_handle_signals(void)
@@ -27,3 +36,16 @@ void	ft_handle_signals(void)
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);
 }
+
+char	*read_input(void)
+{
+	char	*input;
+
+	var_global = 1;
+	input = readline(FRESCURINHA);
+	var_global = 0;
+	if (!input)
+		return (NULL);
+	return (input);
+}
+

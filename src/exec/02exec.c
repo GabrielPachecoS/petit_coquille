@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:40 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/12 14:44:04 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:09:56 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ int	ft_setup_fork(t_shell *shell, t_command *cmds, int *pid, int i)
 	return (shell->status);
 }
 
-void	ft_dup_close(int close_fd, int dup_fd)
+int	ft_dup_close(int close_fd, int dup_fd)
 {
 	dup2(close_fd, dup_fd);
 	close(close_fd);
-	close_fd = -1;
+	return(-1);
 }
 
-void	ft_close_reset(int close_fd)
+int	ft_close_reset(int close_fd)
 {
 	close(close_fd);
-	close_fd = -1;
+	return(-1);
 }
 static void	ft_verifybuiltin(t_shell *shell, t_command *cmds)
 {
@@ -60,17 +60,23 @@ int	ft_loop_cmdpipe(t_shell *shell, t_command *cmds, int *pid, int n_cmd)
 		{
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
-			ft_setup_redirects_pipe(shell, i, n_cmd - 1);
+			ft_setup_redirects_pipe(shell, cmds, i, n_cmd - 1);
 			ft_verifybuiltin(shell, cmds);
 		}
-		ft_close_reset(shell->fd[1]);
+		else
+		{
+			shell->fd[1] = ft_close_reset(shell->fd[1]);
+		}
 		if (shell->prev_fd > 0)
-			ft_close_reset(shell->prev_fd);
-		shell->prev_fd = shell->fd[0];
+			shell->prev_fd = ft_close_reset(shell->prev_fd);
+		if(cmds->next != NULL)
+			shell->prev_fd = shell->fd[0];
+		else
+			shell->fd[0] = ft_close_reset(shell->fd[0]);
 		cmds = cmds->next;
 		i++;
 	}
 	if (shell->prev_fd > 0)
-		ft_close_reset(shell->prev_fd);
-	return (shell->status);
+		shell->prev_fd = ft_close_reset(shell->prev_fd);
+	return(shell->status);
 }

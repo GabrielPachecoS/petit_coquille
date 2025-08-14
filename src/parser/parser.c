@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:14:17 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/12 18:08:25 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/14 16:40:33 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ t_command	*ft_new_command(void)
 		return (NULL);
 	cmd->argv = NULL;
 	cmd->next = NULL;
+	cmd->redir_in = NULL;
+	cmd->redir_out = NULL;
+	cmd->fd_in = -1;
+	cmd->fd_out = -1;
 	return (cmd);
 }
 
@@ -119,9 +123,9 @@ static int	ft_parser_dispatch(t_command **curr, t_token **tok, t_shell *shell)
 	else if ((*tok)->type == T_PIPE)
 		return (ft_parser_pipe(curr));
 	else if ((*tok)->type == T_REDIR_IN || (*tok)->type == T_HEREDOC)
-		return (ft_parser_redir_in(shell, tok));
+		return (ft_parser_redir_in(shell, *curr, tok));
 	else if ((*tok)->type == T_REDIR_OUT || (*tok)->type == T_REDIR_APPEND)
-		return (ft_parser_redir_out(shell, tok));
+		return (ft_parser_redir_out(shell, *curr, tok));
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/12 18:27:05 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:24:54 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_read_heredoc(t_shell *shell, int fd)
  *
  * @return 1 if parsing was successful, 0 if syntax error or allocation failed.
  */
-int	ft_parser_redir_in(t_shell *shell, t_token **tok)
+int	ft_parser_redir_in(t_shell *shell, t_command *cmd, t_token **tok)
 {
 	char	*temp;
 	int		fd;
@@ -83,15 +83,13 @@ int	ft_parser_redir_in(t_shell *shell, t_token **tok)
 		*tok = (*tok)->next;
 		if (!*tok || (*tok)->type != T_WORD)
 			return (0);
-		shell->infile = ft_strdup((*tok)->value);
-		fd = open(shell->infile, O_RDONLY);
+		cmd->redir_in = ft_strdup((*tok)->value);
+		/*fd = open(cmd->redir_in, O_RDONLY);
 		if (fd < 0)
 		{
-			perror(shell->infile);
-			shell->status = 1;
-			return (0);
+			perror(cmd->redir_in);
 		}
-		close(fd);
+		close(fd);*/
 	}
 	else if ((*tok)->type == T_HEREDOC)
 	{
@@ -124,25 +122,14 @@ int	ft_parser_redir_in(t_shell *shell, t_token **tok)
  *
  * @return 1 if parsing was successful, 0 if syntax error or allocation failed.
  */
-int	ft_parser_redir_out(t_shell *shell, t_token **tok)
+int	ft_parser_redir_out(t_shell *shell, t_command *cmd, t_token **tok)
 {
-	int	fd;
-
 	if ((*tok)->type == T_REDIR_APPEND)
 		shell->append = 1;
 	*tok = (*tok)->next;
 	if (!*tok || (*tok)->type != T_WORD)
 		return (0);
-	shell->outfile = ft_strdup((*tok)->value);
-	*tok = (*tok)->next;
-	fd = open(shell->outfile, O_RDONLY);
-	if (fd < 0)
-	{
-		perror(shell->outfile);
-		shell->status = 1;
-		return (0);
-	}
-	close(fd);
+	cmd->redir_out = ft_strdup((*tok)->value);
 	return (1);
 }
 

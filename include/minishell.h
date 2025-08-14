@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/12 18:07:04 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:09:16 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # include "parser.h"
 # include "env.h"
 # include "builtin.h"
+
+extern int	var_global;
 
 /**
  * @brief Represents the state of the shell.
@@ -63,8 +65,11 @@ typedef struct s_shell
 # include "exec.h"
 
 int		main(int argc, char **argv, char **envp);
+char	*read_input(void);
 void	ft_start_minishell(t_shell *shell);
 void	ft_handle_signals(void);
+void	setup_parent_signals(void);
+void	setup_child_signals(void);
 void	ft_cleanup(t_shell *shell, char *input);
 void	ft_init_struct(t_shell *shell, char **envp);
 void	ft_print_commands(t_shell *shell, t_command *cmd);

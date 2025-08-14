@@ -6,7 +6,7 @@
 #    By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/08/09 20:05:24 by jucoelho         ###   ########.fr        #
+#    Updated: 2025/08/14 18:20:38 by jucoelho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ SRC		= $(SRC_DIR)/main.c \
 
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -g
+CFLAGS	= -Wall -Wextra -Werror -g3
 INC		= -I$(INC_DIR) -I$(LIBFT_DIR)
 
 # Geração automática dos .o a partir dos .c
