@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   01expander.c                                       :+:      :+:    :+:   */
+/*   04exp.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 17:21:33 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/05 18:58:22 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/15 21:38:05 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "token.h"
-
+#include "expander.h"
 
 int	ft_handle_expalnum(char *input, t_shell *shell, t_token **tokens)
 {
@@ -25,7 +24,6 @@ int	ft_handle_expalnum(char *input, t_shell *shell, t_token **tokens)
 	}
 	else
 		return (shell->len);
-	//printf("handle expandvar %s e i %d\n", input, shell->len);
 	return (ft_expandvar(input, shell, tokens) + 1);
 }
 
@@ -82,16 +80,12 @@ int	ft_expandvar(char *input, t_shell *shell, t_token **tokens)
 	char	*aux;
 
 	var = ft_substr(input, shell->start, shell->len - shell->start);
-	//printf("var %s\n", var);
 	if (!var)
 		return (shell->start + 1);
 	aux = env_var(shell->envp, var);
-	//printf("aux %s\n", aux);
 	free(var);
 	if (!aux)
 		return (shell->len);
-	//printf("handle_word\n");
 	ft_handle_word(aux, 0, tokens);
-	//printf("\n\n expandvar shell->start %d, shell->len %d input %s\n\n", shell->start, shell->len, input);
 	return (shell->len);
 }

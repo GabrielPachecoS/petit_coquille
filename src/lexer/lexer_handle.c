@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:22:56 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/14 20:09:24 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/15 19:48:39 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,116 +43,73 @@ int	ft_handle_token(char *input, int i, t_token **tokens)
 	}
 	return (i);
 }
-static char	*extract_word(char *input, int *i, char *quote_type)
+
+static int	ft_closequoted(char *input, int i)
 {
-	int		start;
+	char	quoted;
 
-	*quote_type = 0;
-	start = *i;
-	while (input[*i] && !ft_is_special_char(input[*i]))
+	quoted = input[i];
+	i++;
+	while (input[i] && input[i] != quoted)
 	{
-		if (input[*i] == '\'' || input[*i] == '"')
-		{
-			if (!skip_quoted_word(input, i, quote_type))
-				return (NULL);
-		}
-		else
-			(*i)++;
+		i++;
 	}
-	return (ft_substr(input, start, *i - start));
-}
-
-static int	skip_quoted_word(char *input, int *i, char *quote_type)
-{
-	char	q;
-
-	q = input[*i];
-	*quote_type = q;
-	(*i)++;
-	while (input[*i] && input[*i] != q)
-		(*i)++;
-	if (input[*i] == '\0')
-	{
-		printf("minishell error: unclosed %c quote\n", q);
-		return (0);
-	}
-	(*i)++;
+	if (!input[i])
+		return(0);
 	return (i);
 }
+
+
+/*static int ft_wordquoted(t_token **tokens, char *input, int start, int len, char quoted)
+{
+	char	*res;
+	int		i;
+	int		j;
+
+	res = malloc(len - start + 1);
+	if (!res)
+		return (0);
+	i = start;
+	j = 0;
+	while (i < start + len)
+	{
+		if (input[i] != quoted)
+			res[j++] = input[i];
+		i++;
+	}
+	res[j] = '\0';
+	ft_add_token(tokens, ft_new_token(T_WORD, res));
+	return(start + len);
+}*/
 
 int	ft_handle_word(char *input, int i, t_token **tokens)
 {
-	char	*word;
-	char	quote_type;
-	
-	word = extract_word(input, i, &quote_type);
-	if (!word)
-		return (0);
-	ft_add_token(tokens,
-			ft_new_token(T_WORD, ft_substr(input, start, i - start)));;
-	free(word);
-	return (i);
-}
-
-
-/**
- * @brief Handles escaped characters in the input.
- *
- * Advances past the backslash and returns a string containing the escaped character.
- *
- * @param input The full input string.
- * @param i     Pointer to the current index in the string. It is updated internally.
- *
- * @return A newly allocated string containing the escaped character, or NULL on failure.
- */
-char	*ft_handle_escaped_char(const char *input, int *i)
-{
-	char	*res;
-
-	(*i)++;
-	if (!input[*i])
-		return (ft_strdup(""));
-	res = malloc(2);
-	if (!res)
-		return (NULL);
-	res[0] = input[*i];
-	res[1] = '\0';
-	(*i)++;
-	return (res);
-}
-
-/**
- * @brief Parses a quoted string and adds it as a T_WORD token.
- *
- * Extracts the content inside matching single or double quotes, handling
- * escaped characters inside double quotes. If the closing quote is found,
- * a new T_WORD token is added to the token list.
- *
- * @param input  The full input string.
- * @param i      Index of the opening quote.
- * @param tokens Pointer to the token list.
- * @param quote  The quote character (either ' or ").
- *
- * @return The new index after the closing quote, or the original position on error.
- */
-int	ft_handle_quoted(char *input, int i, t_token **tokens, char quote)
-{
 	int	start;
-	int	len;
+//	int	is_quoted;
 
-	start = ++i;
-	while (input[i] && input[i] != quote)
+//	is_quoted = 0;
+	start = i;
+	while (input[i] && !ft_is_special_char(input[i]))
 	{
-		if (input[i] == '\\' && input[i + 1]
-			&& (input[i + 1] == '\\' || input[i + 1] == '"' || input[i + 1] == '$'))
+		if (input[i] == '"' || input[i] == '\'')
+		{
+			i = ft_closequoted (input, i);
+			if (i == 0)
+			{
+				printf("minishell error: unclosed quote\n");
+				ft_free_tokens(*tokens);
+				exit(EXIT_FAILURE);
+			}
+			//i = ft_wordquoted(tokens, input, start, i + 1, input[i]);
+			//is_quoted = 1;
+		}
 			i++;
-		i++;
 	}
-	if (input[i] == quote)
+	if (i > start)
 	{
-		len = i - start;
-		ft_add_token(tokens, ft_new_token(T_WORD, ft_substr(input, start, len)));
-		return (i + 1);
+		//if (is_quoted == 0)
+		ft_add_token(tokens,
+			ft_new_token(T_WORD, ft_substr(input, start, i - start)));
 	}
-	return (start - 1);
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:25:24 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/05 17:56:52 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/15 19:48:01 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,10 @@ typedef struct s_token
 
 typedef struct s_shell t_shell;
 
+int	ft_handle_quoted(char *input, int i, t_token **tokens, char quote);
 int		ft_handle_token(char *input, int i, t_token **tokens);
 char	*ft_handle_escaped_char(const char *input, int *i);
-int		ft_handle_quoted(char *input, int i, t_token **tokens, char quote);
+
 int		ft_handle_word(char *input, int i, t_token **tokens);
 void	ft_add_token(t_token **list, t_token *new);
 void	ft_print_tokens(t_token *tokens);
@@ -73,7 +74,7 @@ void	ft_free_tokens(t_token *tokens);
 int		ft_add_simple_token(t_token **tokens, t_token_type type, char *input, int i, int size);
 int		ft_is_operator(char c);
 int		ft_is_special_char(char c);
-t_token	*ft_lexer(char *input, t_shell *shell);
+t_token	*ft_lexer(char *input);
 t_token	*ft_new_token(t_token_type type, char *value);
 int		ft_expandvar(char *input, t_shell *shell, t_token **tokens);
 int		ft_handle_braces(char *input, t_shell *shell, t_token **tokens);

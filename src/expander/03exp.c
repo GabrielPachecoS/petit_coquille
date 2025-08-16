@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
+/*   03exp.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/30 18:49:27 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/10 14:23:49 by jucoelho         ###   ########.fr       */
+/*   Created: 2025/08/15 21:33:48 by jucoelho          #+#    #+#             */
+/*   Updated: 2025/08/15 21:37:05 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "token.h"
+#include "expander.h"
 
 static int	ft_expquoted_continue(char *input, t_shell *shell, t_token **tokens)
 {
@@ -77,7 +77,6 @@ static int	ft_handle_special_cases(char *input, t_shell *shell, t_token **tokens
 	}
 	else
 	{
-		//printf("handle expanum %s e i %d\n", input, shell->len);
 		shell->len = ft_handle_expalnum(input, shell, tokens);
 	}
 	return (shell->len);
@@ -111,6 +110,5 @@ int	ft_handle_expander(char *input, int i, t_shell *shell, t_token **tokens)
 		}
 		shell->len++;
 	}
-	//printf("handle special cases nput %s e i %d\n\n", input, i);
 	return (ft_handle_special_cases(input, shell, tokens));
 }
