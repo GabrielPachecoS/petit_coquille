@@ -6,14 +6,14 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:33:48 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/16 21:34:13 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/16 23:48:08 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "expander.h"
 
-static char	*ft_expquoted_continue(char *input, t_shell *shell, t_token **tokens)
+/*static char	*ft_expquoted_continue(char *input, t_shell *shell)
 {
 	int	z;
 
@@ -29,18 +29,18 @@ static char	*ft_expquoted_continue(char *input, t_shell *shell, t_token **tokens
 	if (input[shell->len] == '{')
 	{
 		++shell->len;
-		return (ft_handle_braces(input, shell, tokens));
+		return (ft_handle_braces(input, shell));
 	}
 	input = ft_handle_expalnum(input, shell);
 	return (input);
-}
+}*/
 
-static char	*ft_expquoted(char *input, t_shell *shell, t_token **tokens)
+/*static char	*ft_expquoted(char *input, t_shell *shell)
 {
 	char	*var;
 
 	if (input[shell->len] == '{')
-		return (ft_handle_braces(input, shell, tokens));
+		return (ft_handle_braces(input, shell));
 	if (input[shell->len] == '?')
 	{
 		if (input[shell->len + 1] == '"')
@@ -48,68 +48,107 @@ static char	*ft_expquoted(char *input, t_shell *shell, t_token **tokens)
 			var = ft_itoa(shell->status);
 			if (!var)
 				return (0);
-			shell->start = ft_handle_word(var, 0, tokens);
+			//shell->start = ft_handle_word(var, 0);
 			free(var);
 			return (input);
 		}
 		return (input);
 	}
-	return (ft_expquoted_continue(input, shell, tokens));
+	return (ft_expquoted_continue(input, shell));
 }
 
-static char	*ft_handle_special_cases(char *input, t_shell *shell, t_token **tokens)
+static char	*ft_handle_special_cases(char *str_quoted, t_shell *shell)
 {
 	char	*var;
+	int		i;
 
-	if (input[shell->len] == '?')
+	i = 1;
+	if (str_quoted[i] == '$')
 	{
-		printf("\n1)$? tem que entrar aqui = %s\n", input);
 		var = ft_itoa(shell->status);
 		if (!var)
 			return (0);
-		input = var;
+		str_quoted = var;
 		free(var);
-		return (input);
+		return t_shel (str_quoted);
 	}
-	if (input[shell->len] == '{')
+	if (str_quoted[i] == '{')
 	{
 		++shell->start;
-		input = ft_handle_braces(input, shell, tokens);
+		str_quoted = ft_handle_braces(str_quoted, shell);
 	}
 	else
 	{
-		input = ft_handle_expalnum(input, shell);
+		str_quoted = ft_handle_expalnum(str_quoted, shell);
 	}
-	return (input);
+	return (str_quoted);
+}*/
+
+static char	*expand_dollar_block(char *str, int *i, t_shell *shell)
+{
+	char	*chunk;
+	char	*expanded;
+	int		start;
+
+	if (str[*i + 1] == '?')
+	{
+		*i += 2;
+		return (ft_itoa(shell->status));
+	}
+	else if (ft_isalpha(str[*i + 1]) || str[*i + 1] == '_')
+	{
+		start = ++(*i);
+		while (ft_isalnum(str[*i]) || str[*i] == '_')
+			(*i)++;
+		chunk = ft_substr(str, start, *i - start);
+		expanded = env_var(shell->envp, chunk);
+		free(chunk);
+		return (expanded ? ft_strdup(expanded) : ft_strdup(""));
+	}
+	(*i)++;
+	return (ft_strdup("$"));
 }
 
-char	*ft_handle_expander(char *input, int i, t_shell *shell, t_token **tokens)
+static char	*ft_expand_str(char *str_quoted, t_shell *shell)
 {
-	shell->start = 0;
-	shell->len = i;
-	if (input[shell->len] == '"')
+	char	*temp;
+	char	*chunk;
+	int		i;
+
+	i = 0;
+	temp = ft_strdup("");
+	while (str_quoted[i])
 	{
-		if (input[shell->len + 2] == '"')
-		{
-			shell->status = 0;
-			write(1, "$", 1);
-			return (input);
-		}
+		if (str_quoted[i] == '$' && str_quoted[i + 1])
+			chunk = expand_dollar_block(str_quoted, &i, shell);
 		else
-		{
-			shell->len += 2;
-			return (ft_expquoted(input, shell, tokens));
-		}
+			chunk = ft_substr(str_quoted, i++, 1);
+		temp = ft_strjoin(temp, chunk);
 	}
-	if (input[shell->len] == '$')
+	return (temp);
+}
+
+
+char	*ft_handle_expander(char *str_quoted, t_shell *shell)
+{
+	char	*var;
+	int		len;
+
+	len = ft_strlen(str_quoted);
+	if (str_quoted[0] == '"' && str_quoted[len - 1] == '"')
 	{
-		if (!input[shell->len + 1])
+		var = ft_strtrim(str_quoted, "\"");
+		return (ft_expand_str(var, shell));;
+	}
+	else if (str_quoted[0] == '"')
+	{
+		if (str_quoted[1] == '?' && str_quoted[2] == '"')
 		{
 			shell->status = 0;
-			write(1, "$", 1);
-			return (input);
+			return (ft_strdup("$"));
 		}
-		shell->len++;
+		else if (str_quoted[1] == '$' && str_quoted[2] == '?' && str_quoted[4] == '\0')
+			return (ft_itoa(shell->status));
 	}
-	return (ft_handle_special_cases(input, shell, tokens));
+	return (ft_expand_str(str_quoted, shell));
 }

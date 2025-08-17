@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:17:59 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/16 20:18:11 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/17 15:42:08 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_remove_quotes(char *str_quote, char quote)
 
 	i = 0;
 	j = 0;
-	res = malloc(ft_strlen(str_quote) + 1);
+	res = malloc(ft_strlen(str_quote) - 1);
 	if (!res)
 		return (NULL);
 	while (str_quote[i])
@@ -36,7 +36,7 @@ char	*ft_remove_quotes(char *str_quote, char quote)
 }
 void	ft_is_squoted(t_command *cmds, char quote)
 {
-	int	i;
+	int		i;
 	
 	while(cmds)
 	{

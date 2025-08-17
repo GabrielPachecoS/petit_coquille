@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:22:56 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/15 19:48:39 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/17 15:35:34 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_handle_token(char *input, int i, t_token **tokens)
 	return (i);
 }
 
-static int	ft_closequoted(char *input, int i)
+int	ft_closequoted(char *input, int i)
 {
 	char	quoted;
 

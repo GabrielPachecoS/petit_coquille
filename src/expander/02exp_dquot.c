@@ -6,14 +6,14 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:24:12 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/16 20:20:54 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/17 00:00:16 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "expander.h"
 
-void	ft_is_redirquoted(t_command *cmds, t_shell *shell, t_token **tokens, char quote)
+void	ft_is_redirquoted(t_command *cmds, t_shell *shell, char quote)
 {
 	int	i;
 
@@ -23,7 +23,7 @@ void	ft_is_redirquoted(t_command *cmds, t_shell *shell, t_token **tokens, char q
 		if(ft_strchr(cmds->redir_in, quote))
 		{
 			if (ft_strchr(cmds->argv[i], '$'))
-				ft_handle_expander(cmds->argv[i], i, shell, tokens);
+				ft_handle_expander(cmds->argv[i], shell);
 			else
 				cmds->redir_in= ft_remove_quotes(cmds->redir_in, quote);
 		}
@@ -33,14 +33,14 @@ void	ft_is_redirquoted(t_command *cmds, t_shell *shell, t_token **tokens, char q
 		if(ft_strchr(cmds->redir_out, quote))
 		{
 			if (ft_strchr(cmds->argv[i], '$'))
-				ft_handle_expander(cmds->argv[i], i, shell, tokens);
+				ft_handle_expander(cmds->argv[i], shell);
 			else
 				cmds->redir_out= ft_remove_quotes(cmds->redir_out, quote);	
 		}
 	}
 }
 
-void	ft_is_dquoted(t_command *cmds, t_shell *shell, t_token **tokens, char quote)
+void	ft_is_dquoted(t_command *cmds, t_shell *shell, char quote)
 {
 	int	i;
 	
@@ -52,13 +52,13 @@ void	ft_is_dquoted(t_command *cmds, t_shell *shell, t_token **tokens, char quote
 			if(ft_strchr(cmds->argv[i], quote))
 			{
 				if (ft_strchr(cmds->argv[i], '$'))
-					ft_handle_expander(cmds->argv[i], i, shell, tokens);
+					ft_handle_expander(cmds->argv[i], shell);
 				else
 					cmds->argv[i] = ft_remove_quotes(cmds->argv[i], quote);
 			}
 			i++;
 		}
-		ft_is_redirquoted(cmds, shell, tokens, quote);	
+		ft_is_redirquoted(cmds, shell, quote);	
 		cmds = cmds->next;
 	}
 }
