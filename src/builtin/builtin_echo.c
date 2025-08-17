@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:23 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/12 13:03:18 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/17 17:01:14 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_builtin_echo(char **args)
 
 	i = 1;
 	newline = 1;
-	if (args[i] && ft_strcmp(args[i], "-n") == 0)
+	while (args[i] && ft_strcmp(args[i], "-n") == 0)
 	{
 		newline = 0;
 		i++;

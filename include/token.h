@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:25:24 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/17 15:35:52 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/17 16:38:33 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_token	*ft_new_token(t_token_type type, char *value);
 void	ft_free_tokens(t_token *tokens);
 
 //handle
+char	*ft_handle_escaped_char(const char *input, int *i);
 int		ft_closequoted(char *input, int i);
 int		ft_handle_token(char *input, int i, t_token **tokens);
 int		ft_handle_word(char *input, int i, t_token **tokens);

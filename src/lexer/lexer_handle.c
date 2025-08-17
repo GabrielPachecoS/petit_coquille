@@ -6,12 +6,38 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:22:56 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/17 15:35:34 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/17 16:38:20 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "token.h"
+
+/**
+ * @brief Handles escaped characters in the input.
+ *
+ * Advances past the backslash and returns a string containing the escaped character.
+ *
+ * @param input The full input string.
+ * @param i     Pointer to the current index in the string. It is updated internally.
+ *
+ * @return A newly allocated string containing the escaped character, or NULL on failure.
+ */
+char	*ft_handle_escaped_char(const char *input, int *i)
+{
+	char	*res;
+
+	(*i)++;
+	if (!input[*i])
+		return (ft_strdup(""));
+	res = malloc(2);
+	if (!res)
+		return (NULL);
+	res[0] = input[*i];
+	res[1] = '\0';
+	(*i)++;
+	return (res);
+}
 
 /**
  * @brief Parses and adds operator tokens (pipes and redirections).

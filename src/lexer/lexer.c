@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:24:58 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/15 19:47:49 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/17 16:37:34 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_token	*ft_lexer(char *input)
 {
 	int		i;
 	t_token	*tokens;
+	char	*escaped;
 
 	i = 0;
 	tokens = NULL;
@@ -37,6 +38,11 @@ t_token	*ft_lexer(char *input)
 			i++;
 		if (!input[i] )
 			break ;
+		else if (input[i] == '\\' && input[i + 1])
+		{
+			escaped = ft_handle_escaped_char(input, &i);
+			ft_add_token(&tokens, ft_new_token(T_WORD, escaped));
+		}
 		else if (ft_is_operator(input[i]))
 			i = ft_handle_token(input, i, &tokens);
 		else
