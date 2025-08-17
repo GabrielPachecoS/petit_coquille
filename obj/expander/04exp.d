@@ -1,3 +1,3 @@
-obj/exec/02exec.o: src/exec/02exec.c include/minishell.h \
+obj/expander/04exp.o: src/expander/04exp.c include/minishell.h \
   include/../libft/include/libft.h include/token.h include/parser.h \
   include/env.h include/builtin.h include/expander.h include/exec.h

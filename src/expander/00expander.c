@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
+/*   00expander.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:49:27 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/15 21:37:59 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/16 21:25:14 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "expander.h"
 
-??	ft_expander(shell, cmds, tokens)
+t_command	*ft_expander(t_shell *shell, t_command *cmds, t_token **tokens)
 {
-	//verifica se tem aspas simples no argv, infile e outfile
-	//se tem retira aspas simples e substitui o comando
-	ft_is_squoted(cmds, '\'')
-	//verifica se tem aspas duplas no argv
-	//se sim verifica se tem expander e trata o expander
-	if(ft_is_dquoted(cmds, '"'))
-		\\return aqui
-	//verifica se tem expander sem aspas e trata o expander
-	else
-		 ft_handle_expander(input, i, shell, &tokens);
+	t_command *head;
+	int	i;
+
+	i = 0;
+	head = cmds;
+	ft_is_squoted(cmds, '\'');
+	cmds = head;
+	ft_is_dquoted(cmds, shell, tokens, '"');
+	cmds = head;
+	while (cmds)
+	{
+		while(cmds->argv[i])
+		{
+			printf("\n1)cmds = %s\n", cmds->argv[i]);
+			cmds->argv[i] = ft_handle_expander(cmds->argv[i], i, shell, tokens);
+			i++;
+		}
+		cmds = cmds->next;
+	}
+	return(head);
 }

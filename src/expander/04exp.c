@@ -6,14 +6,14 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 17:21:33 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/15 21:38:05 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/16 21:35:10 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "expander.h"
 
-int	ft_handle_expalnum(char *input, t_shell *shell, t_token **tokens)
+char *ft_handle_expalnum(char *input, t_shell *shell)
 {
 	if (ft_isalpha(input[shell->len]) || input[shell->len] == '_')
 	{
@@ -23,11 +23,11 @@ int	ft_handle_expalnum(char *input, t_shell *shell, t_token **tokens)
 			shell->len++;
 	}
 	else
-		return (shell->len);
-	return (ft_expandvar(input, shell, tokens) + 1);
+		return (input);
+	return (ft_expandvar(input, shell));
 }
 
-static int	ft_expand_brace_status(char *input, t_shell *shell, t_token **tokens)
+static char	*ft_expand_brace_status(char *input, t_shell *shell, t_token **tokens)
 {
 	char	*var;
 
@@ -35,7 +35,7 @@ static int	ft_expand_brace_status(char *input, t_shell *shell, t_token **tokens)
 	{
 		write(2, "minishell: ${}: bad substitution", 33);
 		shell->status = 1;
-		return (shell->len + 1);
+		return (input);
 	}
 	if (input[shell->len] == '?')
 	{
@@ -43,23 +43,23 @@ static int	ft_expand_brace_status(char *input, t_shell *shell, t_token **tokens)
 		{
 			var = ft_itoa(shell->status);
 			if (!var)
-				return (0);
+				return (NULL);
 			ft_handle_word(var, 0, tokens);
 			free(var);
-			return (shell->len + 2);
+			return (input);
 		}
 		else
-			return (++shell->len);
+			return (input);
 	}
-	return (-1);
+	return (NULL);
 }
 
-int	ft_handle_braces(char *input, t_shell *shell, t_token **tokens)
+char	*ft_handle_braces(char *input, t_shell *shell, t_token **tokens)
 {
-	int	status_return;
+	char	*status_return;
 
 	status_return = ft_expand_brace_status(input, shell, tokens);
-	if (status_return != -1)
+	if (!status_return)
 		return (status_return);
 	if (ft_isalpha(input[shell->len]) || input[shell->len] == '_')
 	{
@@ -69,23 +69,26 @@ int	ft_handle_braces(char *input, t_shell *shell, t_token **tokens)
 			shell->len++;
 	}
 	if (input[shell->len] == '}')
-		return (ft_expandvar(input, shell, tokens) + 1);
+		return (ft_expandvar(input, shell));
 	else
-		return (ft_handle_word(input, shell->start - 2, tokens));
+		input = ft_substr(input, shell->start - 2, shell->len);
+	return(status_return);	
 }
 
-int	ft_expandvar(char *input, t_shell *shell, t_token **tokens)
+char	*ft_expandvar(char *input, t_shell *shell)
 {
 	char	*var;
 	char	*aux;
+	int		i;
 
+	i = 0;
 	var = ft_substr(input, shell->start, shell->len - shell->start);
 	if (!var)
-		return (shell->start + 1);
+		return (input);
 	aux = env_var(shell->envp, var);
 	free(var);
 	if (!aux)
-		return (shell->len);
-	ft_handle_word(aux, 0, tokens);
-	return (shell->len);
+		return (input);
+	input = ft_substr(input, shell->start, shell->len);
+	return (input);
 }

@@ -6,11 +6,11 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 17:22:46 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/11 20:03:46 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/16 20:03:15 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 int	ft_error_execve(t_shell *shell)
 {

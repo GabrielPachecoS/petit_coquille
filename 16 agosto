@@ -1,0 +1,21 @@
+Verifica se o token tem aspas simples (')
+→ Remover aspas simples
+→ Não fazer expansão
+
+Senão, verifica aspas duplas (")
+→ Se tiver $ dentro: expandir
+→ Se não: só remover aspas
+
+Senão (sem aspas), verifica se tem $
+→ Se sim: expandir normalmente
+
+Após expansão, aplique no cmd, infile, outfile
+
+//void	ft_lstiter(t_list *lst, void (*f)(void *))
+{
+	while (lst)
+	{
+		f(lst->content);
+		lst = lst->next;
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/14 19:09:16 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/16 20:14:40 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # include "parser.h"
 # include "env.h"
 # include "builtin.h"
+# include "expander.h"
+# include "exec.h"
 
 extern int	var_global;
 
@@ -61,8 +63,6 @@ typedef struct s_shell
 	char	*infile;
 	char	*outfile;
 }	t_shell;
-
-# include "exec.h"
 
 int		main(int argc, char **argv, char **envp);
 char	*read_input(void);

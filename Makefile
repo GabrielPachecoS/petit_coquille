@@ -6,7 +6,7 @@
 #    By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/08/14 18:20:38 by jucoelho         ###   ########.fr        #
+#    Updated: 2025/08/16 20:15:52 by jucoelho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,20 +22,23 @@ SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/signals.c \
 		  $(SRC_DIR)/cleanup.c \
 		  $(SRC_DIR)/debug.c \
+		  $(SRC_DIR)/lexer/lexer.c \
+		  $(SRC_DIR)/lexer/lexer_utils.c \
+		  $(SRC_DIR)/lexer/lexer_tokens.c \
+		  $(SRC_DIR)/lexer/lexer_handle.c \
+		  $(SRC_DIR)/parser/parser.c \
+		  $(SRC_DIR)/parser/parser_utils.c \
+		  $(SRC_DIR)/expander/00expander.c \
+		  $(SRC_DIR)/expander/01exp_squot.c \
+		  $(SRC_DIR)/expander/02exp_dquot.c \
+		  $(SRC_DIR)/expander/03exp.c \
+		  $(SRC_DIR)/expander/04exp.c \
 		  $(SRC_DIR)/exec/00exec_cmd.c \
 		  $(SRC_DIR)/exec/01exec.c \
 		  $(SRC_DIR)/exec/02exec.c \
 		  $(SRC_DIR)/exec/03exec_builtin.c \
 		  $(SRC_DIR)/exec/04exec_path.c \
 		  $(SRC_DIR)/exec/05exec_free_error.c \
-		  $(SRC_DIR)/lexer/lexer.c \
-		  $(SRC_DIR)/lexer/lexer_utils.c \
-		  $(SRC_DIR)/lexer/lexer_tokens.c \
-		  $(SRC_DIR)/lexer/lexer_handle.c \
-		  $(SRC_DIR)/lexer/expander.c \
-		  $(SRC_DIR)/lexer/01expander.c \
-		  $(SRC_DIR)/parser/parser.c \
-		  $(SRC_DIR)/parser/parser_utils.c \
 		  $(SRC_DIR)/env/env_free.c \
 		  $(SRC_DIR)/env/env_init.c \
 		  $(SRC_DIR)/env/env_lookup.c \
@@ -50,8 +53,7 @@ SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/builtin/builtin_export.c \
 		  $(SRC_DIR)/builtin/builtin_pwd.c \
 		  $(SRC_DIR)/builtin/builtin_unset.c \
-		  $(SRC_DIR)/builtin/builtin.c \
-
+		  $(SRC_DIR)/builtin/builtin.c
 
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror -g3
@@ -87,6 +89,9 @@ $(OBJ_DIR)/lexer/%.o: $(SRC_DIR)/lexer/%.c | $(OBJ_DIR)/lexer
 $(OBJ_DIR)/parser/%.o: $(SRC_DIR)/parser/%.c | $(OBJ_DIR)/parser
 	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@
 
+$(OBJ_DIR)/expander/%.o: $(SRC_DIR)/expander/%.c | $(OBJ_DIR)/expander
+	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@
+
 $(OBJ_DIR)/env/%.o: $(SRC_DIR)/env/%.c | $(OBJ_DIR)/env
 	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@
 
@@ -105,6 +110,9 @@ $(OBJ_DIR)/lexer:
 $(OBJ_DIR)/parser:
 	mkdir -p $(OBJ_DIR)/parser
 
+$(OBJ_DIR)/expander:
+	mkdir -p $(OBJ_DIR)/expander
+	
 $(OBJ_DIR)/env:
 	mkdir -p $(OBJ_DIR)/env
 
