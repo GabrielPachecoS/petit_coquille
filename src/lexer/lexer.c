@@ -51,7 +51,7 @@ t_token	*ft_lexer(char *input)
 	return (tokens);
 }
 
-int	ft_syntax_errors(t_token *tokens)
+int	ft_syntax_errors(t_shell *shell, t_token *tokens)
 {
 	t_token	*curr;
 
@@ -65,7 +65,10 @@ int	ft_syntax_errors(t_token *tokens)
 		if (curr->type == T_PIPE)
 		{
 			if (!curr->next || curr->next->type == T_PIPE)
+			{
+				shell->status = 245;
 				return (printf("Syntax error: misplaced pipe\n"), 1);
+			}
 		}
 		else if (curr->type == T_REDIR_IN || curr->type == T_REDIR_OUT
 			|| curr->type == T_HEREDOC || curr->type == T_REDIR_APPEND)

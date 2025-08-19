@@ -67,7 +67,7 @@ t_token	*ft_lexer(char *input);
 int		ft_is_operator(char c);
 int		ft_is_special_char(char c);
 //tokens
-int		ft_syntax_errors(t_token *tokens);
+int		ft_syntax_errors(t_shell *shell, t_token *tokens);
 int		ft_add_simple_token(
 			t_token **tokens, t_token_type type, char *input, int i, int size);
 void	ft_add_token(t_token **list, t_token *new);

@@ -70,20 +70,22 @@ void	ft_start_minishell(t_shell *shell)
 		if (*input)
 			add_history(input);
 		tokens = ft_lexer(input);
-		if (ft_syntax_errors(tokens))
+		//ft_print_tokens(tokens);
+		if (ft_syntax_errors(shell, tokens))
 		{
 			ft_free_tokens(tokens);
-			return ;
+			tokens = NULL;
 		}
-		ft_print_tokens(tokens);
 		if (tokens)
+		{
 			cmds = ft_parser(tokens, shell);
-		ft_print_commands(shell, cmds);
-		if (ft_needs_expansion(cmds))
-			cmds = ft_expander(shell, cmds);
-		else
-			cmds = ft_remove_quotes_all(cmds);
-		ft_print_commands(shell, cmds);
+			//ft_print_commands(shell, cmds);
+			if (ft_needs_expansion(cmds))
+				cmds = ft_expander(shell, cmds);
+			else
+				cmds = ft_remove_quotes_all(cmds);
+			//ft_print_commands(shell, cmds);
+		}
 		if (cmds)
 			ft_exec(shell, cmds);
 		if (cmds)
