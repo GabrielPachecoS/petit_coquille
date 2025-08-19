@@ -6,11 +6,25 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/14 19:24:54 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/17 20:01:54 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_free_redirs(t_redir *redir)
+{
+	t_redir *tmp;
+
+	while (redir)
+	{
+		tmp = redir->next;
+		free(redir->filename);
+		free(redir);
+		redir = tmp;
+	}
+}
+
 
 /**
  * @brief Frees all commands in the linked list, including their argv arrays
@@ -36,6 +50,8 @@ void	ft_free_commands(t_command *cmd)
 		free(cmd);
 		cmd = tmp;
 	}
+	ft_free_redirs(cmd->redir_in);
+	ft_free_redirs(cmd->redir_out);
 }
 void	ft_read_heredoc(t_shell *shell, int fd)
 {
@@ -75,41 +91,21 @@ void	ft_read_heredoc(t_shell *shell, int fd)
  */
 int	ft_parser_redir_in(t_shell *shell, t_command *cmd, t_token **tok)
 {
-	char	*temp;
-	int		fd;
-	
-	if ((*tok)->type == T_REDIR_IN)
-	{
-		*tok = (*tok)->next;
-		if (!*tok || (*tok)->type != T_WORD)
-			return (0);
-		cmd->redir_in = ft_strdup((*tok)->value);
-		/*fd = open(cmd->redir_in, O_RDONLY);
-		if (fd < 0)
-		{
-			perror(cmd->redir_in);
-		}
-		close(fd);*/
-	}
-	else if ((*tok)->type == T_HEREDOC)
-	{
-		temp = "heredoc_tmp.txt";
-		*tok = (*tok)->next;
-		if (!*tok || (*tok)->type != T_WORD)
-			return (0);
-		shell->heredoc = ft_strdup((*tok)->value);
-		fd = open(temp, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (fd < 0)
-		{
-			perror(temp);
-			shell->status = 1;
-			return (0);
-		}
-		ft_read_heredoc(shell, fd);
-		close(fd);
-	}
+	int		type;
+	char	*filename;
+
+	type = (*tok)->type;
+	*tok = (*tok)->next;
+	if (!*tok || (*tok)->type != T_WORD)
+		return (0);
+	filename = (*tok)->value;
+	if (type == T_HEREDOC)
+		shell->heredoc = ft_strdup(filename);
+	if (!ft_add_redir(&cmd->redir_in, type, filename))
+		return (0);
 	return (1);
 }
+
 
 /**
  * @brief Parses output redirection from tokens and stores it in the command.
@@ -124,14 +120,21 @@ int	ft_parser_redir_in(t_shell *shell, t_command *cmd, t_token **tok)
  */
 int	ft_parser_redir_out(t_shell *shell, t_command *cmd, t_token **tok)
 {
-	if ((*tok)->type == T_REDIR_APPEND)
+	int		type;
+	char	*filename;
+
+	type = (*tok)->type;
+	if (type == T_REDIR_APPEND)
 		shell->append = 1;
 	*tok = (*tok)->next;
 	if (!*tok || (*tok)->type != T_WORD)
 		return (0);
-	cmd->redir_out = ft_strdup((*tok)->value);
+	filename = (*tok)->value;
+	if (!ft_add_redir(&cmd->redir_out, type, filename))
+		return (0);
 	return (1);
 }
+
 
 /**
  * @brief Handles pipe token by creating a new command linked to the current one.

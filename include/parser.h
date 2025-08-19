@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:13:33 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/14 14:36:16 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/17 20:04:30 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 # include "minishell.h"
 
 typedef struct s_shell t_shell;
+
+typedef struct s_redir
+{
+	char			*filename;
+	int				type;
+	struct s_redir *next;
+}	t_redir;
 
 /**
  * @brief Represents a single command and its execution context.
@@ -38,12 +45,13 @@ typedef struct s_shell t_shell;
 typedef struct s_command
 {
 	char				**argv;
-	char				*redir_in;
-	char				*redir_out;
+	t_redir				*redir_in;
+	t_redir				*redir_out;
 	int					fd_in;
 	int					fd_out;
 	struct s_command	*next;
 }	t_command;
+
 
 t_command	*ft_parser(t_token *tokens, t_shell *shell);
 void		ft_free_commands(t_command *cmd);
