@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00exec_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
+/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 17:12:24 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 19:05:02 by gapachec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,9 @@ void	ft_exec(t_shell *shell, t_command *cmds)
 
 	n_cmds = ft_listsize(cmds);
 	if (!cmds->next)
-	{	
+	{
 		if (ft_is_builtin(cmds))
 		{
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
 			if (!shell->infile && !shell->outfile)
 				ft_exec_simplebuiltin(shell, cmds->argv);
 			else
