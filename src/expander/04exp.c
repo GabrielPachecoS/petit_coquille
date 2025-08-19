@@ -79,9 +79,7 @@ char	*ft_expandvar(char *input, t_shell *shell)
 {
 	char	*var;
 	char	*aux;
-	int		i;
 
-	i = 0;
 	var = ft_substr(input, shell->start, shell->len - shell->start);
 	if (!var)
 		return (input);

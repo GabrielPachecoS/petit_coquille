@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+         #
+#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/08/17 18:04:10 by jucoelho         ###   ########.fr        #
+#    Updated: 2025/08/18 23:57:27 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,6 @@ INC_DIR		= include
 LIBFT_DIR	= libft
 
 SRC		= $(SRC_DIR)/main.c \
-		  $(SRC_DIR)/start_minishell.c \
-		  $(SRC_DIR)/signals.c \
-		  $(SRC_DIR)/cleanup.c \
 		  $(SRC_DIR)/debug.c \
 		  $(SRC_DIR)/lexer/lexer.c \
 		  $(SRC_DIR)/lexer/lexer_utils.c \
@@ -119,6 +116,9 @@ $(OBJ_DIR)/env:
 $(OBJ_DIR)/builtin:
 	mkdir -p $(OBJ_DIR)/builtin
 
+run: all
+	valgrind --suppressions=readline.sup --track-fds=yes --leak-check=full --show-leak-kinds=all ./minishell
+	
 clean:
 	rm -rf $(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean
