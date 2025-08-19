@@ -38,5 +38,6 @@ int	ft_is_operator(char c)
  */
 int	ft_is_special_char(char c)
 {
-	return (c == ' ' || c == '\\' || c == '|' || c == '<' || c == '>' || c == '\t');
+	return (c == ' ' || c == '\\' || c == '|'
+		|| c == '<' || c == '>' || c == '\t');
 }

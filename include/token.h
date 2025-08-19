@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:25:24 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/17 16:38:33 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 16:22:07 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,33 +59,22 @@ typedef struct s_token
 	struct s_token	*next;
 }				t_token;
 
-typedef struct	s_shell t_shell;
+typedef struct s_shell	t_shell;
 
 //lexer
 t_token	*ft_lexer(char *input);
-
 //utils
 int		ft_is_operator(char c);
 int		ft_is_special_char(char c);
-
 //tokens
 int		ft_add_simple_token(t_token **tokens, t_token_type type, char *input, int i, int size);
 void	ft_add_token(t_token **list, t_token *new);
 t_token	*ft_new_token(t_token_type type, char *value);
 void	ft_free_tokens(t_token *tokens);
-
 //handle
 char	*ft_handle_escaped_char(const char *input, int *i);
 int		ft_closequoted(char *input, int i);
 int		ft_handle_token(char *input, int i, t_token **tokens);
 int		ft_handle_word(char *input, int i, t_token **tokens);
-
-//int		ft_handle_quoted(char *input, int i, t_token **tokens, char quote);
-//char	*ft_handle_escaped_char(const char *input, int *i);
-//void	ft_print_tokens(t_token *tokens);
-//int		ft_expandvar(char *input, t_shell *shell, t_token **tokens);
-//int		ft_handle_braces(char *input, t_shell *shell, t_token **tokens);
-//int		ft_handle_expalnum(char *input, t_shell *shell, t_token **tokens);
-//int		ft_handle_expander(char *input, int i, t_shell *shell, t_token **tokens);
 
 #endif
