@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   01exec.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 17:21:37 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 05:20:07 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/19 16:47:25 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,20 @@ static void	ft_setup_redir_out(t_shell *shell, t_command *cmd)
 	cmd->fd_out = ft_dup_close(cmd->fd_out, STDOUT_FILENO);
 }
 
-static void ft_setup_redir_in(t_command *cmd)
+static	void	ft_setup_redir_in(t_command *cmd)
 {
-		cmd->fd_in = open(cmd->redir_in, O_RDONLY);
-		if (cmd->fd_in < 0)
-		{
-			perror(cmd->redir_in);
-			ft_close_reset(cmd->fd_in);
-			exit(EXIT_FAILURE);
-		}
-		else
-			cmd->fd_in = ft_dup_close(cmd->fd_in, STDIN_FILENO);
+	cmd->fd_in = open(cmd->redir_in, O_RDONLY);
+	if (cmd->fd_in < 0)
+	{
+		perror(cmd->redir_in);
+		exit(EXIT_FAILURE);
+	}
+	else
+		cmd->fd_in = ft_dup_close(cmd->fd_in, STDIN_FILENO);
 }
 
-int	ft_setup_redirects_pipe(t_shell *shell,  t_command *cmd, int curr, int last)
+int	ft_setup_redirects_pipe(t_shell *shell, t_command *cmd, int curr, int last)
 {
-	printf("\n\n\ncurr = %d, last = %d\n\n\n\n", curr, last);
 	if (curr == last)
 	{
 		if (cmd->redir_in)
@@ -81,7 +79,7 @@ int	ft_setup_redirects_pipe(t_shell *shell,  t_command *cmd, int curr, int last)
 		shell->fd[0] = ft_close_reset(shell->fd[0]);
 		if (cmd->redir_out)
 		{
-			ft_setup_redir_out(shell, cmd);	
+			ft_setup_redir_out(shell, cmd);
 			shell->fd[1] = ft_close_reset(shell->fd[1]);
 		}
 		else

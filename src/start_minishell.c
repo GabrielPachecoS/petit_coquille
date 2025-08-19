@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 05:15:28 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/19 16:43:55 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,13 @@ void	ft_free_shell(t_shell *shell)
 	shell->outfile = NULL;
 }
 
+
 void	ft_start_minishell(t_shell *shell)
 {
 	char		*input;
 	t_token		*tokens;
 	t_command	*cmds;
-	
+
 	while (1)
 	{
 		tokens = NULL;
@@ -68,32 +69,27 @@ void	ft_start_minishell(t_shell *shell)
 			write(1, "exit\n", 5);
 			break ; 
 		}
+		if (*input)
+			add_history(input);
+		tokens = ft_lexer(input);
+		//ft_print_tokens(tokens);
+		if(tokens)
+			cmds = ft_parser(tokens, shell);
+		//ft_print_commands(shell, cmds);
+		if (ft_needs_expansion(cmds))
+			cmds = ft_expander(shell, cmds);
 		else
-			ft_run_cycle(shell, input);
+			cmds = ft_remove_quotes_all(cmds);
+		//ft_print_commands(shell, cmds);
+		if(cmds)
+			ft_exec(shell, cmds);
+		if (cmds)
+			ft_free_commands(cmds);
+		if (tokens)
+			ft_free_tokens(tokens);
+		ft_free_shell(shell);
 		if (shell->should_exit == 1)
-			exit(shell->status);
+		 	exit(shell->status);
 	}
 	ft_cleanup(shell, input);
-}
-static	void	ft_run_cycle(t_shell *shell, t_command *cmds, t_token *tokens, char *input)
-{
-	if (*input)
-		add_history(input);
-	tokens = ft_lexer(input);
-	//ft_print_tokens(tokens);
-	if(tokens)
-		cmds = ft_parser(tokens, shell);
-	//ft_print_commands(shell, cmds);
-	if (ft_needs_expansion(cmds))
-		cmds = ft_expander(shell, cmds);
-	else
-		cmds = ft_remove_quotes_all(cmds);
-	ft_print_commands(shell, cmds);
-	if(cmds)
-		ft_exec(shell, cmds);
-	if (cmds)
-		ft_free_commands(cmds);
-	if (tokens)
-		ft_free_tokens(tokens);
-	ft_free_shell(shell);
 }

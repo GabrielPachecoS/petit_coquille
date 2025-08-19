@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:33:48 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/16 23:48:08 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 16:26:54 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ char	*ft_handle_expander(char *str_quoted, t_shell *shell)
 	if (str_quoted[0] == '"' && str_quoted[len - 1] == '"')
 	{
 		var = ft_strtrim(str_quoted, "\"");
-		return (ft_expand_str(var, shell));;
+		return (ft_expand_str(var, shell));
 	}
 	else if (str_quoted[0] == '"')
 	{
@@ -147,7 +147,8 @@ char	*ft_handle_expander(char *str_quoted, t_shell *shell)
 			shell->status = 0;
 			return (ft_strdup("$"));
 		}
-		else if (str_quoted[1] == '$' && str_quoted[2] == '?' && str_quoted[4] == '\0')
+		else if (str_quoted[1] == '$' && str_quoted[2] 
+			== '?' && str_quoted[4] == '\0')
 			return (ft_itoa(shell->status));
 	}
 	return (ft_expand_str(str_quoted, shell));
