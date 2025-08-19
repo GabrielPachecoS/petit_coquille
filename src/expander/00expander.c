@@ -6,14 +6,14 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:49:27 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 18:17:05 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:46:03 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "expander.h"
 
-static int	ft_skip_quote(char c, int *state)
+int	ft_skip_quote(char c, int *state)
 {
 	if (c == '\'' && *state == 0)
 		return (*state = 1, 1);

@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:24:58 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 17:50:05 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:42:35 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,31 @@ t_token	*ft_lexer(char *input)
 			i = ft_handle_word(input, i, &tokens);
 	}
 	return (tokens);
+}
+
+int	ft_syntax_errors(t_token *tokens)
+{
+	t_token	*curr;
+
+	curr = tokens;
+	if (!curr)
+		return (printf("Error: empty command\n"), 1);
+	if (curr->type == T_PIPE)
+		return (printf("Syntax error: pipe at the beginning\n"), 1);
+	while (curr)
+	{
+		if (curr->type == T_PIPE)
+		{
+			if (!curr->next || curr->next->type == T_PIPE)
+				return (printf("Syntax error: misplaced pipe\n"), 1);
+		}
+		else if (curr->type == T_REDIR_IN || curr->type == T_REDIR_OUT
+			|| curr->type == T_HEREDOC || curr->type == T_REDIR_APPEND)
+		{
+			if (!curr->next || curr->next->type != T_WORD)
+				return (printf("Error: redirection without argument\n"), 1);
+		}
+		curr = curr->next;
+	}
+	return (0);
 }

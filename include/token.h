@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:25:24 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 17:11:13 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:43:07 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_token	*ft_lexer(char *input);
 int		ft_is_operator(char c);
 int		ft_is_special_char(char c);
 //tokens
+int		ft_syntax_errors(t_token *tokens);
 int		ft_add_simple_token(
 			t_token **tokens, t_token_type type, char *input, int i, int size);
 void	ft_add_token(t_token **list, t_token *new);

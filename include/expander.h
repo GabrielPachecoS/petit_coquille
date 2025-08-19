@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:37:24 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/17 15:20:16 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:46:23 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@
 t_command	*ft_expander(t_shell *shell, t_command *cmds);
 t_command	*ft_remove_quotes_all(t_command *cmds);
 int			ft_needs_expansion(t_command *cmds);
+int			ft_skip_quote(char c, int *state);
 //01
 char		*ft_remove_quotes(char *str_quote, char quote);
 void		ft_is_squoted(t_command *cmds, char quote);
 //02
 void		ft_is_dquoted(t_command *cmds, t_shell *shell, char quote);
 void		ft_is_redirquoted(t_command *cmds, t_shell *shell, char quote);
+char		*ft_remove_quotes_by_context(char *str);
 //03
 char		*ft_handle_expander(char *input, t_shell *shell);
 //04
