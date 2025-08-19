@@ -1,0 +1,15 @@
+16 agosto
+42_minishell_tester
+42minishell_tester3
+Makefile
+include
+infile.txt
+libft
+lista.txt
+minishell
+minishell_tester
+obj
+outfiles
+readline.sup
+src
+test_files

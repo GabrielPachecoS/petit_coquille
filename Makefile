@@ -6,7 +6,7 @@
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/08/19 00:37:53 by codespace        ###   ########.fr        #
+#    Updated: 2025/08/19 01:56:29 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/exec/00exec_cmd.c \
 		  $(SRC_DIR)/exec/01exec.c \
 		  $(SRC_DIR)/exec/02exec.c \
-		  $(SRC_DIR)/exec/03exec_builtin.c \
+		  $(SRC_DIR)/exec/03exec_redir.c \
 		  $(SRC_DIR)/exec/04exec_path.c \
 		  $(SRC_DIR)/exec/05exec_free_error.c \
 		  $(SRC_DIR)/env/env_free.c \
@@ -120,8 +120,9 @@ $(OBJ_DIR)/builtin:
 	mkdir -p $(OBJ_DIR)/builtin
 
 run: all
-	valgrind --suppressions=readline.sup --track-fds=yes --leak-check=full --show-leak-kinds=all ./minishell
-	
+#	valgrind --suppressions=readline.sup --track-fds=yes --leak-check=full --show-leak-kinds=all ./minishell
+	valgrind --suppressions=readline.sup --leak-check=full --show-leak-kinds=all ./minishell
+
 clean:
 	rm -rf $(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean

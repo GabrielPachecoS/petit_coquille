@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/14 19:24:54 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 03:23:38 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,21 @@
  */
 void	ft_free_commands(t_command *cmd)
 {
-	t_command	*tmp;
-	int			i;
-
+	t_command	*tmp; 
+	int i;
 	while (cmd)
 	{
-		i = 0;
 		tmp = cmd->next;
-		if (cmd->argv)
-		{
-			while (cmd->argv[i])
-				free(cmd->argv[i++]);
-			free(cmd->argv);
-		}
+		if (cmd->fd_in > 2)  close(cmd->fd_in);
+		if (cmd->fd_out > 2) close(cmd->fd_out);
+		if (cmd->argv) { for (i = 0; cmd->argv[i]; i++) free(cmd->argv[i]); free(cmd->argv); }
+		free(cmd->redir_in);
+		free(cmd->redir_out);
 		free(cmd);
 		cmd = tmp;
 	}
 }
+
 void	ft_read_heredoc(t_shell *shell, int fd)
 {
 	char	*input;
@@ -60,6 +58,36 @@ void	ft_read_heredoc(t_shell *shell, int fd)
 		}
 	}
 	shell->infile = ft_strdup("heredoc_tmp.txt");
+}
+static int	ft_add_redir(t_command t_redirect, char *value)
+{
+	char	**new_redir;
+	int		count;
+	int		i;
+
+	count = 0;
+	i = 0;
+	if (!cmd)
+		return (0);
+	if (cmd->argv)
+	{
+		while (cmd->argv[count])
+			count++;
+	}
+	new_argv = malloc(sizeof(char *) * (count + 2));
+	if (!new_argv)
+		return (0);
+	while (i < count)
+	{
+		new_argv[i] = ft_strdup(cmd->argv[i]);
+		free(cmd->argv[i]);
+		i++;
+	}
+	new_argv[count] = ft_strdup(arg);
+	new_argv[count + 1] = NULL;
+	free(cmd->argv);
+	cmd->argv = new_argv;
+	return (1);
 }
 
 /**

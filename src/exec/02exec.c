@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   02exec.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:40 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/14 19:09:56 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 01:59:01 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	ft_verifybuiltin(t_shell *shell, t_command *cmds)
+{
+	if (ft_is_builtin(cmds))
+	{
+		ft_exec_simplebuiltin(shell, cmds->argv);
+		exit(0);
+	}
+	else
+	{
+		ft_exec_command(shell, cmds);
+	}
+}
 
 int	ft_setup_fork(t_shell *shell, t_command *cmds, int *pid, int i)
 {
@@ -35,18 +48,6 @@ int	ft_close_reset(int close_fd)
 	close(close_fd);
 	return(-1);
 }
-static void	ft_verifybuiltin(t_shell *shell, t_command *cmds)
-{
-	if (ft_is_builtin(cmds))
-	{
-		ft_exec_simplebuiltin(shell, cmds->argv);
-		exit(0);
-	}
-	else
-	{
-		ft_exec_command(shell, cmds);
-	}
-}
 
 int	ft_loop_cmdpipe(t_shell *shell, t_command *cmds, int *pid, int n_cmd)
 {
@@ -55,6 +56,13 @@ int	ft_loop_cmdpipe(t_shell *shell, t_command *cmds, int *pid, int n_cmd)
 	i = 0;
 	while (cmds)
 	{
+		if (ft_prepare_redirections(shell, cmds) < 0)
+		{
+			shell->status = 1;
+			cmds = cmds->next;
+			i++;
+			continue ;
+		}
 		ft_setup_fork(shell, cmds, pid, i);
 		if (pid[i] == 0)
 		{

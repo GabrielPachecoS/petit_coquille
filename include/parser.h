@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:13:33 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/14 14:36:16 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 03:22:13 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,18 @@ typedef struct s_shell t_shell;
 typedef struct s_command
 {
 	char				**argv;
-	char				*redir_in;
-	char				*redir_out;
+	t_redirect			*redir_in;
+	t_redirect			*redir_out;
 	int					fd_in;
 	int					fd_out;
 	struct s_command	*next;
 }	t_command;
+
+typedef struct s_redirect
+{
+	char				*value;
+	struct s_command	*next;
+}	t_redirect;
 
 t_command	*ft_parser(t_token *tokens, t_shell *shell);
 void		ft_free_commands(t_command *cmd);

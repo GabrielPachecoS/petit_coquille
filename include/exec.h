@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 22:05:35 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/14 17:06:25 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 01:57:34 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	ft_setup_redirects_pipe(t_shell *shell, t_command *cmd, int curr, int last);
 int	ft_dup_close(int close_fd, int dup_fd);
 int	ft_close_reset(int close_fd);
 //03exec
+int	ft_prepare_redirections(t_shell *shell, t_command *cmd);
 int	ft_setup_fork(t_shell *shell,  t_command *cmds, int *pid, int i);
 int		ft_loop_cmdpipe(t_shell *shell, t_command *cmd, int *pid, int n_cmd);
 int		ft_handle_pid(t_shell *shell, int curr, int last, int prev_fd);
