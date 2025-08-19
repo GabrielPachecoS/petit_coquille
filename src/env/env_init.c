@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 17:35:31 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/04 18:07:21 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:44:45 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,3 @@ t_env	*env_init(char **envp)
 	}
 	return (env);
 }
-
-

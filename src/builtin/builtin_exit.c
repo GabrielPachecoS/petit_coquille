@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:34 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 17:23:29 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:48:15 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ int	ft_builtin_exit(char **args, t_shell *shell)
 		code = shell->status;
 	shell->should_exit = 1;
 	shell->status = (unsigned char)code;
-	return(shell->status);
+	return (shell->status);
 }

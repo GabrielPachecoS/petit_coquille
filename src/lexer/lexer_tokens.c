@@ -13,7 +13,7 @@
 #include "minishell.h"
 #include "token.h"
 
-/**
+/*
  * @brief Frees a linked list of tokens.
  *
  * Iterates through the token list, freeing each token's value and the token itself.
@@ -32,6 +32,7 @@ void	ft_free_tokens(t_token *tokens)
 		free(tmp);
 	}
 }
+
 /**
  * @brief Creates a new token node.
  *
@@ -54,6 +55,7 @@ t_token	*ft_new_token(t_token_type type, char *value)
 	token->next = NULL;
 	return (token);
 }
+
 /**
  * @brief Creates a new token node.
  *
@@ -78,6 +80,7 @@ void	ft_add_token(t_token **list, t_token *new)
 		cur = cur->next;
 	cur->next = new;
 }
+
 /**
  * @brief Creates and appends a simple token from a substring.
  *

@@ -6,14 +6,14 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:22:56 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/17 16:38:20 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:49:08 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "token.h"
 
-/**
+/*
  * @brief Handles escaped characters in the input.
  *
  * Advances past the backslash and returns a string containing the escaped character.
@@ -39,7 +39,7 @@ char	*ft_handle_escaped_char(const char *input, int *i)
 	return (res);
 }
 
-/**
+/*
  * @brief Parses and adds operator tokens (pipes and redirections).
  *
  * Identifies whether the current position in the input string matches
@@ -81,39 +81,14 @@ int	ft_closequoted(char *input, int i)
 		i++;
 	}
 	if (!input[i])
-		return(0);
+		return (0);
 	return (i);
 }
-
-
-/*static int ft_wordquoted(t_token **tokens, char *input, int start, int len, char quoted)
-{
-	char	*res;
-	int		i;
-	int		j;
-
-	res = malloc(len - start + 1);
-	if (!res)
-		return (0);
-	i = start;
-	j = 0;
-	while (i < start + len)
-	{
-		if (input[i] != quoted)
-			res[j++] = input[i];
-		i++;
-	}
-	res[j] = '\0';
-	ft_add_token(tokens, ft_new_token(T_WORD, res));
-	return(start + len);
-}*/
 
 int	ft_handle_word(char *input, int i, t_token **tokens)
 {
 	int	start;
-//	int	is_quoted;
 
-//	is_quoted = 0;
 	start = i;
 	while (input[i] && !ft_is_special_char(input[i]))
 	{
@@ -126,16 +101,12 @@ int	ft_handle_word(char *input, int i, t_token **tokens)
 				ft_free_tokens(*tokens);
 				exit(EXIT_FAILURE);
 			}
-			//i = ft_wordquoted(tokens, input, start, i + 1, input[i]);
-			//is_quoted = 1;
 		}
 			i++;
 	}
 	if (i > start)
 	{
-		//if (is_quoted == 0)
-		ft_add_token(tokens,
-			ft_new_token(T_WORD, ft_substr(input, start, i - start)));
+		ft_add_token(tokens, ft_new_token(T_WORD, ft_substr(input, start, i - start)));
 	}
 	return (i);
 }

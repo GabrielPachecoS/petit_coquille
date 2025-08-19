@@ -6,14 +6,14 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:24:58 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/17 16:37:34 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:50:05 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "token.h"
 
-/**
+/*
  * @brief Lexical analyzer that converts an input string into a list of tokens.
  *
  * Iterates over the input string and splits it into meaningful tokens,
@@ -36,7 +36,7 @@ t_token	*ft_lexer(char *input)
 	{
 		if (ft_isspace(input[i]))
 			i++;
-		if (!input[i] )
+		if (!input[i])
 			break ;
 		else if (input[i] == '\\' && input[i + 1])
 		{

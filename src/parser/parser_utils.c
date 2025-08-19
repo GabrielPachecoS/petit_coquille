@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 04:51:37 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/19 17:50:57 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
+/*
  * @brief Frees all commands in the linked list, including their argv arrays
  *        and redirection strings.
  *
@@ -37,6 +37,7 @@ void	ft_free_commands(t_command *cmd)
 		cmd = tmp;
 	}
 }
+
 void	ft_read_heredoc(t_shell *shell, int fd)
 {
 	char	*input;
@@ -51,7 +52,7 @@ void	ft_read_heredoc(t_shell *shell, int fd)
 		}
 		if (ft_strcmp(input, shell->heredoc) == 0)
 		{
-			break;
+			break ;
 		}
 		else
 		{
@@ -62,34 +63,25 @@ void	ft_read_heredoc(t_shell *shell, int fd)
 	shell->infile = ft_strdup("heredoc_tmp.txt");
 }
 
-/**
+/*
  * @brief Parses input redirection from tokens and stores it in the command.
- *
  * Advances the token pointer past*tok = (*tok)->next; the redirection operator and expects
  * a file name token next.
- *
  * @param cmd Pointer to the current command.
  * @param tok Double pointer to the current token; will be advanced.
- *
  * @return 1 if parsing was successful, 0 if syntax error or allocation failed.
  */
 int	ft_parser_redir_in(t_shell *shell, t_command *cmd, t_token **tok)
 {
 	char	*temp;
 	int		fd;
-	
+
 	if ((*tok)->type == T_REDIR_IN)
 	{
 		*tok = (*tok)->next;
 		if (!*tok || (*tok)->type != T_WORD)
 			return (0);
 		cmd->redir_in = ft_strdup((*tok)->value);
-		/*fd = open(cmd->redir_in, O_RDONLY);
-		if (fd < 0)
-		{
-			perror(cmd->redir_in);
-		}
-		close(fd);*/
 	}
 	else if ((*tok)->type == T_HEREDOC)
 	{
