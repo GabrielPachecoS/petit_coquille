@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:22:56 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 17:49:08 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:19:34 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ int	ft_handle_word(char *input, int i, t_token **tokens)
 	}
 	if (i > start)
 	{
-		ft_add_token(tokens, ft_new_token(T_WORD, ft_substr(input, start, i - start)));
+		ft_add_token(tokens, ft_new_token
+			(T_WORD, ft_substr(input, start, i - start)));
 	}
 	return (i);
 }

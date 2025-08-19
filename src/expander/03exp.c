@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:33:48 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 17:40:14 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:17:12 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,28 @@ char	*ft_handle_expander(char *str_quoted, t_shell *shell)
 			return (ft_itoa(shell->status));
 	}
 	return (ft_expand_str(str_quoted, shell));
+}
+
+char	*ft_remove_quotes_by_context(char *str)
+{
+	char	*res;
+	int		i;
+	int		j;
+	int		state;
+
+	state = 0;
+	i = 0;
+	j = 0;
+	res = malloc(ft_strlen(str) + 1);
+	if (!res)
+		return (NULL);
+	while (str[i])
+	{
+		if (!ft_skip_quote(str[i], &state))
+			res[j++] = str[i];
+		i++;
+	}
+	res[j] = '\0';
+	free(str);
+	return (res);
 }

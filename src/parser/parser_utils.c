@@ -6,13 +6,13 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 17:50:57 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:32:36 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
+/**
  * @brief Frees all commands in the linked list, including their argv arrays
  *        and redirection strings.
  *
