@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:14:17 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/14 16:40:33 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 05:11:17 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,49 @@ static int	ft_parser_dispatch(t_command **curr, t_token **tok, t_shell *shell)
 		return (ft_parser_redir_out(shell, *curr, tok));
 	return (1);
 }
+/*static	t_command *ft_verify_redir(t_command *cmd, t_token **tok, t_shell *shell)
+{
+	char	*temp;
+	int		fd;
+
+	while(*tok)
+	{
+		if ((*tok)->type == T_REDIR_IN)
+		{
+			*tok = (*tok)->next;
+			if (!*tok || (*tok)->type != T_WORD)
+				return (0);
+			cmd->redir_in = ft_strdup((*tok)->value);
+			fd = open(cmd->redir_in, O_RDONLY);
+			if (fd < 0)
+			{
+				perror(cmd->redir_in);
+				exit(EXIT_FAILURE);
+			}
+			close(fd);
+		}
+		else if ((*tok)->type == T_HEREDOC)
+		{
+			temp = "heredoc_tmp.txt";
+			*tok = (*tok)->next;
+			if (!*tok || (*tok)->type != T_WORD)
+				return (0);
+			shell->heredoc = ft_strdup((*tok)->value);
+			fd = open(temp, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			if (fd < 0)
+			{
+				perror(temp);
+				shell->status = 1;
+				return (0);
+			}
+			ft_read_heredoc(shell, fd);
+			close(fd);
+		}
+		else
+			*tok = (*tok)->next;
+	}
+	return (cmd);
+}*/
 
 /**
  * @brief Parses a linked list of tokens into a linked list of commands.
@@ -160,5 +203,7 @@ t_command	*ft_parser(t_token *tokens, t_shell *shell)
 			return (NULL);
 		tok = tok->next;
 	}
+	//if (!head->next)
+	//	head = ft_verify_redir(head, &tokens, shell);
 	return (head);
 }
