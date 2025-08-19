@@ -6,13 +6,11 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:28 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/30 16:02:18 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:23:43 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "env.h"
-#include "builtin.h"
 
 /*
  * Removes an environment variable from the list.

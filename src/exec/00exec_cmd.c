@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00exec_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 00:34:19 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/19 17:12:24 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,4 +125,3 @@ void	ft_exec(t_shell *shell, t_command *cmds)
 	else
 		shell->status = ft_exec_cmdpipe(shell, cmds, n_cmds);
 }
-

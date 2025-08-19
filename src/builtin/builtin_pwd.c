@@ -6,13 +6,11 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:25 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/05 17:20:11 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:23:40 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "env.h"
-#include "builtin.h"
 
 int	ft_builtin_pwd(void)
 {

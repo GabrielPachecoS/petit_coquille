@@ -3,26 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:31:15 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 03:43:30 by codespace        ###   ########.fr       */
+/*   Updated: 2025/08/19 17:05:18 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <dirent.h>
-#include <unistd.h>
-#include <string.h>
-#include <limits.h>
 
 int	g_var_global = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
+
 	(void)argc;
 	(void)argv;
 	ft_init_struct(&shell, envp);

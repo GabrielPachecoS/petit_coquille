@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 17:22:46 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 16:50:38 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:21:34 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,11 @@ int	ft_error(int code, char *str)
 
 void	ft_free_split(char **split)
 {
-	int	i = 0;
-	
+	int	i;
+
+	i = 0;
 	if (!split)
-		return;
+		return ;
 	while (split[i])
 		free(split[i++]);
 	free(split);

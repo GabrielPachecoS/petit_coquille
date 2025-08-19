@@ -6,16 +6,11 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:37:47 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/14 19:09:31 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:04:33 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <unistd.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <signal.h>
-#include "frescurinha.h"
 
 void	handle_sigint(int signo)
 {
@@ -48,4 +43,3 @@ char	*read_input(void)
 		return (NULL);
 	return (input);
 }
-

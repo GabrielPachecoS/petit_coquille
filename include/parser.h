@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:13:33 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 16:19:18 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:09:19 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PARSER_H
 # include "minishell.h"
 
-typedef struct	s_shell	t_shell;
+typedef struct s_shell	t_shell;
 
 /**
  * @brief Represents a single command and its execution context.
@@ -34,14 +34,14 @@ typedef struct	s_shell	t_shell;
  *
  * struct s_command  *next = Pointer to the next command.
  */
-typedef struct	s_command
+typedef struct s_command
 {
 	char					**argv;
 	char					*redir_in;
 	char					*redir_out;
 	int						fd_in;
 	int						fd_out;
-	struct		s_command	*next;
+	struct s_command		*next;
 }	t_command;
 
 t_command	*ft_parser(t_token *tokens, t_shell *shell);

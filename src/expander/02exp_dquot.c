@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:24:12 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/17 00:00:16 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:39:08 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,24 @@ void	ft_is_redirquoted(t_command *cmds, t_shell *shell, char quote)
 	int	i;
 
 	i = 0;
-	if(cmds->redir_in)
+	if (cmds->redir_in)
 	{
-		if(ft_strchr(cmds->redir_in, quote))
+		if (ft_strchr(cmds->redir_in, quote))
 		{
 			if (ft_strchr(cmds->argv[i], '$'))
 				ft_handle_expander(cmds->argv[i], shell);
 			else
-				cmds->redir_in= ft_remove_quotes(cmds->redir_in, quote);
+				cmds->redir_in = ft_remove_quotes (cmds->redir_in, quote);
 		}
 	}
-	if(cmds->redir_out)
+	if (cmds->redir_out)
 	{
-		if(ft_strchr(cmds->redir_out, quote))
+		if (ft_strchr(cmds->redir_out, quote))
 		{
 			if (ft_strchr(cmds->argv[i], '$'))
 				ft_handle_expander(cmds->argv[i], shell);
 			else
-				cmds->redir_out= ft_remove_quotes(cmds->redir_out, quote);	
+				cmds->redir_out = ft_remove_quotes(cmds->redir_out, quote);
 		}
 	}
 }
@@ -43,13 +43,13 @@ void	ft_is_redirquoted(t_command *cmds, t_shell *shell, char quote)
 void	ft_is_dquoted(t_command *cmds, t_shell *shell, char quote)
 {
 	int	i;
-	
-	while(cmds)
+
+	while (cmds)
 	{
 		i = 0;
 		while (cmds->argv && cmds->argv[i])
 		{
-			if(ft_strchr(cmds->argv[i], quote))
+			if (ft_strchr(cmds->argv[i], quote))
 			{
 				if (ft_strchr(cmds->argv[i], '$'))
 					ft_handle_expander(cmds->argv[i], shell);
@@ -58,8 +58,7 @@ void	ft_is_dquoted(t_command *cmds, t_shell *shell, char quote)
 			}
 			i++;
 		}
-		ft_is_redirquoted(cmds, shell, quote);	
+		ft_is_redirquoted(cmds, shell, quote);
 		cmds = cmds->next;
 	}
 }
-

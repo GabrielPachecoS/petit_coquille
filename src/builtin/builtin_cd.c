@@ -1,19 +1,16 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:17 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/18 20:06:02 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:23:19 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "env.h"
-#include "builtin.h"
 
 /*
  * Expands the '~' character or handles a missing argument by retrieving $HOME.

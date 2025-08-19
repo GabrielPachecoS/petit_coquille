@@ -6,14 +6,14 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 17:21:33 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/16 23:24:52 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:39:55 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "expander.h"
 
-char *ft_handle_expalnum(char *input, t_shell *shell)
+char	*ft_handle_expalnum(char *input, t_shell *shell)
 {
 	if (ft_isalpha(input[shell->len]) || input[shell->len] == '_')
 	{
@@ -44,7 +44,6 @@ static char	*ft_expand_brace_status(char *input, t_shell *shell)
 			var = ft_itoa(shell->status);
 			if (!var)
 				return (NULL);
-			//ft_handle_word(var, 0);
 			free(var);
 			return (input);
 		}
@@ -72,7 +71,7 @@ char	*ft_handle_braces(char *input, t_shell *shell)
 		return (ft_expandvar(input, shell));
 	else
 		input = ft_substr(input, shell->start - 2, shell->len);
-	return(status_return);	
+	return (status_return);
 }
 
 char	*ft_expandvar(char *input, t_shell *shell)
