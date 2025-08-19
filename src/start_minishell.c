@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/17 16:42:47 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 00:36:45 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,15 @@ void	ft_start_minishell(t_shell *shell)
 		if (*input)
 			add_history(input);
 		tokens = ft_lexer(input);
-		//ft_print_tokens(tokens);
+		ft_print_tokens(tokens);
 		if(tokens)
 			cmds = ft_parser(tokens, shell);
-		//ft_print_commands(shell, cmds);
+		ft_print_commands(shell, cmds);
 		if (ft_needs_expansion(cmds))
 			cmds = ft_expander(shell, cmds);
 		else
 			cmds = ft_remove_quotes_all(cmds);
-		//ft_print_commands(shell, cmds);
+		ft_print_commands(shell, cmds);
 		if(cmds)
 			ft_exec(shell, cmds);
 		if (cmds)

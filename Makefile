@@ -6,7 +6,7 @@
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/08/18 23:57:27 by codespace        ###   ########.fr        #
+#    Updated: 2025/08/19 00:37:53 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,9 @@ LIBFT_DIR	= libft
 
 SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/debug.c \
+		  $(SRC_DIR)/cleanup.c \
+		  $(SRC_DIR)/signals.c \
+		  $(SRC_DIR)/start_minishell.c \
 		  $(SRC_DIR)/lexer/lexer.c \
 		  $(SRC_DIR)/lexer/lexer_utils.c \
 		  $(SRC_DIR)/lexer/lexer_tokens.c \
@@ -53,7 +56,7 @@ SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/builtin/builtin.c
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -g
+CFLAGS	= -Wall -Wextra -Werror -g3
 INC		= -I$(INC_DIR) -I$(LIBFT_DIR)
 
 # Geração automática dos .o a partir dos .c

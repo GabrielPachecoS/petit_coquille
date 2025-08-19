@@ -17,6 +17,7 @@
 		"compare": "c",
 		"istream": "c",
 		"ranges": "c",
-		"builtin.h": "c"
+		"builtin.h": "c",
+		"libft.h": "c"
 	}
 }

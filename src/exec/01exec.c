@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   01exec.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 17:21:37 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/14 18:11:32 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 00:27:59 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	ft_setup_redir_in(t_command *cmd)
 
 int	ft_setup_redirects_pipe(t_shell *shell,  t_command *cmd, int curr, int last)
 {
+	printf("\n\n entrou no setup redir");
 	if (curr == last)
 	{
 		if (cmd->redir_in)
@@ -89,12 +90,15 @@ int	ft_setup_redirects_pipe(t_shell *shell,  t_command *cmd, int curr, int last)
 
 int	ft_setup_redirects(t_shell *shell, t_command *cmd)
 {
+	printf("\n\n entrei no redirects\n\n");
 	if (cmd->redir_in)
 	{
+		printf("\n\n entrei no redirects in \n\n");
 		ft_setup_redir_in(cmd);
 	}
 	if (cmd->redir_out)
 	{
+		printf("\n\n entrei no redirects out \n\n");
 		ft_setup_redir_out(shell, cmd);
 	}
 	return (shell->status);
