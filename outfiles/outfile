@@ -34,7 +34,7 @@
 # include "expander.h"
 # include "exec.h"
 
-extern int	var_global;
+extern int	g_var_global;
 
 /**
  * @brief Represents the state of the shell.

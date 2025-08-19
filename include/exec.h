@@ -13,7 +13,6 @@
 
 #ifndef EXEC_H
 # define EXEC_H
-
 # include "minishell.h"
 //00exec_cmd
 void	ft_exec(t_shell *shell, t_command *cmds);

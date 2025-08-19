@@ -12,10 +12,9 @@
 
 #ifndef PARSER_H
 # define PARSER_H
-
 # include "minishell.h"
 
-typedef struct s_shell t_shell;
+typedef struct 	s_shell t_shell;
 
 /**
  * @brief Represents a single command and its execution context.
@@ -42,7 +41,7 @@ typedef struct s_command
 	char				*redir_out;
 	int					fd_in;
 	int					fd_out;
-	struct s_command	*next;
+	struct 		s_command	*next;
 }	t_command;
 
 t_command	*ft_parser(t_token *tokens, t_shell *shell);

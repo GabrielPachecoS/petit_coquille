@@ -20,7 +20,7 @@
 void	handle_sigint(int signo)
 {
 	(void)signo;
-	if (var_global != 0)
+	if (g_var_global != 0)
 	{
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
@@ -41,9 +41,9 @@ char	*read_input(void)
 {
 	char	*input;
 
-	var_global = 1;
+	g_var_global = 1;
 	input = readline(FRESCURINHA);
-	var_global = 0;
+	g_var_global = 0;
 	if (!input)
 		return (NULL);
 	return (input);

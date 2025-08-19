@@ -18,7 +18,7 @@
 #include <string.h>
 #include <limits.h>
 
-int	var_global = 0;
+int	g_var_global = 0;
 
 int	main(int argc, char **argv, char **envp)
 {

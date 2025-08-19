@@ -12,7 +12,6 @@
 
 #ifndef TOKEN_H
 # define TOKEN_H
-
 # include "minishell.h"
 
 /**
@@ -40,7 +39,7 @@ typedef enum e_token_type
 	T_REDIR_OUT,
 	T_REDIR_APPEND,
 	T_HEREDOC
-}	t_token_type;
+}				t_token_type;
 
 /**
  * @brief Represents a token from the lexer.
@@ -58,9 +57,9 @@ typedef struct s_token
 	t_token_type	type;
 	char			*value;
 	struct s_token	*next;
-}	t_token;
+}				t_token;
 
-typedef struct s_shell t_shell;
+typedef struct	s_shell t_shell;
 
 //lexer
 t_token	*ft_lexer(char *input);

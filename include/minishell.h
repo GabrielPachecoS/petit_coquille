@@ -12,7 +12,6 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
 /* Includes padrão e libft*/
 # include "../libft/include/libft.h"
 # include <stdlib.h>
@@ -25,7 +24,6 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
 /* Includes dos módulos */
 # include "token.h"
 # include "parser.h"
@@ -33,8 +31,9 @@
 # include "builtin.h"
 # include "expander.h"
 # include "exec.h"
+# include "frescurinha.h"
 
-extern int	var_global;
+extern int	g_var_global;
 
 /**
  * @brief Represents the state of the shell.
@@ -62,7 +61,7 @@ typedef struct s_shell
 	char	*heredoc;
 	char	*infile;
 	char	*outfile;
-}	t_shell;
+}				t_shell;
 
 int		main(int argc, char **argv, char **envp);
 char	*read_input(void);

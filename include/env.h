@@ -12,7 +12,6 @@
 
 #ifndef ENV_H
 # define ENV_H
-
 # include "minishell.h"
 
 typedef struct s_env
@@ -20,7 +19,7 @@ typedef struct s_env
 	char			*key;
 	char			*value;
 	struct s_env	*next;
-}	t_env;
+}				t_env;
 
 t_env	*env_init(char **envp);
 t_env	*env_pair_create(char *key, char *value);
