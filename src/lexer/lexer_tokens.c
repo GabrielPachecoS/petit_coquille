@@ -16,7 +16,8 @@
 /*
  * @brief Frees a linked list of tokens.
  *
- * Iterates through the token list, freeing each token's value and the token itself.
+ * Iterates through the token list, freeing each token's
+ * 		value and the token itself.
  *
  * @param tokens Pointer to the first token in the list.
  */

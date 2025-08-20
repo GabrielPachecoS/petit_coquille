@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 16:18:31 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 21:24:52 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ extern int	g_var_global;
 /**
  * @brief Represents the state of the shell.
  *
- * Holds the environment variables and the exit status of the last executed command.
+ * Holds the environment variables and the 
+ * exit status of the last executed command.
  *
  * t_env	envp = Linked list of environment variables.
  *

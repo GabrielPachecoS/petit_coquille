@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:24:58 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 18:42:35 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 21:23:20 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,20 @@
 #include "token.h"
 
 /*
- * @brief Lexical analyzer that converts an input string into a list of tokens.
+ * @brief Lexical analyzer that converts 
+ an input string into a list of tokens.
  *
- * Iterates over the input string and splits it into meaningful tokens,
- * handling escaped characters, quoted strings, operators (e.g., pipes and
- * redirections), and words. Each identified token is added to a linked list.
+ * Iterates over the input string and 
+ * splits it into meaningful tokens,
+ * handling escaped characters, quoted 
+ * strings, operators (e.g., pipes and
+ * redirections), and words. 
+ * Each identified token is added to a linked list.
  *
  * @param input The raw command line input string.
  *
- * @return Pointer to the head of the token list, or NULL if no tokens were found.
+ * @return Pointer to the head of the token list,
+ * or NULL if no tokens were found.
  */
 t_token	*ft_lexer(char *input)
 {

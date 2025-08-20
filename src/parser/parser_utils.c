@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 18:32:36 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 21:22:37 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ void	ft_read_heredoc(t_shell *shell, int fd)
 
 /*
  * @brief Parses input redirection from tokens and stores it in the command.
- * Advances the token pointer past*tok = (*tok)->next; the redirection operator and expects
+ * Advances the token pointer past*tok = 
+ * (*tok)->next; the redirection operator and expects
  * a file name token next.
  * @param cmd Pointer to the current command.
  * @param tok Double pointer to the current token; will be advanced.

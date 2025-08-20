@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:22:56 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 18:19:34 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 21:23:02 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@
 /*
  * @brief Handles escaped characters in the input.
  *
- * Advances past the backslash and returns a string containing the escaped character.
+ * Advances past the backslash and 
+ * returns a string containing the escaped character.
  *
  * @param input The full input string.
- * @param i     Pointer to the current index in the string. It is updated internally.
+ * @param i     Pointer to the current index 
+ * in the string. It is updated internally.
  *
- * @return A newly allocated string containing the escaped character, or NULL on failure.
+ * @return A newly allocated string containing the 
+ * escaped character, or NULL on failure.
  */
 char	*ft_handle_escaped_char(const char *input, int *i)
 {
