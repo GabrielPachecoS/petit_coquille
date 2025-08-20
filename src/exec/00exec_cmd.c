@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 21:32:28 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/20 02:43:50 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	ft_exec(t_shell *shell, t_command *cmds)
 	{	
 		if (ft_is_builtin(cmds))
 		{
-			if (!shell->infile && !shell->outfile)
+			if (!cmds->redir_in && !cmds->redir_out)
 				ft_exec_simplebuiltin(shell, cmds->argv);
 			else
 				shell->status = ft_exec_cmdpipe(shell, cmds, n_cmds);
