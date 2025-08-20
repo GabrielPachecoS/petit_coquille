@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 17:12:24 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 21:32:28 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,6 @@ void	ft_exec(t_shell *shell, t_command *cmds)
 	{	
 		if (ft_is_builtin(cmds))
 		{
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
 			if (!shell->infile && !shell->outfile)
 				ft_exec_simplebuiltin(shell, cmds->argv);
 			else
