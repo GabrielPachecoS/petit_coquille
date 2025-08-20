@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:24:58 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 21:23:20 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 21:38:13 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ int	ft_syntax_errors(t_shell *shell, t_token *tokens)
 	if (!curr)
 		return (printf("Error: empty command\n"), 1);
 	if (curr->type == T_PIPE)
+	{
+		shell->status = 2;
 		return (printf("Syntax error: pipe at the beginning\n"), 1);
+	}
 	while (curr)
 	{
 		if (curr->type == T_PIPE)
