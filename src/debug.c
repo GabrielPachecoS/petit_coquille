@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:06:19 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 17:06:22 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/20 00:03:50 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,16 @@ void	ft_print_commands(t_shell *shell, t_command *cmd)
 				i++;
 			}
 		}
-		if (cmd->redir_in)
-			printf(" redir_in[%d]: %s\n", i, cmd->redir_in);
-		if (cmd->redir_out)
-			printf("redir_out[%d]: %s\n", i, cmd->redir_out);
+		while (cmd->redir_in)
+		{
+			printf(" redir_in[%d]: %s\n", i, cmd->redir_in->value);
+			cmd->redir_in = cmd->redir_in->next;	
+		}
+		while (cmd->redir_out)
+		{
+			printf("redir_out[%d]: %s\n", i, cmd->redir_out->value);
+			cmd->redir_out = cmd->redir_out->next;
+		}
 		cmd = cmd->next;
 		if (shell->infile)
 			printf("Shell infile %s\n\n", shell->infile);

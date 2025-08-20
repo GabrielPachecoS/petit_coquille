@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:13:33 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 17:09:19 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/20 00:42:08 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 
 typedef struct s_shell	t_shell;
 
+typedef struct s_redirect
+{
+	int					type;
+	char				*value;
+	struct s_redirect	*next;
+}				t_redirect;
 /**
  * @brief Represents a single command and its execution context.
  *
@@ -36,20 +42,22 @@ typedef struct s_shell	t_shell;
  */
 typedef struct s_command
 {
-	char					**argv;
-	char					*redir_in;
-	char					*redir_out;
-	int						fd_in;
-	int						fd_out;
-	struct s_command		*next;
-}	t_command;
+	char				**argv;
+	t_redirect			*redir_in;
+	t_redirect			*redir_out;
+	int					fd_in;
+	int					fd_out;
+	struct s_command	*next;
+}				t_command;
 
 t_command	*ft_parser(t_token *tokens, t_shell *shell);
 void		ft_free_commands(t_command *cmd);
 int			ft_parser_pipe(t_command **cmd);
 int			ft_parser_redir_out(t_shell *shell, t_command *cmd, t_token **tok);
-int			ft_parser_redir_in(t_shell *shell, t_command *cmd, t_token **tok);
+int			ft_parser_redir_in(t_shell *shell, t_command *cmd, t_token **tok, int count);
 t_command	*ft_new_command(void);
 void		ft_heredoc(t_shell *shell, int fd);
+t_redirect	*ft_start_redir(int type, char *value);
+int			ft_count_redir(t_token **tok, int count);
 
 #endif

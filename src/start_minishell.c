@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 18:48:24 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/20 00:30:42 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_init_struct(t_shell *shell, char **envp)
 	shell->heredoc = NULL;
 	shell->infile = NULL;
 	shell->outfile = NULL;
+	shell->n_redir = 0;
 }
 
 void	ft_free_shell(t_shell *shell)
@@ -70,7 +71,7 @@ void	ft_start_minishell(t_shell *shell)
 		if (*input)
 			add_history(input);
 		tokens = ft_lexer(input);
-		//ft_print_tokens(tokens);
+		ft_print_tokens(tokens);
 		if (ft_syntax_errors(shell, tokens))
 		{
 			ft_free_tokens(tokens);
@@ -80,12 +81,12 @@ void	ft_start_minishell(t_shell *shell)
 		if (tokens)
 		{
 			cmds = ft_parser(tokens, shell);
-			//ft_print_commands(shell, cmds);
-			if (ft_needs_expansion(cmds))
+			ft_print_commands(shell, cmds);
+			/*if (ft_needs_expansion(cmds))
 				cmds = ft_expander(shell, cmds);
 			else
 				cmds = ft_remove_quotes_all(cmds);
-			//ft_print_commands(shell, cmds);
+			ft_print_commands(shell, cmds);
 		}
 		if (cmds)
 			ft_exec(shell, cmds);
@@ -95,7 +96,8 @@ void	ft_start_minishell(t_shell *shell)
 			ft_free_tokens(tokens);
 		ft_free_shell(shell);
 		if (shell->should_exit == 1)
-			exit(shell->status);
+			exit(shell->status);*/
+		}	
 	}
 	ft_cleanup(shell, input);
 }

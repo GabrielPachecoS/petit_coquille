@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 21:22:37 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/20 00:30:59 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,27 @@ void	ft_read_heredoc(t_shell *shell, int fd)
  * @param tok Double pointer to the current token; will be advanced.
  * @return 1 if parsing was successful, 0 if syntax error or allocation failed.
  */
-int	ft_parser_redir_in(t_shell *shell, t_command *cmd, t_token **tok)
+int	ft_parser_redir_in(t_shell *shell, t_command *cmd, t_token **tok, int count)
 {
-	char	*temp;
-	int		fd;
+	char		*temp;
+	int			fd;
+	t_redirect	*head;
 
+	head = NULL;
 	if ((*tok)->type == T_REDIR_IN)
 	{
+		head = cmd->redir_in;
 		*tok = (*tok)->next;
 		if (!*tok || (*tok)->type != T_WORD)
 			return (0);
-		cmd->redir_in = ft_strdup((*tok)->value);
+		cmd->redir_in = ft_start_redir(2, ft_strdup((*tok)->value));
+		if (count > shell->n_redir)
+		{
+			cmd->redir_in = cmd->redir_in->next;
+			shell->n_redir++;
+		}
+		else
+			cmd->redir_in = head;
 	}
 	else if ((*tok)->type == T_HEREDOC)
 	{
@@ -117,12 +127,19 @@ int	ft_parser_redir_in(t_shell *shell, t_command *cmd, t_token **tok)
  */
 int	ft_parser_redir_out(t_shell *shell, t_command *cmd, t_token **tok)
 {
+	t_redirect	*head;
+
+	head = NULL;
 	if ((*tok)->type == T_REDIR_APPEND)
 		shell->append = 1;
 	*tok = (*tok)->next;
 	if (!*tok || (*tok)->type != T_WORD)
 		return (0);
-	cmd->redir_out = ft_strdup((*tok)->value);
+	cmd->redir_out = ft_start_redir(3, ft_strdup((*tok)->value));
+	if (cmd->redir_out->next)
+			cmd->redir_out = cmd->redir_out->next;
+	else
+		cmd->redir_out = head;
 	return (1);
 }
 

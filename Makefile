@@ -6,7 +6,7 @@
 #    By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/08/19 17:14:56 by jucoelho         ###   ########.fr        #
+#    Updated: 2025/08/19 23:58:19 by jucoelho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/lexer/lexer_handle.c \
 		  $(SRC_DIR)/parser/parser.c \
 		  $(SRC_DIR)/parser/parser_utils.c \
+		  $(SRC_DIR)/parser/parser_redir.c \
 		  $(SRC_DIR)/expander/00expander.c \
 		  $(SRC_DIR)/expander/01exp_squot.c \
 		  $(SRC_DIR)/expander/02exp_dquot.c \

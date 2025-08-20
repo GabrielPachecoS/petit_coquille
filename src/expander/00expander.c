@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:49:27 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 18:46:03 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 22:24:42 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ t_command	*ft_remove_quotes_all(t_command *cmds)
 			cmds->argv[i] = ft_remove_quotes_by_context(cmds->argv[i]);
 			i++;
 		}
-		if (cmds->redir_in)
-			cmds->redir_in = ft_remove_quotes_by_context(cmds->redir_in);
-		if (cmds->redir_out)
-			cmds->redir_out = ft_remove_quotes_by_context(cmds->redir_out);
+		if (cmds->redir_in->value)
+			cmds->redir_in->value = ft_remove_quotes_by_context(cmds->redir_in->value);
+		if (cmds->redir_out->value)
+			cmds->redir_out->value = ft_remove_quotes_by_context(cmds->redir_out->value);
 		cmds = cmds->next;
 	}
 	return (head);
@@ -87,16 +87,16 @@ int	ft_needs_expansion(t_command *cmds)
 				return (1);
 			i++;
 		}
-		if (cmds->redir_in)
+		if (cmds->redir_in->value)
 		{
-			if (ft_strchr(cmds->redir_in, '$')
-				&& (ft_must_expand(cmds->redir_in) == 1))
+			if (ft_strchr(cmds->redir_in->value, '$')
+				&& (ft_must_expand(cmds->redir_in->value) == 1))
 				return (1);
 		}
-		if (cmds->redir_out)
+		if (cmds->redir_out->value)
 		{
-			if (ft_strchr(cmds->redir_out, '$')
-				&& (ft_must_expand(cmds->redir_out) == 1))
+			if (ft_strchr(cmds->redir_out->value, '$')
+				&& (ft_must_expand(cmds->redir_out->value) == 1))
 				return (1);
 		}
 		cmds = cmds->next;
@@ -122,10 +122,10 @@ t_command	*ft_expander(t_shell *shell, t_command *cmds)
 			cmds->argv[i] = ft_handle_expander(cmds->argv[i], shell);
 			i++;
 		}
-		if (cmds->redir_in)
-			cmds->redir_in = ft_handle_expander(cmds->redir_in, shell);
-		if (cmds->redir_out)
-			cmds->redir_out = ft_handle_expander(cmds->redir_out, shell);
+		if (cmds->redir_in->value)
+			cmds->redir_in->value = ft_handle_expander(cmds->redir_in->value, shell);
+		if (cmds->redir_out->value)
+			cmds->redir_out->value = ft_handle_expander(cmds->redir_out->value, shell);
 		cmds = cmds->next;
 	}
 	return (head);

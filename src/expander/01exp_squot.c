@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:17:59 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 18:16:59 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/19 22:24:42 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ void	ft_is_squoted(t_command *cmds, char quote)
 				cmds->argv[i] = ft_remove_quotes(cmds->argv[i], quote);
 			i++;
 		}
-		if (cmds->redir_in)
-			if (ft_strchr(cmds->redir_in, quote))
-				cmds->redir_in = ft_remove_quotes(cmds->redir_in, quote);
-		if (cmds->redir_out)
-			if (ft_strchr(cmds->redir_out, quote))
-				cmds->redir_out = ft_remove_quotes(cmds->redir_out, quote);
+		if (cmds->redir_in->value)
+			if (ft_strchr(cmds->redir_in->value, quote))
+				cmds->redir_in->value = ft_remove_quotes(cmds->redir_in->value, quote);
+		if (cmds->redir_out->value)
+			if (ft_strchr(cmds->redir_out->value, quote))
+				cmds->redir_out->value = ft_remove_quotes(cmds->redir_out->value, quote);
 		cmds = cmds->next;
 	}
 }

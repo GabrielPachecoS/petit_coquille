@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 21:24:52 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/20 00:30:28 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_shell
 	char	*heredoc;
 	char	*infile;
 	char	*outfile;
+	int		n_redir;
 }				t_shell;
 
 int		main(int argc, char **argv, char **envp);
