@@ -66,7 +66,7 @@ int	ft_syntax_errors(t_shell *shell, t_token *tokens)
 		{
 			if (!curr->next || curr->next->type == T_PIPE)
 			{
-				shell->status = 245;
+				shell->status = 2;
 				return (printf("Syntax error: misplaced pipe\n"), 1);
 			}
 		}

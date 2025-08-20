@@ -75,6 +75,7 @@ void	ft_start_minishell(t_shell *shell)
 		{
 			ft_free_tokens(tokens);
 			tokens = NULL;
+			printf("Shell status: %d /n", shell->status);
 		}
 		if (tokens)
 		{
