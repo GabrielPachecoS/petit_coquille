@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:49:27 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 22:24:42 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/20 01:33:52 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,20 @@ int	ft_needs_expansion(t_command *cmds)
 				return (1);
 			i++;
 		}
-		if (cmds->redir_in->value)
+		while (cmds->redir_in->value)
 		{
 			if (ft_strchr(cmds->redir_in->value, '$')
 				&& (ft_must_expand(cmds->redir_in->value) == 1))
 				return (1);
 		}
-		if (cmds->redir_out->value)
+		//cmds->redir_in = cmds->redir_in->next;
+		while (cmds->redir_out->value)
 		{
 			if (ft_strchr(cmds->redir_out->value, '$')
 				&& (ft_must_expand(cmds->redir_out->value) == 1))
 				return (1);
 		}
+		//cmds->redir_out = cmds->redir_out->next;
 		cmds = cmds->next;
 	}
 	return (0);
