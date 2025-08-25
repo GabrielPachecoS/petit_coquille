@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:14:17 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 17:45:51 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/20 03:22:23 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,20 @@ t_command	*ft_new_command(void)
 	cmd->fd_out = -1;
 	return (cmd);
 }
+static void	ft_free_argv(char **argv)
+{
+	int	i;
+
+	if (!argv)
+		return ;
+	i = 0;
+	while (argv[i])
+	{
+		free(argv[i]);
+		i++;
+	}
+	free(argv);
+}
 
 /**
  * @brief Adds a string argument to the command's argv array.
@@ -46,36 +60,30 @@ t_command	*ft_new_command(void)
  *
  * @return 1 if successful, 0 on failure (e.g., memory allocation error).
  */
-static int	ft_add_argv(t_command *cmd, char *arg)
+int	ft_add_argv(t_command *cmd, char *arg)
 {
 	char	**new_argv;
 	int		count;
 	int		i;
 
-	count = 0;
-	i = 0;
-	if (!cmd)
+	if (!cmd || !arg)
 		return (0);
-	if (cmd->argv)
-	{
-		while (cmd->argv[count])
-			count++;
-	}
+	count = 0;
+	while (cmd->argv && cmd->argv[count])
+		count++;
 	new_argv = malloc(sizeof(char *) * (count + 2));
 	if (!new_argv)
 		return (0);
-	while (i < count)
-	{
+	i = -1;
+	while (++i < count)
 		new_argv[i] = ft_strdup(cmd->argv[i]);
-		free(cmd->argv[i]);
-		i++;
-	}
 	new_argv[count] = ft_strdup(arg);
 	new_argv[count + 1] = NULL;
-	free(cmd->argv);
+	ft_free_argv(cmd->argv);
 	cmd->argv = new_argv;
 	return (1);
 }
+
 
 /**
  * @brief Initializes the first command in the list.
