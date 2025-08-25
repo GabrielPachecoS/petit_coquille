@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:13:33 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 17:09:19 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/25 19:49:41 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_command
 	struct s_command		*next;
 }	t_command;
 
+void		ft_read_heredoc(t_shell *shell, t_command *cmd, int fd);
 t_command	*ft_parser(t_token *tokens, t_shell *shell);
 void		ft_free_commands(t_command *cmd);
 int			ft_parser_pipe(t_command **cmd);

@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/25 19:07:34 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/25 19:51:11 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_free_commands(t_command *cmd)
 	}
 }
 
-void	ft_read_heredoc(t_shell *shell, int fd)
+void	ft_read_heredoc(t_shell *shell, t_command *cmd, int fd)
 {
 	char	*input;
 
@@ -67,7 +67,7 @@ void	ft_read_heredoc(t_shell *shell, int fd)
 			write(fd, "\n", 1);
 		}
 	}
-	shell->infile = ft_strdup("heredoc_tmp.txt");
+	cmd->redir_in = ft_strdup("heredoc_tmp.txt");
 }
 
 /*
@@ -105,7 +105,7 @@ int	ft_parser_redir_in(t_shell *shell, t_command *cmd, t_token **tok)
 			shell->status = 1;
 			return (0);
 		}
-		ft_read_heredoc(shell, fd);
+		ft_read_heredoc(shell, cmd, fd);
 		close(fd);
 	}
 	return (1);

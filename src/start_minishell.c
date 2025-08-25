@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/25 19:29:54 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/25 19:43:32 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_init_struct(t_shell *shell, char **envp)
 	shell->fd_out = -1;
 	shell->prev_fd = -1;
 	shell->append = -1;
+	shell->hd_no_expand = -1;
 	shell->heredoc = NULL;
 	shell->infile = NULL;
 	shell->outfile = NULL;
@@ -41,7 +42,10 @@ void	ft_free_shell(t_shell *shell)
 	shell->fd_out = -1;
 	shell->append = -1;
 	if (shell->heredoc)
+	{
 		free(shell->heredoc);
+		shell->hd_no_expand = -1;
+	}
 	if (shell->infile)
 		free(shell->infile);
 	if (shell->outfile)
