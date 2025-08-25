@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:49:27 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/25 19:03:29 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/25 19:18:35 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,19 @@ int	ft_needs_expansion(t_command *cmds)
 	return (0);
 }
 
+void	ft_expand_swap(char **p, t_shell *sh)
+{
+	char	*old;
+	char	*new;
+
+	old = *p;
+	new = ft_handle_expander(old, sh);
+	if (!new)
+		new = ft_strdup("");
+	free(old);
+	*p = new;
+}
+
 t_command	*ft_expander(t_shell *shell, t_command *cmds)
 {
 	t_command	*head;
@@ -105,14 +118,11 @@ t_command	*ft_expander(t_shell *shell, t_command *cmds)
 	{
 		i = 0;
 		while (cmds->argv[i])
-		{
-			cmds->argv[i] = ft_handle_expander(cmds->argv[i], shell);
-			i++;
-		}
+			ft_expand_swap(&cmds->argv[i++], shell);
 		if (cmds->redir_in)
-			cmds->redir_in = ft_handle_expander(cmds->redir_in, shell);
+			ft_expand_swap(&cmds->redir_in, shell);
 		if (cmds->redir_out)
-			cmds->redir_out = ft_handle_expander(cmds->redir_out, shell);
+			ft_expand_swap(&cmds->redir_out, shell);
 		cmds = cmds->next;
 	}
 	return (head);

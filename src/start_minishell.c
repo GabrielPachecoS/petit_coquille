@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/25 18:18:26 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/25 19:29:54 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,11 @@ void	ft_start_minishell(t_shell *shell)
 		if (*input)
 			add_history(input);
 		tokens = ft_lexer(input);
-		 ft_print_tokens(tokens);
-		/*if (ft_syntax_errors(shell, tokens))
-		{
-			ft_free_tokens(tokens);
-			tokens = NULL;
-			printf("Shell status: %d /n", shell->status);
-		}*/
 		if (tokens)
 		{
 			cmds = ft_parser(tokens, shell);
-			//ft_print_commands(shell, cmds);
 			if (ft_needs_expansion(cmds))
-			{
-				ft_print_commands(shell, cmds);
 				cmds = ft_expander(shell, cmds);
-				ft_print_commands(shell, cmds);
-			}
 			else
 				cmds = ft_remove_quotes_all(cmds);
 		}

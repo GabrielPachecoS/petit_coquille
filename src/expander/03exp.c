@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:33:48 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/25 19:01:32 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/25 19:10:58 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,29 +73,48 @@ static char	*ft_expand_str(char *str_quoted, t_shell *shell)
 }
 
 
-char	*ft_handle_expander(char *str_quoted, t_shell *shell)
+static char	*expand_double_quoted(char *str_quoted, t_shell *shell)
 {
 	char	*var;
+	char	*tmp;
 	int		len;
 
 	len = ft_strlen(str_quoted);
-	if (str_quoted[0] == '"' && str_quoted[len - 1] == '"')
+	if (len >= 2 && str_quoted[0] == '"' && str_quoted[len - 1] == '"')
 	{
 		var = ft_strtrim(str_quoted, "\"");
-		return (ft_expand_str(var, shell));
+		if (!var)
+			return (ft_strdup(""));
+		tmp = ft_expand_str(var, shell);
+		free(var);
+		if (tmp)
+			return (tmp);
+		return (ft_strdup(""));
 	}
-	else if (str_quoted[0] == '"')
+	if (str_quoted[0] == '"' && str_quoted[1] == '?' && str_quoted[2] == '"')
+		return (ft_strdup("$"));
+	if (str_quoted[0] == '"' && str_quoted[1] == '$'
+		&& str_quoted[2] == '?' && str_quoted[4] == '\0')
+		return (ft_itoa(shell->status));
+	return (NULL);
+}
+
+char	*ft_handle_expander(char *str_quoted, t_shell *shell)
+{
+	char	*tmp;
+
+	if (!str_quoted)
+		return (ft_strdup(""));
+	if (str_quoted[0] == '"')
 	{
-		if (str_quoted[1] == '?' && str_quoted[2] == '"')
-		{
-			shell->status = 0;
-			return (ft_strdup("$"));
-		}
-		else if (str_quoted[1] == '$' && str_quoted[2]
-			== '?' && str_quoted[4] == '\0')
-			return (ft_itoa(shell->status));
+		tmp = expand_double_quoted(str_quoted, shell);
+		if (tmp)
+			return (tmp);
 	}
-	return (ft_expand_str(str_quoted, shell));
+	tmp = ft_expand_str(str_quoted, shell);
+	if (tmp)
+		return (tmp);
+	return (ft_strdup(""));
 }
 
 char	*ft_remove_quotes_by_context(char *str)

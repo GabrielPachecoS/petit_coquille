@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:24:12 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 17:39:08 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/25 19:16:13 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,37 @@
 
 void	ft_is_redirquoted(t_command *cmds, t_shell *shell, char quote)
 {
-	int	i;
+	char	*old;
 
-	i = 0;
-	if (cmds->redir_in)
+	if (cmds->redir_in && ft_strchr(cmds->redir_in, quote))
 	{
-		if (ft_strchr(cmds->redir_in, quote))
+		if (ft_strchr(cmds->redir_in, '$'))
+			ft_expand_swap(&cmds->redir_in, shell);
+		else
 		{
-			if (ft_strchr(cmds->argv[i], '$'))
-				ft_handle_expander(cmds->argv[i], shell);
-			else
-				cmds->redir_in = ft_remove_quotes (cmds->redir_in, quote);
+			old = cmds->redir_in;
+			cmds->redir_in = ft_remove_quotes(old, quote);
+			free(old);
 		}
 	}
-	if (cmds->redir_out)
+	if (cmds->redir_out && ft_strchr(cmds->redir_out, quote))
 	{
-		if (ft_strchr(cmds->redir_out, quote))
+		if (ft_strchr(cmds->redir_out, '$'))
+			ft_expand_swap(&cmds->redir_out, shell);
+		else
 		{
-			if (ft_strchr(cmds->argv[i], '$'))
-				ft_handle_expander(cmds->argv[i], shell);
-			else
-				cmds->redir_out = ft_remove_quotes(cmds->redir_out, quote);
+			old = cmds->redir_out;
+			cmds->redir_out = ft_remove_quotes(old, quote);
+			free(old);
 		}
 	}
 }
 
+
 void	ft_is_dquoted(t_command *cmds, t_shell *shell, char quote)
 {
-	int	i;
+	int		i;
+	char	*old;
 
 	while (cmds)
 	{
@@ -52,13 +55,17 @@ void	ft_is_dquoted(t_command *cmds, t_shell *shell, char quote)
 			if (ft_strchr(cmds->argv[i], quote))
 			{
 				if (ft_strchr(cmds->argv[i], '$'))
-					ft_handle_expander(cmds->argv[i], shell);
+					ft_expand_swap(&cmds->argv[i], shell);
 				else
-					cmds->argv[i] = ft_remove_quotes(cmds->argv[i], quote);
+				{
+					old = cmds->argv[i];
+					cmds->argv[i] = ft_remove_quotes(old, quote);
+					free(old);
+				}
 			}
 			i++;
 		}
-		ft_is_redirquoted(cmds, shell, quote);
+		ft_is_redirquoted(cmds, shell, quote); // garanta swap lá também
 		cmds = cmds->next;
 	}
 }

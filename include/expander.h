@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:37:24 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 18:46:23 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/25 19:18:45 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ char		*ft_handle_expander(char *input, t_shell *shell);
 char		*ft_expandvar(char *input, t_shell *shell);
 char		*ft_handle_braces(char *input, t_shell *shell);
 char		*ft_handle_expalnum(char *input, t_shell *shell);
-
+void	ft_expand_swap(char **p, t_shell *sh);
 #endif
