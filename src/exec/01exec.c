@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 17:21:37 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 17:34:45 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/25 17:11:43 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,9 @@ int	ft_setup_redirects_pipe(t_shell *shell, t_command *cmd, int curr, int last)
 	if (curr == last)
 		ft_setup_last(shell, cmd);
 	else if (curr == 0)
-		ft_setup_middle(shell, cmd);
-	else
-	{
 		ft_setup_first(shell, cmd);
-	}
+	else
+		ft_setup_middle(shell, cmd);
 	return (shell->status);
 }
 

@@ -6,25 +6,12 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:49:27 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 18:46:03 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/25 19:03:29 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "expander.h"
-
-int	ft_skip_quote(char c, int *state)
-{
-	if (c == '\'' && *state == 0)
-		return (*state = 1, 1);
-	if (c == '\'' && *state == 1)
-		return (*state = 0, 1);
-	if (c == '"' && *state == 0)
-		return (*state = 2, 1);
-	if (c == '"' && *state == 2)
-		return (*state = 0, 1);
-	return (0);
-}
 
 static int	ft_must_expand(char *str)
 {

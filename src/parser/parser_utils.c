@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 21:22:37 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/25 18:10:09 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,16 @@ void	ft_free_commands(t_command *cmd)
 		if (cmd->argv)
 		{
 			while (cmd->argv[i])
+			{
+				 printf("free cmd argv[%d] %s \n", i, cmd->argv[i]);
 				free(cmd->argv[i++]);
+			}
 			free(cmd->argv);
 		}
+		if (cmd->redir_in)
+			free(cmd->redir_in);
+		if (cmd->redir_out)
+			free(cmd->redir_out);
 		free(cmd);
 		cmd = tmp;
 	}

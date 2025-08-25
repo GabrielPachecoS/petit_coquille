@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:33:48 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/20 03:16:25 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/25 19:01:32 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ static char	*expand_dollar_block(char *str, int *i, t_shell *shell)
 		if (expanded)
 			return (ft_strdup(expanded));
 		else
-			return (ft_strdup(""));
+		{
+			return ft_strdup("");
+		}
 	}
 	(*i)++;
 	return (ft_strdup("$"));
@@ -56,6 +58,12 @@ static char	*ft_expand_str(char *str_quoted, t_shell *shell)
 			chunk = expand_dollar_block(str_quoted, &i, shell);
 		else
 			chunk = ft_substr(str_quoted, i++, 1);
+		if (!chunk)
+		{
+			free(temp);
+			free(str_quoted);
+			return (NULL);
+		}
 		joined = ft_strjoin(temp, chunk);
 		free(temp);
 		free(chunk);
