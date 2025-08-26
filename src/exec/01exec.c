@@ -6,36 +6,39 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 17:21:37 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/25 17:11:43 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/25 21:54:19 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_setup_redir_out(t_shell *shell, t_command *cmd)
+int	ft_setup_redir_out(t_shell *shell, t_command *cmd)
 {
 	if (shell->append > 0)
 		cmd->fd_out = open(cmd->redir_out, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else if (cmd->redir_out)
 		cmd->fd_out = open(cmd->redir_out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (cmd->fd_out < 0)
+	if (cmd->fd_out <= 0)
 	{
 		perror(cmd->redir_out);
-		exit(EXIT_FAILURE);
+		return (-1);
 	}
-	cmd->fd_out = ft_dup_close(cmd->fd_out, STDOUT_FILENO);
+	else
+		cmd->fd_out = ft_dup_close(cmd->fd_out, STDOUT_FILENO);
+	return (0);
 }
 
-void	ft_setup_redir_in(t_command *cmd)
+int	ft_setup_redir_in(t_command *cmd)
 {
 	cmd->fd_in = open(cmd->redir_in, O_RDONLY);
-	if (cmd->fd_in < 0)
+	if (cmd->fd_in <= 0)
 	{
 		perror(cmd->redir_in);
-		exit(EXIT_FAILURE);
+		return (-1);
 	}
 	else
 		cmd->fd_in = ft_dup_close(cmd->fd_in, STDIN_FILENO);
+	return (0);
 }
 
 int	ft_setup_redirects_pipe(t_shell *shell, t_command *cmd, int curr, int last)
