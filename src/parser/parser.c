@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:14:17 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/20 03:22:23 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/26 18:25:51 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_command	*ft_new_command(void)
 	cmd->fd_out = -1;
 	return (cmd);
 }
+
 static void	ft_free_argv(char **argv)
 {
 	int	i;

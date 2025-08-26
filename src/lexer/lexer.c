@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:24:58 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/20 02:31:40 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/26 18:49:17 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ t_token	*ft_lexer(char *input)
 			i = ft_handle_token(input, i, &tokens);
 		else
 			i = ft_handle_word(input, i, &tokens);
+		if (i < 0)
+			break ;
 	}
 	return (tokens);
 }
