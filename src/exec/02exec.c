@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:40 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/25 20:25:12 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/26 19:32:08 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,22 @@ int	ft_loop_cmdpipe(t_shell *shell, t_command *cmds, int *pid, int n_cmd)
 		}
 		else
 		{
-			if (shell->fd[1] > 0)
+			if (shell->fd[1] >= 0)
 				shell->fd[1] = ft_close_reset(shell->fd[1]);
 		}
-		if (shell->prev_fd > 0)
+		if (shell->prev_fd >= 0)
 			shell->prev_fd = ft_close_reset(shell->prev_fd);
 		if (cmds->next != NULL)
 			shell->prev_fd = shell->fd[0];
 		else
 		{
-			if (shell->fd[0] > 0)
+			if (shell->fd[0] >= 0)
 				shell->fd[0] = ft_close_reset(shell->fd[0]);
 		}
 		cmds = cmds->next;
 		i++;
 	}
-	if (shell->prev_fd > 0)
+	if (shell->prev_fd >= 0)
 		shell->prev_fd = ft_close_reset(shell->prev_fd);
 	return (shell->status);
 }
