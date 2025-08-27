@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/26 19:33:23 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/26 21:20:35 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	ft_start_minishell(t_shell *shell)
 		{
 			if (ft_verifysintax(tokens))
 			{
-			//	printf("entrou no sintax\n\n");
 				shell->status = 2;
 			}
 			else

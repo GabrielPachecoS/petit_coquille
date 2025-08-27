@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 17:21:37 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/26 19:35:03 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/26 21:12:14 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_setup_redir_out(t_shell *shell, t_command *cmd)
 	if (cmd->fd_out < 0)
 	{
 		perror(cmd->redir_out);
-		return (-1);
+		exit(EXIT_FAILURE);
 	}
 	else
 		cmd->fd_out = ft_dup_close(cmd->fd_out, STDOUT_FILENO);
@@ -34,7 +34,7 @@ int	ft_setup_redir_in(t_command *cmd)
 	if (cmd->fd_in < 0)
 	{
 		perror(cmd->redir_in);
-		return (-1);
+		exit(EXIT_FAILURE);
 	}
 	else
 		cmd->fd_in = ft_dup_close(cmd->fd_in, STDIN_FILENO);
@@ -56,11 +56,11 @@ int	ft_setup_redirects(t_shell *shell, t_command *cmd)
 {
 	if (cmd->redir_in)
 	{
-		ft_setup_redir_in(cmd);
+		(ft_setup_redir_in(cmd));
 	}
 	if (cmd->redir_out)
 	{
 		ft_setup_redir_out(shell, cmd);
 	}
-	return (shell->status);
+	return (0);
 }
