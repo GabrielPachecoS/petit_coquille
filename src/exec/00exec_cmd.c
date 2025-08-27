@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/26 21:26:46 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/27 14:46:56 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,6 @@ void	ft_exec(t_shell *shell, t_command *cmds)
 		{
 			if (!cmds->redir_in && !cmds->redir_out)
 				ft_exec_simplebuiltin(shell, cmds->argv);
-			if (!cmds->next)
-				shell->status = ft_exec_simplecmd(shell, cmds);
 			else
 				shell->status = ft_exec_cmdpipe(shell, cmds, n_cmds);
 		}
@@ -125,3 +123,4 @@ void	ft_exec(t_shell *shell, t_command *cmds)
 	else
 		shell->status = ft_exec_cmdpipe(shell, cmds, n_cmds);
 }
+
