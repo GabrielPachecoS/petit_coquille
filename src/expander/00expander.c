@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:49:27 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/25 19:18:35 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/27 15:58:10 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	ft_must_expand(char *str)
 
 	state = 0;
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		if (str[i] == '\'' && state == 0)
 			state = 1;
@@ -67,7 +67,7 @@ int	ft_needs_expansion(t_command *cmds)
 	while (cmds)
 	{
 		i = 0;
-		while (cmds->argv[i])
+		while (cmds->argv && cmds->argv[i])
 		{
 			if (ft_strchr(cmds->argv[i], '$')
 				&& (ft_must_expand(cmds->argv[i]) == 1))

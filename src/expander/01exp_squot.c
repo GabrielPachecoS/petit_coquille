@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:17:59 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/25 19:03:25 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/27 15:58:37 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_remove_quotes(char *str_quote, char quote)
 	res = malloc(ft_strlen(str_quote) - 1);
 	if (!res)
 		return (NULL);
-	while (str_quote[i])
+	while (str_quote && str_quote[i])
 	{
 		if (str_quote[i] != quote)
 			res[j++] = str_quote[i];

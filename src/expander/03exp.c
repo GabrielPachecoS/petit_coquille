@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:33:48 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/25 19:10:58 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/27 15:59:45 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*expand_dollar_block(char *str, int *i, t_shell *shell)
 			return (ft_strdup(expanded));
 		else
 		{
-			return ft_strdup("");
+			return (ft_strdup(""));
 		}
 	}
 	(*i)++;
@@ -52,7 +52,7 @@ static char	*ft_expand_str(char *str_quoted, t_shell *shell)
 
 	i = 0;
 	temp = ft_strdup("");
-	while (str_quoted[i])
+	while (str_quoted && str_quoted[i])
 	{
 		if (str_quoted[i] == '$' && str_quoted[i + 1])
 			chunk = expand_dollar_block(str_quoted, &i, shell);
@@ -130,7 +130,7 @@ char	*ft_remove_quotes_by_context(char *str)
 	res = malloc(ft_strlen(str) + 1);
 	if (!res)
 		return (NULL);
-	while (str[i])
+	while (str && str[i])
 	{
 		if (!ft_skip_quote(str[i], &state))
 			res[j++] = str[i];

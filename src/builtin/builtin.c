@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 19:04:01 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/27 14:21:44 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/27 16:08:25 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_is_builtin(t_command *cmds)
 {
-	if (!cmds->argv[0])
+	if (cmds == NULL || cmds->argv == NULL || cmds->argv[0] == NULL)
 		return (0);
 	return (
 		ft_strcmp(cmds->argv[0], "echo") == 0

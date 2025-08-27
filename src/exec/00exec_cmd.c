@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/27 14:46:56 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/27 16:22:04 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,25 @@ void	ft_exec_command(t_shell *shell, t_command *cmd)
 	int		i;
 
 	i = 0;
-	env_array = env_to_array(shell->envp);
-	fullpath = ft_get_cmdpath(cmd->argv[0], shell->envp);
-	if (!fullpath)
+	if (!cmd || !cmd->argv || !cmd->argv[0])
+		exit(EXIT_SUCCESS);
+	else
 	{
+		env_array = env_to_array(shell->envp);
+		fullpath = ft_get_cmdpath(cmd->argv[0], shell->envp);
+		if (!fullpath)
+		{
+			ft_free_split(env_array);
+			exit(1);
+		}
+		while (cmd->argv[i])
+			i++;
+		shell->status = execve(fullpath, cmd->argv, env_array);
+		perror("execve failed");
 		ft_free_split(env_array);
-		exit(1);
+		free(fullpath);
+		exit(EXIT_FAILURE);
 	}
-	while (cmd->argv[i])
-	{
-		i++;
-	}
-	shell->status = execve(fullpath, cmd->argv, env_array);
-	perror("execve failed");
-	ft_free_split(env_array);
-	free(fullpath);
-	exit(EXIT_FAILURE);
 }
 
 int	ft_exec_cmdpipe(t_shell *shell, t_command *cmds, int n_cmd)

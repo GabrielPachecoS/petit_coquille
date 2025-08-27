@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:24:12 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/25 19:16:13 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/27 15:59:01 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_is_dquoted(t_command *cmds, t_shell *shell, char quote)
 			}
 			i++;
 		}
-		ft_is_redirquoted(cmds, shell, quote); // garanta swap lá também
+		ft_is_redirquoted(cmds, shell, quote);
 		cmds = cmds->next;
 	}
 }
