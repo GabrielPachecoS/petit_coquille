@@ -1,4 +1,3 @@
-16 agosto
 42_minishell_tester
 42minishell_tester3
 echo
@@ -7,14 +6,17 @@ include
 libft
 Makefile
 minishell
+minishell_tester
 obj
-out
-out1
-out2
 outfiles
+readline.sup
 src
+test
 test_files
 tmp_err_bash
 tmp_err_minishell
 tmp_out_bash
 tmp_out_minishell
+tmp_redir_out
+tmp_redir_out_file1
+tmp_valgrind-out.txt
