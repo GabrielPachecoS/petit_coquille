@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/26 18:25:40 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/27 17:14:21 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ void	ft_free_commands(t_command *cmd)
 		if (cmd->argv)
 		{
 			while (cmd->argv[i])
-			{
 				free(cmd->argv[i++]);
-			}
 			free(cmd->argv);
 		}
 		if (cmd->redir_in)
@@ -88,10 +86,16 @@ int	ft_parser_redir_in(t_shell *shell, t_command *cmd, t_token **tok)
 		*tok = (*tok)->next;
 		if (!*tok || (*tok)->type != T_WORD)
 			return (0);
+		if (cmd->redir_in)
+			free(cmd->redir_in);
 		cmd->redir_in = ft_strdup((*tok)->value);
 	}
 	else if ((*tok)->type == T_HEREDOC)
 	{
+		if (cmd->redir_in)
+			free(cmd->redir_in);
+		if (shell->heredoc)
+			free(shell->heredoc);
 		temp = "heredoc_tmp.txt";
 		*tok = (*tok)->next;
 		if (!*tok || (*tok)->type != T_WORD)
@@ -128,6 +132,8 @@ int	ft_parser_redir_out(t_shell *shell, t_command *cmd, t_token **tok)
 	*tok = (*tok)->next;
 	if (!*tok || (*tok)->type != T_WORD)
 		return (0);
+	if (cmd->redir_out)
+			free(cmd->redir_out);
 	cmd->redir_out = ft_strdup((*tok)->value);
 	return (1);
 }
