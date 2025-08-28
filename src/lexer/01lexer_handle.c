@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_handle.c                                     :+:      :+:    :+:   */
+/*   01lexer_handle.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:22:56 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/26 18:41:05 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:45:36 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "token.h"
 
 /*
  * @brief Handles escaped characters in the input.
@@ -60,15 +59,15 @@ int	ft_handle_token(char *input, int i, t_token **tokens)
 	if (input[i] == '|' || input[i] == '>' || input[i] == '<')
 	{
 		if (input[i] == '>' && input[i + 1] == '>')
-			return (ft_add_simple_token(tokens, T_REDIR_APPEND, input, i, 2));
+			return (ft_add_simple_token(tokens, T_REDIR_APPEND, input, i));
 		if (input[i] == '<' && input[i + 1] == '<')
-			return (ft_add_simple_token(tokens, T_HEREDOC, input, i, 2));
+			return (ft_add_simple_token(tokens, T_HEREDOC, input, i));
 		if (input[i] == '>')
-			return (ft_add_simple_token(tokens, T_REDIR_OUT, input, i, 1));
+			return (ft_add_simple_token(tokens, T_REDIR_OUT, input, i));
 		if (input[i] == '<')
-			return (ft_add_simple_token(tokens, T_REDIR_IN, input, i, 1));
+			return (ft_add_simple_token(tokens, T_REDIR_IN, input, i));
 		if (input[i] == '|')
-			return (ft_add_simple_token(tokens, T_PIPE, input, i, 1));
+			return (ft_add_simple_token(tokens, T_PIPE, input, i));
 	}
 	return (i);
 }
@@ -101,7 +100,6 @@ int	ft_handle_word(char *input, int i, t_token **tokens)
 			if (i == 0)
 			{
 				printf("minishell error: unclosed quote\n");
-				//ft_free_tokens(*tokens);
 				return (-1);
 			}
 		}

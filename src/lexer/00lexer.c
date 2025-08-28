@@ -1,17 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   00lexer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:24:58 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/26 18:49:17 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:36:58 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "token.h"
+
+int	ft_syntax_errors(t_shell *shell, t_token *tokens)
+{
+	t_token	*curr;
+
+	curr = tokens;
+	if (curr->type == T_PIPE)
+	{
+		shell->status = 2;
+		return (printf("Syntax error: pipe at the beginning\n"), 1);
+	}
+	while (curr)
+	{
+		if (curr->type == T_PIPE)
+		{
+			if (!curr->next || curr->next->type == T_PIPE)
+				return (shell->status = 2,
+					printf("Syntax error: misplaced pipe\n"), 1);
+		}
+		else if (curr->type == T_REDIR_IN || curr->type == T_REDIR_OUT
+			|| curr->type == T_HEREDOC || curr->type == T_REDIR_APPEND)
+		{
+			if (!curr->next || curr->next->type != T_WORD)
+				return (printf("Error: redirection without argument\n"), 1);
+		}
+		curr = curr->next;
+	}
+	return (0);
+}
 
 /*
  * @brief Lexical analyzer that converts 
@@ -56,35 +84,4 @@ t_token	*ft_lexer(char *input)
 			break ;
 	}
 	return (tokens);
-}
-
-int	ft_syntax_errors(t_shell *shell, t_token *tokens)
-{
-	t_token	*curr;
-
-	curr = tokens;
-	if (curr->type == T_PIPE)
-	{
-		shell->status = 2;
-		return (printf("Syntax error: pipe at the beginning\n"), 1);
-	}
-	while (curr)
-	{
-		if (curr->type == T_PIPE)
-		{
-			if (!curr->next || curr->next->type == T_PIPE)
-			{
-				shell->status = 2;
-				return (printf("Syntax error: misplaced pipe\n"), 1);
-			}
-		}
-		else if (curr->type == T_REDIR_IN || curr->type == T_REDIR_OUT
-			|| curr->type == T_HEREDOC || curr->type == T_REDIR_APPEND)
-		{
-			if (!curr->next || curr->next->type != T_WORD)
-				return (printf("Error: redirection without argument\n"), 1);
-		}
-		curr = curr->next;
-	}
-	return (0);
 }

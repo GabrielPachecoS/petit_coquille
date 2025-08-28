@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:14:09 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/27 16:49:48 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:41:59 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 /* Includes dos módulos */
-# include "token.h"
+# include "lexer.h"
 # include "parser.h"
 # include "env.h"
 # include "builtin.h"

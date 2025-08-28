@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "token.h"
 
 /**
  * @brief Checks if a character is a shell operator.

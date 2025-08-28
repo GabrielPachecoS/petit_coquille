@@ -6,7 +6,7 @@
 #    By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/08/28 16:19:43 by jucoelho         ###   ########.fr        #
+#    Updated: 2025/08/28 16:49:28 by jucoelho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,10 @@ SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/cleanup.c \
 		  $(SRC_DIR)/signals.c \
 		  $(SRC_DIR)/start_minishell.c \
-		  $(SRC_DIR)/lexer/lexer.c \
-		  $(SRC_DIR)/lexer/lexer_utils.c \
-		  $(SRC_DIR)/lexer/lexer_tokens.c \
-		  $(SRC_DIR)/lexer/lexer_handle.c \
+		  $(SRC_DIR)/lexer/00lexer.c \
+		  $(SRC_DIR)/lexer/01lexer_handle.c \
+		  $(SRC_DIR)/lexer/02lexer_tokens.c \
+		  $(SRC_DIR)/lexer/03lexer_utils.c \
 		  $(SRC_DIR)/parser/parser.c \
 		  $(SRC_DIR)/parser/parser_utils.c \
 		  $(SRC_DIR)/parser/sintax.c \
@@ -67,7 +67,8 @@ OBJ		= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 DEP		= $(OBJ:.o=.d)
 
 all: $(LIBFT_DIR)/libft.a $(OBJ_DIR) $(OBJ_DIR)/lexer \
-	$(OBJ_DIR)/parser $(OBJ_DIR)/env $(OBJ_DIR)/builtin $(NAME)
+	$(OBJ_DIR)/parser $(OBJ_DIR)/env $(OBJ_DIR)/exec \
+	$(OBJ_DIR)/expander $(OBJ_DIR)/builtin $(NAME)
 
 $(LIBFT_DIR)/libft.a:
 	$(MAKE) -C $(LIBFT_DIR)

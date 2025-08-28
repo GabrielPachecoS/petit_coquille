@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "token.h"
 
 /*
  * @brief Frees a linked list of tokens.
@@ -97,8 +96,14 @@ void	ft_add_token(t_token **list, t_token *new)
  * @return The new position in the input string after the added token.
  */
 int	ft_add_simple_token(t_token **tokens, t_token_type type,
-			char *input, int i, int size)
+			char *input, int i)
 {
+	int	size;
+
+	if (type == T_REDIR_APPEND || type == T_HEREDOC)
+		size = 2;
+	else
+		size = 1;
 	ft_add_token(tokens, ft_new_token(type, ft_substr(input, i, size)));
 	return (i + size);
 }

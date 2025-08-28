@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.h                                            :+:      :+:    :+:   */
+/*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:25:24 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/26 18:49:22 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:48:47 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_H
-# define TOKEN_H
+#ifndef LEXER_H
+# define LEXER_H
 # include "minishell.h"
 
 /**
@@ -61,22 +61,25 @@ typedef struct s_token
 
 typedef struct s_shell	t_shell;
 
-//lexer
+//00 lexer
 t_token	*ft_lexer(char *input);
-//utils
-int		ft_is_operator(char c);
-int		ft_is_special_char(char c);
-//tokens
 int		ft_syntax_errors(t_shell *shell, t_token *tokens);
+
+// 01 lexer handle
+char	*ft_handle_escaped_char(const char *input, int *i);
+int		ft_handle_token(char *input, int i, t_token **tokens);
+int		ft_closequoted(char *input, int i);
+int		ft_handle_word(char *input, int i, t_token **tokens);
+
+//02 lexer tokens
 int		ft_add_simple_token(
-			t_token **tokens, t_token_type type, char *input, int i, int size);
+			t_token **tokens, t_token_type type, char *input, int i);
 void	ft_add_token(t_token **list, t_token *new);
 t_token	*ft_new_token(t_token_type type, char *value);
 void	ft_free_tokens(t_token *tokens);
-//handle
-char	*ft_handle_escaped_char(const char *input, int *i);
-int		ft_closequoted(char *input, int i);
-int		ft_handle_token(char *input, int i, t_token **tokens);
-int		ft_handle_word(char *input, int i, t_token **tokens);
+
+//03 lexer utils
+int		ft_is_operator(char c);
+int		ft_is_special_char(char c);
 
 #endif
