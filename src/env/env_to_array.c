@@ -6,12 +6,11 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:06:23 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 17:44:34 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:05:09 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "env.h"
 
 int	env_size(t_env *env)
 {

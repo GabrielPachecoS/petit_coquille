@@ -6,12 +6,11 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:28:27 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 17:49:46 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:05:13 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "env.h"
 
 /*
  * Retrieves the value of an environment variable by key.

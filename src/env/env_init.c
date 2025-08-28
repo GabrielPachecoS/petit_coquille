@@ -6,12 +6,11 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 17:35:31 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 17:44:45 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:05:02 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "env.h"
 
 static int	extract_pair(char *entry, char **out_key, char **out_val)
 {

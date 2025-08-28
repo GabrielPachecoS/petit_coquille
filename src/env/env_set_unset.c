@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_set_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gapachec <gapachec@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 14:45:00 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/01 14:45:34 by gapachec         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:05:06 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "env.h"
 
 int	set_env_value(t_env **env, const char *key, const char *value)
 {

@@ -6,12 +6,11 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 18:31:15 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/05 17:17:23 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:04:59 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "env.h"
 
 void	env_node_destroy(t_env *env)
 {
