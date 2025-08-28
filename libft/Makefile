@@ -60,14 +60,13 @@ AR = ar
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(AR) rcs $(NAME) $(OBJ)
+	@$(AR) rcs $(NAME) $(OBJ)
 	@echo "\033[1;45m✅ libft.a compiled successfully!\033[0m"
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
-
-$(OBJ_DIR)/%.o : $(SRC_DIR)%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -I include -c $< -o $@
+$(OBJ_DIR)/%.o : $(SRC_DIR)%.c
+	@echo "🛠️  Compilando $<"
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -I include -c $< -o $@
 
 clean:
 	rm -rf $(OBJ_DIR)
