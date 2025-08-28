@@ -6,7 +6,7 @@
 #    By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/08/26 18:13:08 by jucoelho         ###   ########.fr        #
+#    Updated: 2025/08/28 15:21:26 by jucoelho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,6 @@ SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/exec/05exec_free_error.c \
 		  $(SRC_DIR)/env/env_free.c \
 		  $(SRC_DIR)/env/env_init.c \
-		  $(SRC_DIR)/env/env_lookup.c \
 		  $(SRC_DIR)/env/env_print.c \
 		  $(SRC_DIR)/env/env_set_unset.c \
 		  $(SRC_DIR)/env/env_to_array.c \

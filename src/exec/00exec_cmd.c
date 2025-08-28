@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:35:20 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/27 16:22:04 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:06:05 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,3 @@ void	ft_exec(t_shell *shell, t_command *cmds)
 	else
 		shell->status = ft_exec_cmdpipe(shell, cmds, n_cmds);
 }
-

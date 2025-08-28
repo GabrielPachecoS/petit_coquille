@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 22:05:35 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/25 21:46:41 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:21:05 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		ft_setup_redir_in(t_command *cmd);
 int		ft_setup_redir_out(t_shell *shell, t_command *cmd);
 //02exec
 int		ft_dup_close(int close_fd, int dup_fd);
-int		ft_close_reset(int close_fd);
+int		ft_close_reset(int *close_fd);
 //03exec
 void	ft_setup_last(t_shell *shell, t_command *cmd);
 void	ft_setup_middle(t_shell *shell, t_command *cmd);

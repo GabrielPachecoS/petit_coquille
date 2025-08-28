@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:37:19 by gapachec          #+#    #+#             */
-/*   Updated: 2025/07/30 17:28:12 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:21:41 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	env_node_destroy(t_env *env);
 void	env_destroy(t_env *env);
 
 char	*env_var(t_env *env, const char *key);
-t_env	*env_lookup(t_env *env, const char *key);
 int		update_or_add_env(t_env **env, char *key, char *value, int has_value);
 
 int		env_size(t_env *env);
