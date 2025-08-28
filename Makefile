@@ -6,7 +6,7 @@
 #    By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/08/28 17:13:14 by jucoelho         ###   ########.fr        #
+#    Updated: 2025/08/28 17:38:01 by jucoelho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,13 +58,9 @@ SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/builtin/07builtin_exit.c 
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -g3
+CFLAGS	= -Wall -Wextra -Werror
 INC		= -I$(INC_DIR) -I$(LIBFT_DIR)
-
-# Geração automática dos .o a partir dos .c
 OBJ		= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-
-# Instrução para incluir dependências (geradas com -MMD)
 DEP		= $(OBJ:.o=.d)
 
 all: $(LIBFT_DIR)/libft.a $(OBJ_DIR) $(OBJ_DIR)/lexer \
@@ -74,11 +70,9 @@ all: $(LIBFT_DIR)/libft.a $(OBJ_DIR) $(OBJ_DIR)/lexer \
 $(LIBFT_DIR)/libft.a:
 	$(MAKE) -C $(LIBFT_DIR)
 
-# Tirar regra de compilação antes de enviarrrrrrr!!!
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -L$(LIBFT_DIR) -lft -o $(NAME) -lreadline
-	@echo "\033[1;45m✅ Petit Coquile compiled successfully!!\033[0m"
-	@echo "\033[1;45m✅ TIRAR -G COMPILADOR ANTES DE ENVIAR!!\033[0m"
+	@echo "\033[1;45m✅ Petit Coquile 🥟 compiled successfully!!\033[0m"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INC) -MMD -c $< -o $@

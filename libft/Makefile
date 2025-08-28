@@ -54,7 +54,7 @@ SRC =	$(SRC_DIR)ft_isalpha.c \
 OBJ = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)/%.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 AR = ar
 
 all: $(NAME)

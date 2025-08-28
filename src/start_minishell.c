@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 09:35:26 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/28 16:42:09 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 17:33:12 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,38 @@ void	ft_free_shell(t_shell *shell)
 	shell->outfile = NULL;
 }
 
+static t_command	*ft_parse_and_expand(t_shell *shell, t_token *tokens)
+{
+	t_command	*cmds;
+
+	if (ft_verifysintax(tokens))
+	{
+		shell->status = 2;
+		return (NULL);
+	}
+	cmds = ft_parser(tokens, shell);
+	if (cmds)
+	{
+		if (ft_needs_expansion(cmds))
+			cmds = ft_expander(shell, cmds);
+		else
+			cmds = ft_remove_quotes_all(cmds);
+	}
+	return (cmds);
+}
+
+static void	ft_end_iter_cleanup(
+	t_shell *shell, t_token *tokens, t_command *cmds)
+{
+	if (cmds)
+		ft_free_commands(cmds);
+	if (tokens)
+		ft_free_tokens(tokens);
+	ft_free_shell(shell);
+	if (shell->should_exit == 1)
+		exit(shell->status);
+}
+
 void	ft_start_minishell(t_shell *shell)
 {
 	char		*input;
@@ -74,36 +106,11 @@ void	ft_start_minishell(t_shell *shell)
 		if (*input)
 			add_history(input);
 		tokens = ft_lexer(input);
-		//ft_print_tokens(tokens);
 		if (tokens)
-		{
-			if (ft_verifysintax(tokens))
-			{
-				shell->status = 2;
-			}
-			else
-			{
-				cmds = ft_parser(tokens, shell);
-				//ft_print_commands(shell, cmds);
-				if (ft_needs_expansion(cmds))
-				{
-					cmds = ft_expander(shell, cmds);
-				}
-				else
-				{
-					cmds = ft_remove_quotes_all(cmds);
-				}
-			}
-		}
+			cmds = ft_parse_and_expand(shell, tokens);
 		if (cmds)
 			ft_exec(shell, cmds);
-		if (cmds)
-			ft_free_commands(cmds);
-		if (tokens)
-			ft_free_tokens(tokens);
-		ft_free_shell(shell);
-		if (shell->should_exit == 1)
-			exit(shell->status);
+		ft_end_iter_cleanup(shell, tokens, cmds);
 	}
 	ft_cleanup(shell, input);
 }
