@@ -1,16 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sintax.c                                           :+:      :+:    :+:   */
+/*   02parser_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/26 17:52:06 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/26 20:46:22 by jucoelho         ###   ########.fr       */
+/*   Created: 2025/08/28 17:01:20 by jucoelho          #+#    #+#             */
+/*   Updated: 2025/08/28 17:02:03 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/**
+ * @brief Handles pipe token by creating a new command linked to the current one.
+ *
+ * Sets the next pointer of the current command to a newly allocated command,
+ * then updates the current pointer to this new command.
+ *
+ * @param cmd Double pointer to the current command; will be updated.
+ *
+ * @return 1 if successful, 0 if memory allocation failed.
+ */
+int	ft_parser_pipe(t_command **cmd)
+{
+	(*cmd)->next = ft_new_command();
+	if (!(*cmd)->next)
+		return (0);
+	*cmd = (*cmd)->next;
+	return (1);
+}
 
 int	ft_verifysintax(t_token *tokens)
 {

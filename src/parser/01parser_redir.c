@@ -1,46 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   01parser_redir.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:04:01 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/27 17:14:21 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 17:11:07 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/**
- * @brief Frees all commands in the linked list, including their argv arrays
- *        and redirection strings.
- *
- * @param cmd Pointer to the head of the command list.
- */
-void	ft_free_commands(t_command *cmd)
-{
-	t_command	*tmp;
-	int			i;
-
-	while (cmd)
-	{
-		i = 0;
-		tmp = cmd->next;
-		if (cmd->argv)
-		{
-			while (cmd->argv[i])
-				free(cmd->argv[i++]);
-			free(cmd->argv);
-		}
-		if (cmd->redir_in)
-			free(cmd->redir_in);
-		if (cmd->redir_out)
-			free(cmd->redir_out);
-		free(cmd);
-		cmd = tmp;
-	}
-}
 
 void	ft_read_heredoc(t_shell *shell, t_command *cmd, int fd)
 {
@@ -55,9 +25,7 @@ void	ft_read_heredoc(t_shell *shell, t_command *cmd, int fd)
 			break ;
 		}
 		if (ft_strcmp(input, shell->heredoc) == 0)
-		{
 			break ;
-		}
 		else
 		{
 			ft_putstr_fd(input, fd);
@@ -65,6 +33,32 @@ void	ft_read_heredoc(t_shell *shell, t_command *cmd, int fd)
 		}
 	}
 	cmd->redir_in = ft_strdup("heredoc_tmp.txt");
+}
+
+static int	ft_redirin_cont(t_shell *shell, t_command *cmd, t_token **tok)
+{
+	char	*temp;
+	int		fd;
+
+	if (cmd->redir_in)
+		free(cmd->redir_in);
+	if (shell->heredoc)
+		free(shell->heredoc);
+	temp = "heredoc_tmp.txt";
+	*tok = (*tok)->next;
+	if (!*tok || (*tok)->type != T_WORD)
+		return (0);
+	shell->heredoc = ft_strdup((*tok)->value);
+	fd = open(temp, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd < 0)
+	{
+		perror(temp);
+		shell->status = 1;
+		return (0);
+	}
+	ft_read_heredoc(shell, cmd, fd);
+	close(fd);
+	return (1);
 }
 
 /*
@@ -78,9 +72,6 @@ void	ft_read_heredoc(t_shell *shell, t_command *cmd, int fd)
  */
 int	ft_parser_redir_in(t_shell *shell, t_command *cmd, t_token **tok)
 {
-	char	*temp;
-	int		fd;
-
 	if ((*tok)->type == T_REDIR_IN)
 	{
 		*tok = (*tok)->next;
@@ -89,28 +80,10 @@ int	ft_parser_redir_in(t_shell *shell, t_command *cmd, t_token **tok)
 		if (cmd->redir_in)
 			free(cmd->redir_in);
 		cmd->redir_in = ft_strdup((*tok)->value);
+		return (1);
 	}
 	else if ((*tok)->type == T_HEREDOC)
-	{
-		if (cmd->redir_in)
-			free(cmd->redir_in);
-		if (shell->heredoc)
-			free(shell->heredoc);
-		temp = "heredoc_tmp.txt";
-		*tok = (*tok)->next;
-		if (!*tok || (*tok)->type != T_WORD)
-			return (0);
-		shell->heredoc = ft_strdup((*tok)->value);
-		fd = open(temp, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (fd < 0)
-		{
-			perror(temp);
-			shell->status = 1;
-			return (0);
-		}
-		ft_read_heredoc(shell, cmd, fd);
-		close(fd);
-	}
+		return (ft_redirin_cont(shell, cmd, tok));
 	return (1);
 }
 
@@ -133,26 +106,7 @@ int	ft_parser_redir_out(t_shell *shell, t_command *cmd, t_token **tok)
 	if (!*tok || (*tok)->type != T_WORD)
 		return (0);
 	if (cmd->redir_out)
-			free(cmd->redir_out);
+		free(cmd->redir_out);
 	cmd->redir_out = ft_strdup((*tok)->value);
-	return (1);
-}
-
-/**
- * @brief Handles pipe token by creating a new command linked to the current one.
- *
- * Sets the next pointer of the current command to a newly allocated command,
- * then updates the current pointer to this new command.
- *
- * @param cmd Double pointer to the current command; will be updated.
- *
- * @return 1 if successful, 0 if memory allocation failed.
- */
-int	ft_parser_pipe(t_command **cmd)
-{
-	(*cmd)->next = ft_new_command();
-	if (!(*cmd)->next)
-		return (0);
-	*cmd = (*cmd)->next;
 	return (1);
 }

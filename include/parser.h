@@ -6,7 +6,7 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:13:33 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/26 18:13:21 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 17:02:27 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,22 @@ typedef struct s_command
 	struct s_command		*next;
 }	t_command;
 
-void		ft_read_heredoc(t_shell *shell, t_command *cmd, int fd);
+//00 parser
 t_command	*ft_parser(t_token *tokens, t_shell *shell);
-void		ft_free_commands(t_command *cmd);
-int			ft_parser_pipe(t_command **cmd);
-int			ft_parser_redir_out(t_shell *shell, t_command *cmd, t_token **tok);
-int			ft_parser_redir_in(t_shell *shell, t_command *cmd, t_token **tok);
 t_command	*ft_new_command(void);
-void		ft_heredoc(t_shell *shell, int fd);
+int			ft_add_argv(t_command *cmd, char *arg);
+
+//01 parser_redir
+void		ft_read_heredoc(t_shell *shell, t_command *cmd, int fd);
+int			ft_parser_redir_in(t_shell *shell, t_command *cmd, t_token **tok);
+int			ft_parser_redir_out(t_shell *shell, t_command *cmd, t_token **tok);
+
+//02 parser_utils
 int			ft_verifysintax(t_token *tokens);
+int			ft_parser_pipe(t_command **cmd);
+
+//03 parser_free
+void		ft_free_argv(char **argv);
+void		ft_free_commands(t_command *cmd);
 
 #endif

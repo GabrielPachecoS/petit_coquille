@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   00parser.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:14:17 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/26 21:11:57 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:55:40 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,6 @@ t_command	*ft_new_command(void)
 	cmd->fd_in = -1;
 	cmd->fd_out = -1;
 	return (cmd);
-}
-
-static void	ft_free_argv(char **argv)
-{
-	int	i;
-
-	if (!argv)
-		return ;
-	i = 0;
-	while (argv[i])
-	{
-		free(argv[i]);
-		i++;
-	}
-	free(argv);
 }
 
 /**
@@ -84,7 +69,6 @@ int	ft_add_argv(t_command *cmd, char *arg)
 	cmd->argv = new_argv;
 	return (1);
 }
-
 
 /**
  * @brief Initializes the first command in the list.
