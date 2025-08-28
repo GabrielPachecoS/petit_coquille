@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_exit.c                                     :+:      :+:    :+:   */
+/*   07builtin_exit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 19:58:34 by gapachec          #+#    #+#             */
-/*   Updated: 2025/08/19 17:48:15 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:31:24 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_numeric(const char *str)
+int	ft_isnumeric(const char *str)
 {
 	int	i;
 
@@ -38,7 +38,7 @@ int	ft_builtin_exit(char **args, t_shell *shell)
 		shell->status = 1;
 		return (0);
 	}
-	else if (args[1] && !is_numeric(args[1]))
+	else if (args[1] && !ft_isnumeric(args[1]))
 	{
 		write(2, " numeric argument required\n", 27);
 		shell->should_exit = 1;

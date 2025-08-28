@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   04exp.c                                            :+:      :+:    :+:   */
+/*   04exp_handle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 17:21:33 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/19 17:39:55 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:54:41 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "expander.h"
 
 char	*ft_handle_expalnum(char *input, t_shell *shell)
 {
@@ -88,4 +87,22 @@ char	*ft_expandvar(char *input, t_shell *shell)
 		return (input);
 	input = ft_substr(input, shell->start, shell->len);
 	return (input);
+}
+
+char	*ft_handle_expander(char *str_quoted, t_shell *shell)
+{
+	char	*tmp;
+
+	if (!str_quoted)
+		return (ft_strdup(""));
+	if (str_quoted[0] == '"')
+	{
+		tmp = expand_double_quoted(str_quoted, shell);
+		if (tmp)
+			return (tmp);
+	}
+	tmp = ft_expand_str(str_quoted, shell);
+	if (tmp)
+		return (tmp);
+	return (ft_strdup(""));
 }

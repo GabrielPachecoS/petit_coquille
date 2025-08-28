@@ -1,66 +1,81 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   01exec.c                                           :+:      :+:    :+:   */
+/*   02exec.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 17:21:37 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/26 21:12:14 by jucoelho         ###   ########.fr       */
+/*   Created: 2025/07/04 13:35:40 by jucoelho          #+#    #+#             */
+/*   Updated: 2025/08/28 15:16:44 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_setup_redir_out(t_shell *shell, t_command *cmd)
+int	ft_setup_fork(t_shell *shell, t_command *cmds, int *pid, int i)
 {
-	if (shell->append >= 0)
-		cmd->fd_out = open(cmd->redir_out, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	else if (cmd->redir_out)
-		cmd->fd_out = open(cmd->redir_out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (cmd->fd_out < 0)
-	{
-		perror(cmd->redir_out);
-		exit(EXIT_FAILURE);
-	}
-	else
-		cmd->fd_out = ft_dup_close(cmd->fd_out, STDOUT_FILENO);
-	return (0);
-}
-
-int	ft_setup_redir_in(t_command *cmd)
-{
-	cmd->fd_in = open(cmd->redir_in, O_RDONLY);
-	if (cmd->fd_in < 0)
-	{
-		perror(cmd->redir_in);
-		exit(EXIT_FAILURE);
-	}
-	else
-		cmd->fd_in = ft_dup_close(cmd->fd_in, STDIN_FILENO);
-	return (0);
-}
-
-int	ft_setup_redirects_pipe(t_shell *shell, t_command *cmd, int curr, int last)
-{
-	if (curr == last)
-		ft_setup_last(shell, cmd);
-	else if (curr == 0)
-		ft_setup_first(shell, cmd);
-	else
-		ft_setup_middle(shell, cmd);
+	if (cmds->next != NULL)
+		if (pipe(shell->fd) < 0)
+			return (ft_error(1, "pipe failed"));
+	pid[i] = fork();
+	if (pid[i] < 0)
+		return (ft_error(1, "fork failed"));
 	return (shell->status);
 }
 
-int	ft_setup_redirects(t_shell *shell, t_command *cmd)
+int	ft_dup_close(int close_fd, int dup_fd)
 {
-	if (cmd->redir_in)
+	dup2(close_fd, dup_fd);
+	close(close_fd);
+	return (-1);
+}
+
+int	ft_close_reset(int *close_fd)
+{
+	if (*close_fd >= 0)
 	{
-		(ft_setup_redir_in(cmd));
+		close(*close_fd);
+		*close_fd = -1;
 	}
-	if (cmd->redir_out)
+	return (-1);
+}
+
+static void	ft_verifybuiltin(t_shell *shell, t_command *cmds)
+{
+	if (ft_is_builtin(cmds))
 	{
-		ft_setup_redir_out(shell, cmd);
+		ft_exec_simplebuiltin(shell, cmds->argv);
+		exit(0);
 	}
-	return (0);
+	else
+		ft_exec_command(shell, cmds);
+}
+
+int	ft_loop_cmdpipe(t_shell *shell, t_command *cmds, int *pid, int n_cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmds)
+	{
+		ft_setup_fork(shell, cmds, pid, i);
+		if (pid[i] == 0)
+		{
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
+			ft_setup_redirects_pipe(shell, cmds, i, n_cmd - 1);
+			ft_verifybuiltin(shell, cmds);
+		}
+		else
+			ft_close_reset(&shell->fd[1]);
+		ft_close_reset(&shell->prev_fd);
+		if (cmds->next != NULL)
+			shell->prev_fd = shell->fd[0];
+		else
+			ft_close_reset(&shell->fd[0]);
+		cmds = cmds->next;
+		i++;
+	}
+	ft_close_reset(&shell->prev_fd);
+	return (shell->status);
 }

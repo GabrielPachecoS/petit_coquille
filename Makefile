@@ -6,7 +6,7 @@
 #    By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 09:08:24 by gapachec          #+#    #+#              #
-#    Updated: 2025/08/28 15:21:26 by jucoelho         ###   ########.fr        #
+#    Updated: 2025/08/28 16:19:43 by jucoelho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,28 +32,29 @@ SRC		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/expander/00expander.c \
 		  $(SRC_DIR)/expander/01exp_squot.c \
 		  $(SRC_DIR)/expander/02exp_dquot.c \
-		  $(SRC_DIR)/expander/03exp.c \
-		  $(SRC_DIR)/expander/04exp.c \
+		  $(SRC_DIR)/expander/03exp_quot.c \
+		  $(SRC_DIR)/expander/04exp_handle.c \
+		  $(SRC_DIR)/expander/05exp_utils.c \
 		  $(SRC_DIR)/exec/00exec_cmd.c \
 		  $(SRC_DIR)/exec/01exec.c \
-		  $(SRC_DIR)/exec/02exec.c \
+		  $(SRC_DIR)/exec/02exec_redir.c \
 		  $(SRC_DIR)/exec/03exec_redir.c \
 		  $(SRC_DIR)/exec/04exec_path.c \
 		  $(SRC_DIR)/exec/05exec_free_error.c \
-		  $(SRC_DIR)/env/env_free.c \
-		  $(SRC_DIR)/env/env_init.c \
-		  $(SRC_DIR)/env/env_print.c \
-		  $(SRC_DIR)/env/env_set_unset.c \
-		  $(SRC_DIR)/env/env_to_array.c \
-		  $(SRC_DIR)/env/env_utils.c \
-		  $(SRC_DIR)/builtin/builtin_cd.c \
-		  $(SRC_DIR)/builtin/builtin_echo.c \
-		  $(SRC_DIR)/builtin/builtin_env.c \
-		  $(SRC_DIR)/builtin/builtin_exit.c \
-		  $(SRC_DIR)/builtin/builtin_export.c \
-		  $(SRC_DIR)/builtin/builtin_pwd.c \
-		  $(SRC_DIR)/builtin/builtin_unset.c \
-		  $(SRC_DIR)/builtin/builtin.c
+		  $(SRC_DIR)/env/00env_init.c \
+		  $(SRC_DIR)/env/01env_to_array.c \
+		  $(SRC_DIR)/env/02env_set_unset.c \
+		  $(SRC_DIR)/env/03env_print.c \
+		  $(SRC_DIR)/env/04env_utils.c \
+		  $(SRC_DIR)/env/05env_free.c \
+		  $(SRC_DIR)/builtin/00builtin.c \
+		  $(SRC_DIR)/builtin/01builtin_echo.c \
+		  $(SRC_DIR)/builtin/02builtin_cd.c \
+		  $(SRC_DIR)/builtin/03builtin_pwd.c \
+		  $(SRC_DIR)/builtin/04builtin_export.c \
+		  $(SRC_DIR)/builtin/05builtin_unset.c \
+		  $(SRC_DIR)/builtin/06builtin_env.c \
+		  $(SRC_DIR)/builtin/07builtin_exit.c 
 
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror -g3

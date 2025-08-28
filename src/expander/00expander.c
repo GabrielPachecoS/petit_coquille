@@ -6,12 +6,11 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:49:27 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/27 15:58:10 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:22:11 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "expander.h"
 
 static int	ft_must_expand(char *str)
 {
@@ -20,6 +19,8 @@ static int	ft_must_expand(char *str)
 
 	state = 0;
 	i = 0;
+	if (!str || !ft_strchr(str, '$'))
+		return (0);
 	while (str && str[i])
 	{
 		if (str[i] == '\'' && state == 0)
@@ -37,29 +38,6 @@ static int	ft_must_expand(char *str)
 	return (0);
 }
 
-t_command	*ft_remove_quotes_all(t_command *cmds)
-{
-	t_command	*head;
-	int			i;
-
-	head = cmds;
-	while (cmds)
-	{
-		i = 0;
-		while (cmds->argv && cmds->argv[i])
-		{
-			cmds->argv[i] = ft_remove_quotes_by_context(cmds->argv[i]);
-			i++;
-		}
-		if (cmds->redir_in)
-			cmds->redir_in = ft_remove_quotes_by_context(cmds->redir_in);
-		if (cmds->redir_out)
-			cmds->redir_out = ft_remove_quotes_by_context(cmds->redir_out);
-		cmds = cmds->next;
-	}
-	return (head);
-}
-
 int	ft_needs_expansion(t_command *cmds)
 {
 	int	i;
@@ -69,21 +47,18 @@ int	ft_needs_expansion(t_command *cmds)
 		i = 0;
 		while (cmds->argv && cmds->argv[i])
 		{
-			if (ft_strchr(cmds->argv[i], '$')
-				&& (ft_must_expand(cmds->argv[i]) == 1))
+			if (ft_must_expand(cmds->argv[i]) == 1)
 				return (1);
 			i++;
 		}
 		if (cmds->redir_in)
 		{
-			if (ft_strchr(cmds->redir_in, '$')
-				&& (ft_must_expand(cmds->redir_in) == 1))
+			if (ft_must_expand(cmds->redir_in) == 1)
 				return (1);
 		}
 		if (cmds->redir_out)
 		{
-			if (ft_strchr(cmds->redir_out, '$')
-				&& (ft_must_expand(cmds->redir_out) == 1))
+			if (ft_must_expand(cmds->redir_out) == 1)
 				return (1);
 		}
 		cmds = cmds->next;

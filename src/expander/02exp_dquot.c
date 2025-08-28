@@ -6,12 +6,37 @@
 /*   By: jucoelho <juliacoelhobrandao@gmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:24:12 by jucoelho          #+#    #+#             */
-/*   Updated: 2025/08/27 15:59:01 by jucoelho         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:22:19 by jucoelho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "expander.h"
+
+char	*expand_double_quoted(char *str_quoted, t_shell *shell)
+{
+	char	*var;
+	char	*tmp;
+	int		len;
+
+	len = ft_strlen(str_quoted);
+	if (len >= 2 && str_quoted[0] == '"' && str_quoted[len - 1] == '"')
+	{
+		var = ft_strtrim(str_quoted, "\"");
+		if (!var)
+			return (ft_strdup(""));
+		tmp = ft_expand_str(var, shell);
+		free(var);
+		if (tmp)
+			return (tmp);
+		return (ft_strdup(""));
+	}
+	if (str_quoted[0] == '"' && str_quoted[1] == '?' && str_quoted[2] == '"')
+		return (ft_strdup("$"));
+	if (str_quoted[0] == '"' && str_quoted[1] == '$'
+		&& str_quoted[2] == '?' && str_quoted[4] == '\0')
+		return (ft_itoa(shell->status));
+	return (NULL);
+}
 
 void	ft_is_redirquoted(t_command *cmds, t_shell *shell, char quote)
 {
@@ -40,7 +65,6 @@ void	ft_is_redirquoted(t_command *cmds, t_shell *shell, char quote)
 		}
 	}
 }
-
 
 void	ft_is_dquoted(t_command *cmds, t_shell *shell, char quote)
 {
